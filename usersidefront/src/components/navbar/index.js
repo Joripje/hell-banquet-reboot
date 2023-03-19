@@ -1,4 +1,5 @@
-import Footer from './Footer'
+import StickyHeader from './StickyHeader'
+import StickyFooter from './StickyFooter'
 
 
-export { Footer }
+export { StickyFooter, StickyHeader }
