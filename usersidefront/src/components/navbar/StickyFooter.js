@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom"
+import { LinkDecoNone } from "../common";
 
 import styled from "styled-components"
-import { Forum, LocalDining, AccountCircle } from '@mui/icons-material';
 import { Icon } from '@mui/material';
+import { Forum, LocalDining, AccountCircle } from '@mui/icons-material';
 
 
 function StickyFooter() {
@@ -20,9 +20,9 @@ function StickyFooter() {
         <StickyFooterNav>
             {navlist.map(item => {
                 return (
-                    <Link to={item.url} style={{textDecoration: "none", color: "black"}}>
+                    <LinkDecoNone to={item.url} key={item.name} style={{textDecoration: "none", color: "black"}}>
                         <Icon component={item.icon} style={{width: 50, height: 50, }} />
-                    </Link>
+                    </LinkDecoNone>
                 )
             })}
         </StickyFooterNav>
@@ -31,8 +31,8 @@ function StickyFooter() {
 
 
 const StickyFooterNav = styled.footer`
-    position: absolute;
-    bottom: 0;
+    position: fixed;
+    bottom: 0px;
 
     display: flex;
     justify-content: space-between;

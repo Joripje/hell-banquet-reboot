@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { LinkDecoNone } from "../common"
 
 import styled from "styled-components"
 
@@ -6,16 +6,16 @@ function StickyHeader() {
 
     return (
         <StickyHeaderNav>
-            <Link to="" style={{textDecoration: "none", color: "black"}}>
-                <h3>지옥 뷔페</h3>
-            </Link>
+            <LinkDecoNone to="" style={{textDecoration: "none", color: "black"}}>
+                <span style={{fontSize: 24, fontWeight: 1000}}>지옥 뷔페</span>
+            </LinkDecoNone>
         </StickyHeaderNav>
     )
 }
 
 
-const StickyHeaderNav = styled.footer`
-    position: absolute;
+const StickyHeaderNav = styled.header`
+    position: sticky;
     top: 0;
 
     display: flex;
