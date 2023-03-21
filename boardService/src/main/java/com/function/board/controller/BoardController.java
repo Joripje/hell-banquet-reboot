@@ -49,7 +49,7 @@ public class BoardController {
 	@ApiOperation(value = "게시글 페이징")
 	@GetMapping()
 	public ResponseEntity<List<BoardListResponseDto>> paging(@RequestParam Long lastBoardId, @RequestParam int size) {
-		lastBoardId = lastBoardId == - 1? boardService.fetchLatestBoardId() : lastBoardId;
+		lastBoardId = lastBoardId == -1 ? boardService.fetchLatestBoardId() : lastBoardId;
 		List<BoardListResponseDto> boards = boardService.fetchBoardPagesBy(lastBoardId, size);
 		return new ResponseEntity<>(boards, HttpStatus.OK);
 	}
@@ -78,6 +78,5 @@ public class BoardController {
 		List<CommentListResponseDto> comments = commentService.findByBoardId(id);
 		return new ResponseEntity<>(comments, HttpStatus.OK);
 	}
-
 
 }
