@@ -1,5 +1,6 @@
 package com.function.board.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -49,10 +50,18 @@ public class BoardController {
 
 	@ApiOperation(value = "게시글 페이징")
 	@GetMapping()
-	public ResponseEntity<List<BoardListResponseDto>> paging(@RequestParam Long lastBoardId, @RequestParam int size,
+	public ResponseEntity<List<BoardListResponseDto>> paging(
+		@RequestParam Long lastBoardId, @RequestParam int size,
+		@RequestParam(required = false) String startDate,
+		@RequestParam(required = false) String endDate,
 		@RequestParam String userId) {
+
+		LocalDateTime startDateTime = startDate != null ? LocalDateTime.parse(startDate + "T00:00:00") : null;
+		LocalDateTime endDateTime = endDate != null ? LocalDateTime.parse(endDate + "T23:59:59") : null;
+
 		lastBoardId = lastBoardId == -1 ? boardService.fetchLatestBoardId() : lastBoardId;
-		List<BoardListResponseDto> boardList = boardService.fetchBoardPagesBy(lastBoardId, size, userId);
+		List<BoardListResponseDto> boardList = boardService.fetchBoardPagesByPeriod(lastBoardId, size, userId, startDateTime, endDateTime);
+
 		return new ResponseEntity<>(boardList, HttpStatus.OK);
 	}
 

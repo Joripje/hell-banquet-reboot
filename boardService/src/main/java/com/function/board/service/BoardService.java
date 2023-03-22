@@ -1,5 +1,6 @@
 package com.function.board.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -64,9 +65,17 @@ public class BoardService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<BoardListResponseDto> fetchBoardPagesBy(Long lastBoardId, int size, String userId) {
+	public List<BoardListResponseDto> fetchBoardPagesByPeriod(Long lastBoardId, int size,
+		String userId, LocalDateTime startDate, LocalDateTime endDate) {
 		List<BoardListResponseDto> boardList = new ArrayList<>();
-		Page<Board> boards = fetchPages(lastBoardId, size);
+		List<Board> boards;
+
+		if (startDate == null && endDate == null) {
+			Page<Board> pages = fetchPages(lastBoardId, size);
+			boards = pages.getContent();
+		} else {
+			boards = boardRepository.findAllByCreatedAtBetweenOrderByCreatedAtDesc(startDate, endDate);
+		}
 
 		for (Board board : boards) {
 			Optional<Rating> optionalRating = ratingRepository.findById(board.getId());
@@ -91,6 +100,7 @@ public class BoardService {
 
 	public Page<Board> fetchPages(Long lastBoardId, int size) {
 		PageRequest pageable = PageRequest.of(0, size);
+		// return boardRepository.findByIdLessThanOrderByCreatedAtDesc(lastBoardId, pageable);
 		return boardRepository.findByIdLessThanOrderByCreatedAtDesc(lastBoardId, pageable);
 	}
 
