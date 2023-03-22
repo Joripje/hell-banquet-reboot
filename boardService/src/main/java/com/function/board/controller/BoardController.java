@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.function.board.domain.board.Board;
 import com.function.board.dto.board.BoardListResponseDto;
 import com.function.board.dto.board.BoardResponseDto;
 import com.function.board.dto.board.BoardSaveRequestDto;
@@ -42,16 +43,17 @@ public class BoardController {
 
 	@ApiOperation(value = "게시글 목록 조회")
 	@GetMapping("/list")
-	public ResponseEntity<List<BoardListResponseDto>> list() {
+	public ResponseEntity<List<Board>> list() {
 		return ResponseEntity.ok(boardService.findAll());
 	}
 
 	@ApiOperation(value = "게시글 페이징")
 	@GetMapping()
-	public ResponseEntity<List<BoardListResponseDto>> paging(@RequestParam Long lastBoardId, @RequestParam int size) {
+	public ResponseEntity<List<BoardListResponseDto>> paging(@RequestParam Long lastBoardId, @RequestParam int size,
+		@RequestParam String userId) {
 		lastBoardId = lastBoardId == -1 ? boardService.fetchLatestBoardId() : lastBoardId;
-		List<BoardListResponseDto> boards = boardService.fetchBoardPagesBy(lastBoardId, size);
-		return new ResponseEntity<>(boards, HttpStatus.OK);
+		List<BoardListResponseDto> boardList = boardService.fetchBoardPagesBy(lastBoardId, size, userId);
+		return new ResponseEntity<>(boardList, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "{id}에 해당하는 게시글 조회")

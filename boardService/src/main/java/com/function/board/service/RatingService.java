@@ -1,8 +1,11 @@
 package com.function.board.service;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.function.board.domain.board.BoardRepository;
 import com.function.board.domain.rating.Rating;
 import com.function.board.domain.rating.RatingRepository;
 
@@ -12,10 +15,20 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RatingService {
 
+	private final BoardRepository boardRepository;
 	private final RatingRepository ratingRepository;
 
+	@Transactional(readOnly = true)
+	public Rating getRating(Long boardId) {
+		return ratingRepository.findById(boardId)
+			.orElseThrow(() -> new IllegalArgumentException("해당 게시글에 대한 평가가 없습니다."));
+	}
+
 	@Transactional
-	public Rating addRating(Long boardId, String userId, boolean newStatus) {
+	public Rating reactToBoard(Long boardId, String userId, boolean newStatus) {
+		boardRepository.findById(boardId)
+			.orElseThrow(() -> new NoSuchElementException("해당 게시글이 없습니다."));
+
 		Rating rating = ratingRepository.findById(boardId)
 			.orElse(Rating.builder().id(boardId).build());
 
@@ -32,8 +45,6 @@ public class RatingService {
 			// 해당 유저가 이전에 해당 글에 좋아요 또는 싫어요를 누르지 않았으면 추가
 			rating.addUserReaction(userId, newStatus);
 		}
-		rating.updateLikeCount();
-		rating.updateDislikeCount();
 		ratingRepository.save(rating);
 		return rating;
 	}

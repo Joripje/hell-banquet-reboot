@@ -18,8 +18,6 @@ public class Rating {
 
 	@Id
 	private Long id;
-	private int likeCount = 0;
-	private int dislikeCount = 0;
 	private Map<String, Boolean> users = new HashMap<>();
 
 	@Builder
@@ -27,12 +25,13 @@ public class Rating {
 		this.id = id;
 		this.users = users != null ? users : new HashMap<>();
 	}
-	public void updateLikeCount() {
-		this.likeCount = (int) users.values().stream().filter(v -> v).count();
+
+	public int getLikeCount() {
+		return (int)users.values().stream().filter(v -> v).count();
 	}
 
-	public void updateDislikeCount() {
-		this.dislikeCount = (int) users.values().stream().filter(v -> !v).count();
+	public int getDislikeCount() {
+		return (int)users.values().stream().filter(v -> !v).count();
 	}
 
 	public void addUserReaction(String userId, boolean currentStatus) {
@@ -42,7 +41,9 @@ public class Rating {
 	public void updateUserReaction(String userId, boolean status) {
 		users.replace(userId, status);
 	}
+
 	public void removeUserReaction(String userId) {
 		users.remove(userId);
 	}
+
 }

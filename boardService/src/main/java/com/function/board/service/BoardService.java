@@ -1,8 +1,8 @@
 package com.function.board.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,6 +13,8 @@ import com.function.board.domain.board.Board;
 import com.function.board.domain.board.BoardRepository;
 import com.function.board.domain.comment.Comment;
 import com.function.board.domain.comment.CommentRepository;
+import com.function.board.domain.rating.Rating;
+import com.function.board.domain.rating.RatingRepository;
 import com.function.board.dto.board.BoardListResponseDto;
 import com.function.board.dto.board.BoardResponseDto;
 import com.function.board.dto.board.BoardSaveRequestDto;
@@ -26,6 +28,7 @@ public class BoardService {
 
 	private final BoardRepository boardRepository;
 	private final CommentRepository commentRepository;
+	private final RatingRepository ratingRepository;
 
 	@Transactional
 	public Long save(BoardSaveRequestDto requestDto) {
@@ -33,10 +36,8 @@ public class BoardService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<BoardListResponseDto> findAll() {
-		return boardRepository.findAll().stream()
-			.map(BoardListResponseDto::new)
-			.collect(Collectors.toList());
+	public List<Board> findAll() {
+		return boardRepository.findAll();
 	}
 
 	@Transactional(readOnly = true)
@@ -62,11 +63,30 @@ public class BoardService {
 		boardRepository.delete(board);
 	}
 
-	public List<BoardListResponseDto> fetchBoardPagesBy(Long lastBoardId, int size) {
+	@Transactional(readOnly = true)
+	public List<BoardListResponseDto> fetchBoardPagesBy(Long lastBoardId, int size, String userId) {
+		List<BoardListResponseDto> boardList = new ArrayList<>();
 		Page<Board> boards = fetchPages(lastBoardId, size);
-		return boards.stream()
-			.map(BoardListResponseDto::new)
-			.collect(Collectors.toList());
+
+		for (Board board : boards) {
+			Optional<Rating> optionalRating = ratingRepository.findById(board.getId());
+
+			int likeCount = 0;
+			int dislikeCount = 0;
+			int reaction = 0;
+
+			if (optionalRating.isPresent()) {
+				Rating rating = optionalRating.get();
+				likeCount = rating.getLikeCount();
+				dislikeCount = rating.getDislikeCount();
+
+				if (rating.getUsers().containsKey(userId)) {
+					reaction = rating.getUsers().get(userId) ? 1 : 2;
+				}
+			}
+			boardList.add(new BoardListResponseDto(board, likeCount, dislikeCount, reaction));
+		}
+		return boardList;
 	}
 
 	public Page<Board> fetchPages(Long lastBoardId, int size) {
