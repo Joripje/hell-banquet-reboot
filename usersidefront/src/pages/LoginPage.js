@@ -1,19 +1,19 @@
 import { LoginForm } from "../components/login"
-import { LinkDecoNone } from "../components/common"
 
 import styled from "styled-components"
+import { LinkDecoNone, LogoToLogin } from "../components/common"
+
 
 function LoginPage() {
-
     const logInOptions = [
         {name: "회원가입", url: "/signup"},
         {name: "비밀번호 찾기", url: "/find-password"},
-    ]
+    ];
 
 
     return(
         <Login>
-            <LogoSection />
+            <LogoToLogin />
             <LoginForm />
             {logInOptions.map(item => {
                 return (
@@ -25,9 +25,6 @@ function LoginPage() {
                     </div>
                 )
             })}
-            {/* {toLogInOption(logInOptions.signUp)}
-            <hr />
-            {toLogInOption(logInOptions.passwordFind)} */}
         </Login>
     )
 }
@@ -35,20 +32,12 @@ function LoginPage() {
 const Login = styled.section`
     display: flex;
     flex-direction: column;
-
     justify-content: center;
     align-items: center;
 
     width: 100%;
     height: 932px;
 
-`
-
-const LogoSection = styled.section`
-    width: 60%;
-    height: 130px;
-
-    background: #B8DDFF;
 `
 
 export default LoginPage

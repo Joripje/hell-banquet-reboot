@@ -6,7 +6,7 @@ function StickyHeader() {
 
     return (
         <StickyHeaderNav>
-            <LinkDecoNone to="" style={{textDecoration: "none", color: "black"}}>
+            <LinkDecoNone to="/" style={{textDecoration: "none", color: "black"}}>
                 <span style={{fontSize: 24, fontWeight: 1000}}>지옥 뷔페</span>
             </LinkDecoNone>
         </StickyHeaderNav>
@@ -26,6 +26,8 @@ const StickyHeaderNav = styled.header`
     height: 60px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     background : #F2CCCC;
+
+    z-index: 1;
 `
 
 export default StickyHeader

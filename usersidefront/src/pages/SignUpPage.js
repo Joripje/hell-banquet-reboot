@@ -1,5 +1,5 @@
 import { SignUpForm } from "../components/signup"
-import { LinkDecoNone } from "../components/common"
+import { LogoToLogin } from "../components/common"
 
 import styled from "styled-components"
 
@@ -7,13 +7,13 @@ function SignUpPage() {
 
     return(
         <Login>
-            <LogoSection />
+            <LogoToLogin />
             <SignUpForm />
         </Login>
     )
 }
 
-const Login = styled.section`
+const Login = styled.div`
     display: flex;
     flex-direction: column;
 
@@ -23,13 +23,6 @@ const Login = styled.section`
     width: 100%;
     height: 932px;
 
-`
-
-const LogoSection = styled.section`
-    width: 60%;
-    height: 130px;
-
-    background: #B8DDFF;
 `
 
 export default SignUpPage

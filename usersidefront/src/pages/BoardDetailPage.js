@@ -1,15 +1,15 @@
-import BoardList from "../components/board/BoardList"
+import { ArticleDetail } from "../components/board"
 import BoardOption from "../components/board/BoardOption"
 import { LogedPageTemplate } from "../components/common"
 
-function BoardPage() {
+function BoardDetailPage() {
     return (
         <>
             <LogedPageTemplate />
-            <BoardList />
+            <ArticleDetail />
             <BoardOption />
         </>
     )
 }
 
-export default BoardPage
+export default BoardDetailPage

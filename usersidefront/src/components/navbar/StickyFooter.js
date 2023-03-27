@@ -11,9 +11,8 @@ function StickyFooter() {
 
     const navlist = [
         {name: "게시판", icon: Forum, url: "/board",},
-        {name: "식사기록", icon : LocalDining, url: "/siksa",},
-        // 나중에 동적인 이름으로 변경할 것
-        {name: "프로필", icon: AccountCircle, url: `/useri/ssafy`,},
+        {name: "식사기록", icon : LocalDining, url: "/record-meal",},
+        {name: "프로필", icon: AccountCircle, url: `/user/${localStorage.getItem('userId')}`,},
     ]
 
     return (
@@ -44,6 +43,8 @@ const StickyFooterNav = styled.footer`
     border-radius: 15px 15px 0 0;
     box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
     background : #F2CCCC;
+    
+    z-index: 1;
 `
 
 export default StickyFooter
