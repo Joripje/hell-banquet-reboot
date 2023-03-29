@@ -1,19 +1,25 @@
 package com.hellsfood.api.users.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 
+import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.hellsfood.api.roles.data.RoleRepository;
+import com.hellsfood.api.users.data.Role;
+import com.hellsfood.api.users.data.RoleRepository;
 import com.hellsfood.api.users.data.User;
 import com.hellsfood.api.users.data.UserRepository;
-import com.hellsfood.api.users.dto.RegisterRequestDto;
+import com.hellsfood.api.users.data.VisitList;
+import com.hellsfood.api.users.data.VisitListRepository;
+import com.hellsfood.api.users.dto.UserRegisterRequestDto;
 import com.hellsfood.api.users.dto.UpdateRequestDto;
+import com.hellsfood.token.JwtTokenProvider;
 
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
@@ -22,19 +28,33 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class UserService {
 
-	@Value("${jwt.secret}")
-	private String uniqueKey;
+	private final JwtTokenProvider jwtTokenProvider;
+
 	private final UserRepository userRepository;
 	private final RoleRepository roleRepository;
+	private final VisitListRepository visitRepository;
 
 	private final PasswordEncoder passwordEncoder;
 
+	@PostConstruct
+	protected void init() {
+		String[] defaultRoles = new String[] {"admin", "manager", "user"};
+		for (String role : defaultRoles) {
+			if (!roleRepository.existsByRoleName(role)) {
+				roleRepository.save(new Role(role));
+			}
+		}
+	}
+
 	@Transactional
-	public Long registerUser(RegisterRequestDto requestDto) {
+	public Long registerUser(UserRegisterRequestDto requestDto, String role) {
+		if (requestDto.getUserId().startsWith("guser") || requestDto.getName().startsWith("guser")) {
+			return -1L;
+		}
 		requestDto.setPassword(passwordEncoder.encode(requestDto.getPassword()));
 		User tmpUser = requestDto.toEntity();
 		tmpUser.setRoles(Collections.singletonList(
-			roleRepository.findByRoleName("User").orElseThrow(() -> new RuntimeException("권한 설정 중 오류가 발생하였습니다."))));
+			roleRepository.findByRoleName(role).orElseThrow(() -> new RuntimeException("권한 설정 중 오류가 발생하였습니다."))));
 		return userRepository.save(tmpUser).getId();
 	}
 
@@ -64,24 +84,11 @@ public class UserService {
 		}
 	}
 
-	public boolean idCheck(String userId) {
-		return userRepository.existsByUserId(userId);
-	}
-
-	public boolean emailCheck(String email) {
-		return userRepository.existsByEmail(email);
-	}
-
-	public boolean nameCheck(String name) {
-		return userRepository.existsByName(name);
-	}
-
 	@Transactional
 	public String updatePassword(String userId, String newPassword, boolean needValidation, String accessToken) {
 		if (needValidation) {
 			String extractedId = getUserIdFromAccessToken(accessToken);
-			System.out.println("[updatePassword@MemberService]  AccessToken에서 추출한 userId: " + userId);
-			System.out.println(newPassword);
+			System.out.println("[updatePassword@UserService] AccessToken에서 추출한 userId: " + extractedId);
 			if (!userId.equals(extractedId)) {
 				return null;
 			}
@@ -89,7 +96,7 @@ public class UserService {
 		User user = getActiveUser(userId);
 		String encodedPassword = passwordEncoder.encode(newPassword);
 		user.setPassword(encodedPassword);
-		userRepository.save(user);
+		System.out.println(userRepository.save(user));
 		return user.getUserId();
 	}
 
@@ -104,8 +111,7 @@ public class UserService {
 	}
 
 	public User getActiveUser(String userId) {
-		User user = userRepository.findByUserId(userId)
-			.orElseThrow(() -> new IllegalArgumentException(userId + " 사용자를 찾을 수 없습니다."));
+		User user = getUser(userId);
 		if (user.getDelFlag() != null) {
 			throw new IllegalArgumentException(userId + " 사용자는 탈퇴한 사용자입니다.");
 		} else {
@@ -114,17 +120,13 @@ public class UserService {
 	}
 
 	public String getUserIdFromAccessToken(String token) {
-		String userId = null;
-		try {
-			userId = Jwts.parser().setSigningKey(uniqueKey).parseClaimsJws(token).getBody().getSubject();
-		} catch (Exception e) {
-			System.out.println("AccessToken에서 회원 ID 추출 중 오류가 발생했습니다.\n" + e.getMessage());
-		}
-		return userId;
+		return jwtTokenProvider.getUserIdfromAccessToken(token);
 	}
 
 	public User getUser(String id) {
-		return getActiveUser(id);
+		User user = userRepository.findByUserId(id)
+			.orElseThrow(() -> new IllegalArgumentException(id + " 사용자를 찾을 수 없습니다."));
+		return user;
 	}
 
 	private String makeTempPassword() {
@@ -141,14 +143,44 @@ public class UserService {
 		return tempPassword.toString();
 	}
 
-	public boolean existUserByIdAndEmail(String userId, String email) {
-		return userRepository.existsByUserIdAndEmail(userId, email);
+	public String findActiveUserByEmail(String email) {
+		return userRepository.findActiveUserIdByEmail(email).orElse(null);
 	}
 
-	public boolean existActiveUserByIdAndEmail(String userId, String email) {
-		if (existUserByIdAndEmail(userId, email)) {
-			return getActiveUser(userId) != null;
+	@Transactional
+	public int isVisitedPage(String path, String accessToken) {
+		String requestId = getUserIdFromAccessToken(accessToken);
+		if (requestId == null) {
+			return -1;
 		}
-		return false;
+
+		if (!visitRepository.existsById(requestId)) {
+			visitRepository.save(VisitList.builder()
+				.userId(requestId)
+				.visitList(new ArrayList<>())
+				.build());
+		}
+
+		VisitList visitList = visitRepository.findById(requestId)
+			.orElseThrow(() -> new RuntimeException("방문 기록 리스트를 불러오는 중 오류가 발생했습니다."));
+
+		if (!visitList.getVisitList().contains(path)) {
+			visitList.getVisitList().add(path);
+			visitRepository.save(visitList);
+			return 0;
+		}
+		return 1;
+	}
+
+	public boolean canUseInputInfo(String userId, String email, String name){
+		if (!userId.equals("")) {
+			return !userId.startsWith("guser") && !userRepository.existsByUserId(userId);
+		} else if (!email.equals("")) {
+			return !userRepository.existsByEmail(email);
+		} else if (!name.equals("")) {
+			return !name.startsWith("guser") && !userRepository.existsByName(name);
+		} else {
+			return false;
+		}
 	}
 }

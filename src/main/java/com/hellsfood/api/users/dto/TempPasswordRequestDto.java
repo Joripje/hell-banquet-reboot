@@ -8,6 +8,5 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class TempPasswordRequestDto {
-	private String userId;
 	private String email;
 }

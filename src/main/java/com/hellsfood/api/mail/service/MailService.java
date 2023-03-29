@@ -6,7 +6,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import com.hellsfood.api.mail.dto.MailDto;
-import com.hellsfood.api.users.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,8 +14,6 @@ import lombok.RequiredArgsConstructor;
 public class MailService {
 
 	private final MailSender mailSender;
-	private final UserService userService;
-
 	@Value("${spring.mail.username}")
 	String mailAuthor;
 
@@ -25,14 +22,13 @@ public class MailService {
 	 * @param email 사용자임을 증명하기 위해 가입한 ID와 이메일 정보가 일치하는지 확인 및 임시 비밀번호 메일의 받는사람 주소.
 	 * @return 생성된 임시 비밀번호 메일 Data Transfer Object
 	 */
-	public MailDto createMailAndMakeTempPassword(String userId, String email) {
-		String tempPassword = userService.getTempPassword(userId);
-		MailDto mailDto = new MailDto();
-		mailDto.setAddress(email);
-		mailDto.setTitle("[CoCo] 임시 비밀번호 안내");
-		mailDto.setMessage(
-			"안녕하세요. CoCo입니다. \n" + userId + "님의 임시 비밀번호는 [ " + tempPassword
-				+ " ] 입니다. \n\n임시 비밀번호로 로그인 후 반드시 비밀번호를 변경해주세요.");
+	public MailDto createMailAndMakeTempPassword(String userId, String email, String password) {
+		MailDto mailDto = MailDto.builder()
+			.address(email)
+			.title("[HellsFood] 임시 비밀번호 안내")
+			.message("안녕하세요. HellsFood입니다. \n" + userId + "님의 임시 비밀번호는 [ " +
+				password + " ] 입니다. \n\n임시 비밀번호로 로그인 후 반드시 비밀번호를 변경해주세요.")
+			.build();
 		return mailDto;
 	}
 

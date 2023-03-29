@@ -36,5 +36,12 @@ out/
 ### VS Code ###
 .vscode/
 
-application.yml
+### Properties ###
+application-credentials.yml
+.env
+
+### Log Files ###
 *.log
+*.gz
+
+

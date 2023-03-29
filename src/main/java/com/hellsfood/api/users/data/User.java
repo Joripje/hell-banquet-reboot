@@ -18,10 +18,12 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.hellsfood.api.roles.data.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -46,6 +48,7 @@ public class User implements UserDetails {
 	@Column(length = 16, nullable = false, unique = true)
 	private String userId;
 	@Column(nullable = false)
+	@JsonIgnore
 	private String password;
 
 	@Column(length = 16, nullable = false, unique = true)
@@ -55,45 +58,55 @@ public class User implements UserDetails {
 	private String email;
 
 	@Transient
+	@JsonIgnore
 	private Collection<GrantedAuthority> authorities;
 
 	@ManyToMany(fetch = FetchType.EAGER)
+	@OnDelete(action= OnDeleteAction.CASCADE)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
 		inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+	@JsonIgnore
 	private List<Role> roles = new ArrayList<>();
 	@CreationTimestamp
 	private LocalDateTime regTime;
 	@Column(length = 16)
 	private String groupId;
 	@Column
+	@JsonIgnore
 	private LocalDateTime delFlag;
 
 	@Override
+	@JsonIgnore
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return authorities;
 	}
 
 	@Override
+	@JsonIgnore
 	public String getUsername() {
 		return name;
 	}
 
 	@Override
+	@JsonIgnore
 	public boolean isAccountNonExpired() {
 		return delFlag != null;
 	}
 
 	@Override
+	@JsonIgnore
 	public boolean isAccountNonLocked() {
 		return true;
 	}
 
 	@Override
+	@JsonIgnore
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
 
 	@Override
+	@JsonIgnore
 	public boolean isEnabled() {
 		return true;
 	}

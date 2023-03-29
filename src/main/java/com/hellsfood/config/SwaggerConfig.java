@@ -29,22 +29,22 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SuppressWarnings("unchecked")
 public class SwaggerConfig {
 	//  Swagger-UI 2.x 확인
-	//	http://localhost:8080/swagger-ui.html
+	//	http://localhost:8011/swagger-ui.html
 
-	private String version = "0.0.1-SNAPSHOT";
-	private String title = "HellsFood 회원 관리 백엔드 API 테스트";
+	private final String VERSION = "0.0.1-SNAPSHOT";
+	private final String TITLE = "HellsFood 회원 관리 백엔드 API 테스트";
 
 	private ApiInfo apiInfo() {
 		String descript = "HellsFood 회원 관리 백엔드 API 테스트 환경<br/>";
-		// CoCo 로고 들어가면 여기에 넣기
-		// descript += "<img src=\"http://localhost:9999/vue/static/assets/img/ssafy_logo.png\">";
+		// HellsFood 로고 들어가면 여기에 넣기
+		// descript += "<img src=\"http://localhost:9999/vue/static/assets/img/logo.png\">";
 		return new ApiInfoBuilder()
-			.title(title)
+			.title(TITLE)
 			.description(descript)
-			.contact(new Contact("HellsFood", "https://edu.ssafy.com", "ssafy@ssafy.com"))
-			.license("SSAFY License")
-			.licenseUrl("ssafy@ssafy.com")
-			.version(version)
+			.contact(new Contact("HellsFood", "https://github.com/CPFrog", "kokk012@naver.com"))
+			.license("CPFrog License")
+			.licenseUrl("kokk012@naver.com")
+			.version(VERSION)
 			.build();
 	}
 
