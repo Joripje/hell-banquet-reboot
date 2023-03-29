@@ -37,3 +37,4 @@ out/
 .vscode/
 application-aws.yml
 application-credentials.yml
+.env
