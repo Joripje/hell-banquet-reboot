@@ -1,141 +1,73 @@
-// custom hook에 대한 이해가 필요함
+import { useState, } from 'react'
+import { signup } from '../../api/member'
+import { FormWithGrid } from '../common'
 
-import { useState, useCallback } from 'react'
-import { Grid, Box, Container, Button, TextField } from '@mui/material'
+import { Container,  } from '@mui/material'
 
 function SignUpForm() {
-    const [inputID, setInputID ] = useState()
-    const [inputPassword, setInputPassword] = useState()
-    const [inputCheckPassword, setInputChcekPassword] = useState()
-    const [inputEmail, setInputEmail] = useState()
-    
-    const [isOkToSubmit, setIsOkToSubmit] = useState(false)
-    const [isIdValid, setIsIdValid] = useState({isVaild: false})
-    const [isEmailValid, setIsEmailValid] = useState(false)
-    const [isPasswordValid, setIsPasswordValid] = useState({isVaild: false})
+    const [ inputID, setInputID ] = useState()
+    const [ inputPassword, setInputPassword ] = useState()
+    const [ inputPasswordCheck, setInputPasswordCheck ] = useState()
+    const [ inputEmail, setInputEmail ] = useState()
+    const [ inputName, setInputName ] = useState()
+    // const [ inputGroup, setInputGroup ] = useState()
 
-    // const [passwordValidation, setPasswordValidation] = useState(false)
 
-    // validation
-    const emailValidation = new RegExp('[a-z0-9_.]+@[a-z]+.[a-z]{2,3}')
-    const idValidation = useCallback(() => {
-        const idForm = /^[a-z0-9]{4,16}$/
-        const idErrorMessage = {
-            null: "필수 입력입니다.",
-            form: "ID는 4글자부터 16글자 까지입니다.",
-        }
-        if (inputID === undefined || inputID === '') {
-            setIsOkToSubmit(false)
-            setIsIdValid({isVaild: true, message: idErrorMessage.null})
-        } else if (!idForm.test(inputID)) {
-            setIsOkToSubmit(false)
-            setIsIdValid({isVaild: true, message: idErrorMessage.form})
-        } else {
-            setIsIdValid({isValid: false})
-        }
-    }, [inputID])
+    const textFieldOption = [
+        {id: "userId", target:inputID, setTarget: setInputID, label: "ID", focus: true, type: "id"},
+        {id: "password", target: inputPassword, setTarget: setInputPassword, label: "Password", focus: false, type: "password"},
+        {id: "passwordCheck", target: inputPasswordCheck, setTarget: setInputPasswordCheck, label: "Password Check", focus: false, type: "password"},
+        {id: "email", target: inputEmail, setTarget: setInputEmail, label: "E-mail", focus: false, type: "email"},
+        {id: "name", target: inputName, setTarget: setInputName, label: "별명", focus: false, },
+        // {id: "group", target: inputGroup, setTarget: setInputGroup, label: "소속 그룹", focus: false, },
 
-    const passwordValidation = useCallback(() => {
-        const passwordForm = /^[a-z0-9]{4,12}$/
-        const passwordErrorMessage = {
-            null: "필수 입력입니다.",
-            form: "비밀번호가 취약합니다.",
-            same: "비밀번호가 일치하지 않습니다.",
-        }
-        if (inputPassword === undefined || inputPassword === '') {
-            setIsOkToSubmit(false)
-            setIsPasswordValid({isVaild: true, message: passwordErrorMessage.null})
-        } else if (inputPassword !== inputCheckPassword) {
-            setIsOkToSubmit(false)
-            setIsPasswordValid({isVaild: true, message: passwordErrorMessage.same})
-        } else if (!passwordForm.test(inputPassword)) {
-            setIsOkToSubmit(false)
-            setIsPasswordValid({isVaild: true, message: passwordErrorMessage.form})
-        }
-        else {
-            setIsPasswordValid({isValid: false})
-        }
-    }, [inputPassword, inputCheckPassword])
+    ]
 
-    // case를 이용한 typing
+    const tempUserInfo = Object.keys(textFieldOption).reduce((acc, key) => {
+        acc[textFieldOption[key].id] = textFieldOption[key].target;
+        return acc;
+      }, {});
+
     const onTypingHandler = (e) => {
-        // 4개의 케이스에 따라 각자의 스테이트에 저장
-        switch (e.target.id) {
-            case 'outlined-id':
-                setInputID(e.target.value)
-                break
-            case 'outlined-password':
-                setInputPassword(e.target.value)
-                break
-            case 'outlined-password-check':
-                setInputChcekPassword(e.target.value)
-                break
-            case 'outlined-email':
-                setInputEmail(e.target.value)
-                break
-            default:
-                // nothing
-        }
-    }
-
-    // 임시 유저정보
-    const temp_user_info = {
-        userId: inputID, 
-        password: inputPassword,
-        name: 'test',
-        email: inputEmail,
-    }
-    async function axios_test() {
-        console.log('들어간다')
-        
-        // URL 주소를 절대주소로 입력해주세요
-        const response = await fetch('http://i8a703.p.ssafy.io:8000/member/register', {
-            method: 'POST',
-            body: JSON.stringify(temp_user_info),
-            headers: {
-                "Content-Type": `application/json`,
+        for (const key in textFieldOption) {
+            const option = textFieldOption[key];
+            if (e.target.id === option.id) {
+                option.setTarget(e.target.value);
+                console.log(option.target)
+                break;
             }
-        })
-        const data = await response.json()
-        console.log('들어옴', data)
-    } 
+        }
+    };
 
-    // 제출
-    const onClickHandler = () => {
-        setIsEmailValid(!(emailValidation.test(inputEmail)))
-        passwordValidation()
-        idValidation()
-        if (isOkToSubmit){axios_test()} else { alert('잘못된 접근입니다.')}
-    }
+    // 주석처리된 validation
+    // const emailValidation = new RegExp('[a-z0-9_.]+@[a-z]+.[a-z]{2,3}')
+    // const idForm = /^[a-z0-9]{4,16}$/
+    // const idErrorMessage = {
+    //     null: "필수 입력입니다.",
+    //     form: "ID는 4글자부터 16글자 까지입니다.",
+    // }
+
+    // const passwordForm = /^[a-z0-9]{4,12}$/
+    // const passwordErrorMessage = {
+    //     null: "필수 입력입니다.",
+    //     form: "비밀번호가 취약합니다.",
+    //     same: "비밀번호가 일치하지 않습니다.",
+    // }
+
+    async function userSignup() {
+        await signup(
+            tempUserInfo,
+            (data) => {
+                console.log(data)
+            },
+            (err) => console.log(err)
+        )
+    } 
 
 
     return (
         <Container fixed>
-            <Box component="form">
-                <Grid container spacing={2} style={{padding: '2rem', justifyContent: 'center'}}>
-                    <Grid item xs={12}>
-                        <TextField onChange={onTypingHandler} error={isIdValid.isVaild} helperText={isIdValid.isVaild ? isIdValid.message : ""}id="outlined-id" label="ID"  fullWidth/>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField onChange={onTypingHandler} error={isPasswordValid.isVaild} helperText={isPasswordValid.isVaild ? isPasswordValid.message : ""}id="outlined-password" type="password" label="Password" fullWidth/>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField onChange={onTypingHandler} error={isPasswordValid.isVaild} helperText={isPasswordValid.isVaild ? isPasswordValid.message : ""} id="outlined-password-check" type="password" label="Password Check" fullWidth/>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField onChange={onTypingHandler} error={isEmailValid} helperText={isEmailValid ? "유효한 이메일을 입력해주십시오." : ""} id="nickname" label="닉네임" fullWidth/>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField onChange={onTypingHandler} error={isEmailValid} helperText={isEmailValid ? "유효한 이메일을 입력해주십시오." : ""} id="outlined-email" label="E-Mail" fullWidth/>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField onChange={onTypingHandler} error={isEmailValid} helperText={isEmailValid ? "유효한 이메일을 입력해주십시오." : ""} id="group" label="소속" fullWidth/>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Button onClick={onClickHandler} variant="contained" className="submit" fullWidth style={{height:"3rem"}}> <b>회원가입</b></Button>
-                    </Grid>
-                </Grid>
-            </Box>
+            {FormWithGrid({option: textFieldOption, onClickHandler: userSignup, onTypingHandler: onTypingHandler, buttonName: '로그인'})}
         </Container>
     )
 }

@@ -1,35 +1,34 @@
 import { useRef, useEffect, useState } from "react"
-import styled from "styled-components"
-
-import { getBoardList } from "../../api/board"
+import { useLocation } from "react-router-dom"
 
 import BoardListItem from "./BoardListItem"
+import { getCommentList } from "../../api/board"
+
+import styled from "styled-components"
 
 
 function ArticleDetail() {
-    const [ boardInfo, setBoardInfo ] = useState({lastBoardId: 20, size: 10})
-    const lorem = "Lorem ipsuetur adipiscing elit. Vestibulum porta odio eros, eget dignissim felis egestas vitae. Mauris sit amet est nec eros accumsan eleifend. Etia".slice(0, 100)
-
-    const [articles, setArticles] = useState(
-        [{content: lorem, src: undefined, id: -1},
-        {content: lorem, src: undefined},
-        {content: lorem, src: undefined},
-        {content: lorem, src: undefined},
-        {content: lorem, src: undefined},
-        {content: lorem, src: undefined},
-        {content: lorem, src: undefined},
-        {content: lorem, src: undefined},
-        {content: lorem, src: undefined, id: -1},]
-    )
-    // const [newArticles, setNewArticles] = useState(undefined)
-    
+    const location = useLocation()
     const articleListRef = useRef(null);
 
+    const dummy = {content: '이건 더미에용!', src: undefined}
+
+    const [articles, setArticles] = useState(
+        [{content: 'lorem', src: undefined, id: -1},
+        {content: 'lorem', src: undefined},
+        {content: 'lorem', src: undefined},
+        {content: 'lorem', src: undefined},
+        {content: 'lorem', src: undefined},
+        {content: 'lorem', src: undefined},
+        {content: 'lorem', src: undefined},
+        {content: 'lorem', src: undefined},
+        {content: 'lorem', src: undefined, id: -1},]
+    )
     
     useEffect(() => {
-        const getMoreList = async () => {
-            const data = await getBoardList(
-                boardInfo,
+        const getMoreComment = async () => {
+            const data = await getCommentList(
+                location.state.id,
                 (data) => {
                     return data.data
                 },
@@ -38,16 +37,15 @@ function ArticleDetail() {
             if (articles[0]?.id === -1) {
                 setArticles(data)
             } else {
-                (articles.push(...data))
+                setArticles([...articles, ...data])
             }
-            setBoardInfo({...boardInfo, lastBoardId: articles[articles.length - 1].id})
         } 
-        // console.log(articles)
-        // console.log(boardInfo)
+        
+        getMoreComment()
 
         if (articles[0]?.id === -1) {
-            console.log('U R First')
-            // getMoreList()
+            console.log(`U R First at ${location.state.id}`)
+            getMoreComment()
         }
 
         const observerOptions = {
@@ -58,29 +56,27 @@ function ArticleDetail() {
         
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
-                if (entry.isIntersecting && boardInfo.lastBoardId !== 1) {
-                    console.log('한무스크롤 발동!!');
+                if (entry.isIntersecting) {
                     // article이 2배씩 증식함
                     // setArticles(articles.flatMap(article => [article, article]));
                     // getMoreList()
                 }
             });
         }, observerOptions);
-        
-        observer.observe(articleListRef.current.lastChild);
+
+         observer.observe(articleListRef?.current.lastChild);
 
         return () => observer.disconnect();
-    }, [articles, boardInfo]);
+    }, [articles, location]);
 
     return (
         <DetailBox >
-            <BoardListItem article={articles[0]} />
-            <div ref={articleListRef}  style={{ marginTop: "100px", marginBottom: "70px" }}>
-                {articles.map((article, index) => {
-                    return (
-                        <BoardListItem article={article} index={index} key={index} />
-                    )
-                })}
+            <BoardListItem article={dummy} />
+            <div ref={articleListRef} style={{paddingTop: '100px',paddingBottom:'100px'}}>
+                    {articles.length === 0
+                        ?<div style={{textAlign: 'center'}}>아직 댓글이 없어요</div>
+                        :articles.map((article, index) => {return (<BoardListItem article={article} index={index} key={index} />)})
+                    }
             </div>
         </DetailBox>
     )

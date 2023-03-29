@@ -6,21 +6,19 @@ import BoardListItem from "./BoardListItem"
 
 
 function BoardList() {
-    const [ boardInfo, setBoardInfo ] = useState({lastBoardId: 20, size: 10})
-    const lorem = "Lorem ipsuetur adipiscing elit. Vestibulum porta odio eros, eget dignissim felis egestas vitae. Mauris sit amet est nec eros accumsan eleifend. Etia".slice(0, 100)
+    const [ boardInfo, setBoardInfo ] = useState({lastBoardId: -1, size: 10, userId: localStorage.getItem('userId')})
 
     const [articles, setArticles] = useState(
-        [{content: lorem, src: undefined, id: -1},
-        {content: lorem, src: undefined},
-        {content: lorem, src: undefined},
-        {content: lorem, src: undefined},
-        {content: lorem, src: undefined},
-        {content: lorem, src: undefined},
-        {content: lorem, src: undefined},
-        {content: lorem, src: undefined},
-        {content: lorem, src: undefined, id: -1},]
+        [{content: '', src: undefined, id: -1},
+        {content: '', src: undefined},
+        {content: '', src: undefined},
+        {content: '', src: undefined},
+        {content: 'lorem', src: undefined},
+        {content: 'lorem', src: undefined},
+        {content: 'lorem', src: undefined},
+        {content: 'lorem', src: undefined},
+        {content: 'lorem', src: undefined, id: -1},]
     )
-    // const [newArticles, setNewArticles] = useState(undefined)
     
     const articleListRef = useRef(null);
 
@@ -41,12 +39,9 @@ function BoardList() {
             }
             setBoardInfo({...boardInfo, lastBoardId: articles[articles.length - 1].id})
         } 
-        // console.log(articles)
-        // console.log(boardInfo)
 
         if (articles[0]?.id === -1) {
-            console.log('U R First')
-            // getMoreList()
+            getMoreList()
         }
 
         const observerOptions = {
@@ -58,10 +53,7 @@ function BoardList() {
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && boardInfo.lastBoardId !== 1) {
-                    console.log('한무스크롤 발동!!');
-                    // article이 2배씩 증식함
-                    // setArticles(articles.flatMap(article => [article, article]));
-                    // getMoreList()
+                    getMoreList()
                 }
             });
         }, observerOptions);
@@ -82,7 +74,5 @@ function BoardList() {
 
     )
 }
-
-
 
 export default BoardList

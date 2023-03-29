@@ -1,57 +1,75 @@
-import { useState } from "react"
+import { useState } from 'react'
 
-import ArticleOption from "./ArticleOption"
+import { ArticleOption, UpDelModal } from "./"
 import { LinkDecoNone } from "../common"
 
 import styled from "styled-components"
-import { Card, Grid, } from "@mui/material"
-import { ThumbDown, ThumbUp, Comment } from "@mui/icons-material"
+import { Card, Container, Grid, Icon } from "@mui/material"
+import { ThumbDown, ThumbUp, Comment, MoreHoriz } from "@mui/icons-material"
 
 function BoardListItem(params) {
-    // article과 관련된 모든 정보가 넘어옴
-    const { article, index } = params
-    // 일단은 잠시 사용할 좋아요 관련 변수
-    // const [ isLiked, setIsLiked ] = useState(undefined)
-    const [ numLiked,  ] = useState({like: 0, hate: 0, comments: 0})
+    const { article } = params
+    const { likeCount, dislikeCount, commentCount } = article
+    const [ showDropdown, setShowDropdown ] = useState(false)
 
     const onLikeClickHandler = (event) => {
-        console.log(event.target)
         event.preventDefault()
     }
 
+    const onMoreClickHandler = (event) => {
+        event.preventDefault()
+        setShowDropdown(true)
+        console.log('hello')
+    }
+
     const articleOptions = [
-        {id: "like", iconName: ThumbUp, num: numLiked.like, onClick: onLikeClickHandler},
-        {id: "hate", iconName: ThumbDown, num: numLiked.hate, onClick: onLikeClickHandler},
-        {id: "comments", iconName: Comment, num: numLiked.comments, }
+        {id: "like", iconName: ThumbUp, num: likeCount, onClick: onLikeClickHandler},
+        {id: "hate", iconName: ThumbDown, num: dislikeCount, onClick: onLikeClickHandler},
+        {id: "comments", iconName: Comment, num: commentCount, }
     ]
 
+    const makeItCenter = {display: 'flex', alignItems: 'center'}
+    const moreButton = {
+        position: 'absolute',
+        top: '10px',
+        right: '10px',
+    }
 
     return (
-        <ArticleCard  >
-            <LinkDecoNone to={`/board/${index}`}>
-                <Grid container>
+        <LinkDecoNone to={`/board/${article.id}`} state={article} >
+            <ArticleCard >
+                <UpDelModal article={article} />
+                <Grid container style={makeItCenter}>
                     <Grid item xs={4}>
                         <JanvanFace src={article.src} alt={article?.id} />
                     </Grid>
                     <Grid item xs={8}>
-                        <div>{article.content}</div>
-                        {articleOptions.map(option => {
-                            const {iconName, num, id } = option
-                            return (
-                                <ArticleOption iconName={iconName} num={num} onClick={option?.onClick} key={id} />
-                            )
-                        })}
+                        <Container style={{height: 100}}>{article.content}</Container>
+                        <Container style={{display: 'flex', justifyContent: 'space-around'}}>
+                            {articleOptions.map(option => {
+                                const {iconName, num, id, } = option
+                                return (
+                                    <span onClick={option?.onClick} key={id} >
+                                        <ArticleOption iconName={iconName} num={num} />
+                                    </span>
+                                )
+                            })}
+                        </Container>
                     </Grid>
                 </Grid>
-            </LinkDecoNone>
-        </ArticleCard>
+            </ArticleCard>
+        </LinkDecoNone>
     )
 }
 
 const ArticleCard = styled(Card)`
+    position: relative;
+    display: flex;
     margin: 10px 0px 10px 0px; 
     height: 160px;
 `
+
+
 
 const JanvanFace = styled.img`
     width: 140px;

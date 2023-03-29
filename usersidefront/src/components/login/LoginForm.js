@@ -45,9 +45,9 @@ function LoginForm () {
             },
             (err) => console.log(err)
         )
-    }
+    } 
 
-    const onCLoginHandler = (e) => {
+    const onLoginHandler = (e) => {
         e.preventDefault()
         // 제대로된 request로 바꿔야 함
         LoginFunc(tempUserInfo)
@@ -56,7 +56,7 @@ function LoginForm () {
 
     return (
         <>
-            {FormWithGrid({option: textFieldOption, onClickHandler: onCLoginHandler, onTypingHandler: onTypingHandler})}
+            {FormWithGrid({option: textFieldOption, onClickHandler: onLoginHandler, onTypingHandler: onTypingHandler, buttonName: '로그인'})}
         </>
     )   
 }

@@ -8,7 +8,7 @@ async function login(user, success, fail) {
 }
 
 async function signup(user, success, fail) {
-  await api.post(`/auth/register`, JSON.stringify(user)).then(success).catch(fail);
+  await api.post(`/users/register`, JSON.stringify(user)).then(success).catch(fail);
 }
 
 async function getUserInfo(user, success, fail) {
@@ -24,6 +24,10 @@ async function updateUserPassword(user, success, fail) {
   await api.put(`/users/pw`, JSON.stringify(user)).then(success).catch(fail);
 }
 
+async function findUserPassword(user, success, fail) {
+  await api.post(`/users/pw`, JSON.stringify(user)).then(success).catch(fail);
+}
+
 async function deleteUser(user, success, fail) {
   await api.delete(`/users/info/${user.id}`).then(success).catch(fail);
 }
@@ -33,4 +37,4 @@ async function userFirst(user, success, fail) {
 }
 
 
-export { login, signup, getUserInfo, updateUserInfo, updateUserPassword, deleteUser, userFirst }
+export { login, signup, getUserInfo, updateUserInfo, updateUserPassword, findUserPassword, deleteUser, userFirst }

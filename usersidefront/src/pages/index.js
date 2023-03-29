@@ -11,6 +11,8 @@ import UserPage from "./UserPage";
 import LoadingPage from "./LoadingPage";
 import UserInfoChangePage from "./UserInfoChangePage";
 import RecordMeal from "./RecordMeal";
+import DrawingPage from "./DrawingPage"
+import JanbanPresentPage from "./JanbanPresentPage";
 
 const routes = [
     // error pages
@@ -56,11 +58,19 @@ const routes = [
         path: "/board/:int",
         element: <BoardDetailPage />
     },
-    // Main
+    // AI Func
     {
-        path: "record-meal",
+        path: "/record-meal",
         element: <RecordMeal />
-    }
+    },
+    {
+        path: "/drawing",
+        element: <DrawingPage />
+    },
+    {
+        path: "/janban",
+        element: <JanbanPresentPage />
+    },
 ]
 
 const router = createBrowserRouter(routes);

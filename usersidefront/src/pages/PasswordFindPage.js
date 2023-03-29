@@ -1,6 +1,6 @@
 import { useState }  from 'react'
 
-import { login } from '../api/member'
+import { findUserPassword } from '../api/member'
 
 import styled from "styled-components"
 import { FormWithGrid, EntranceOption, LogoToLogin } from "../components/common"
@@ -15,7 +15,7 @@ function PasswordFind() {
     ];
 
     const textFieldOption = [
-        {id: "id", target: setInputEmail, label: "ID or E-Mail", focus: true, type: "id"},
+        {id: "email", target: setInputEmail, label: "E-Mail", focus: true, type: "email"},
     ];
 
     const onTypingHandler = (e) => {
@@ -28,16 +28,22 @@ function PasswordFind() {
         }
     };
 
-    async function axios_test() {
+    async function findPassword() {
         // 차후에 API 변경할 것
-        await login()
+        await findUserPassword(
+            {email: inputEmail},
+            (data) => {
+                console.log(data)
+            },
+            (err) => console.log(err)
+        )
         console.log(inputEmail)
     }
 
     return(
         <Login>
             <LogoToLogin />
-            {FormWithGrid({option: textFieldOption, onClickHandler: axios_test, onTypingHandler: onTypingHandler})}
+            {FormWithGrid({option: textFieldOption, onClickHandler: findPassword, onTypingHandler: onTypingHandler, buttonName: '임시 비밀번호 발급'})}
             {EntranceOption(passwordFindOptions)}
         </Login>
     )

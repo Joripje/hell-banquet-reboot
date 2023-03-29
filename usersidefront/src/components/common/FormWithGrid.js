@@ -17,9 +17,7 @@ function FormWithGrid(params) {
                     })}
                     <Grid item xs={9}>
                         <Button onClick={params.onClickHandler} variant="contained" className="submit" style={{height: '3rem', background: "#B8DDFF"}} fullWidth> 
-                            <b>
-                                {params?.buttonName ? params.buttonName : '로그인' }
-                            </b>
+                            <b>{params.buttonName}</b>
                         </Button>
                     </Grid>
                 </Grid>

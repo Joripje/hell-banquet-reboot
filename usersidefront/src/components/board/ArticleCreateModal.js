@@ -6,11 +6,8 @@ import { putArticle } from '../../api/board'
 function ArticleCreateModal(params) {
     const navigate = useNavigate()
     const { isOpen, onClose } = params
-    const placeholder = '내용을 입력해주세요'
-    
-    // 차후에 인증 관련 API가 완성된다면 user의 ID를 동적으로 입력할 것
     const [ content, setContent ] = useState()
-
+    const placeholder = '내용을 입력해주세요'
     const textFieldOption = [
         {id: "content", target: content, setTarget: setContent, label: "content", focus: true, type: "password"},
     ]
@@ -27,9 +24,8 @@ function ArticleCreateModal(params) {
 
     async function createArticle(event) {
         event.preventDefault()
-        console.log("hello")
         await putArticle(
-            {author: 'ssafy', content: content},
+            {author: localStorage.userId, content: content},
             (data) => console.log(data),
             (err) => console.log(err)
         )
@@ -39,7 +35,7 @@ function ArticleCreateModal(params) {
     } 
 
     return (
-        <Modal open={isOpen} onClose={onClose}>
+        <Modal open={isOpen} onClose={onClose} >
             <Box component="form" sx={styleForBox}>
                 <TextField onChange={onTypingHandler} InputProps={{ sx: { fontSize: 20 }}} multiline placeholder={placeholder} sx={styleForTextField} />
                 <Button type="submit" onClick={createArticle} variant='contained'>
