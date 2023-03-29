@@ -109,6 +109,6 @@ def resnet34():
     """Constructs a ResNet-34 model."""
     model = ResNet(block=BasicBlock,
                    layers=[3, 4, 6, 3],
-                   num_classes=21,
+                   num_classes=16,
                    grayscale=True)
     return model

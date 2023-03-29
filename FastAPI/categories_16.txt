@@ -2,10 +2,7 @@ bowtie
 cake
 campfire
 cat
-cello
-dog
 flower
-fork
 guitar
 helmet
 moustache
@@ -14,8 +11,6 @@ rifle
 shovel
 snorkel
 snowman
-spoon
 trombone
-truck
 trumpet
 umbrella

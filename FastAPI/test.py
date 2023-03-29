@@ -8,7 +8,7 @@ import boto3
 
 import uuid
 
-import shutil
+import drawjanbani
 
 app = FastAPI()
 
@@ -25,13 +25,14 @@ client_s3 = boto3.client('s3',
 
 @app.post("/ai/draw/")
 async def draw_is_correct(image: UploadFile = File(), category: str = Form()):
-    try:
-        file_path = f'{category}.png'
-        with open(file_path, 'wb') as buffer:
-            shutil.copyfileobj(image.file, buffer)
 
+    image_data = await image.read()
+
+    check_set = drawjanbani.check_image(image_data)
+
+    if category in check_set:
         result = True
-    except:
+    else:
         result = False
 
     return JSONResponse(content={"success": result})
@@ -42,8 +43,10 @@ async def check_janban(image: UploadFile = File()):
 
     # 아래에 코드 작성
 
+
+
     file_name = str(uuid.uuid4()) + ".png"
-    contents = await image.read()
+    contents = await image.read() # image를 s3에 넣을 수 있는 형태로
 
     try:
         client_s3.put_object(
