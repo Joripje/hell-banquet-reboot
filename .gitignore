@@ -38,6 +38,7 @@ out/
 
 ### Properties ###
 application-credentials.yml
+.env
 
 ### Log Files ###
 *.log

@@ -11,17 +11,28 @@ spring:
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
     database: mysql
+  mail:
+    username: ${SPRING_MAIL_USERNAME}
+    port: 465
+    properties:
+    mail:
+      smtp:
+        auth: true
+        ssl:
+          enable: true
+    host: ${SPRING_MAIL_HOST}
+    password: ${SPRING_MAIL_PASSWORD}
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: 1234
-    username: root
-    url: jdbc:mysql://localhost:3306/project2db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
+    password: a802
+    username: hellsfood
+    url: jdbc:mysql://mysql-container:3306/project2db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
   data:
     mongodb:
-      host: localhost
+      host: mongodb-container
       port: 27017
       authentication-database: project2db
-      uri: mongodb://localhost:27017/
+      uri: mongodb://mongodb-container:27017/
   devtools:
     livereload:
       enabled: true
