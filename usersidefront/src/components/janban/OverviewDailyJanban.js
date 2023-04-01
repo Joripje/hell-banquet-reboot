@@ -6,7 +6,7 @@ import { LinkDecoNone } from "../common"
 
 function OverviewDailyJanban() {
     const date = new Date().getHours()
-    const janbanOption = date > 14 
+    const janbanOption = date < 14 
     ?
     {url: `/record-meal`, message: '식사하러 가기'}
     :

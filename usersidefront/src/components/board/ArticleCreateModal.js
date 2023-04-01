@@ -9,7 +9,7 @@ function ArticleCreateModal(params) {
     const [ content, setContent ] = useState()
     const placeholder = '내용을 입력해주세요'
     const textFieldOption = [
-        {id: "content", target: content, setTarget: setContent, label: "content", focus: true, type: "password"},
+        {id: "content", target: content, setTarget: setContent, focus: true},
     ]
 
     const onTypingHandler = (e) => {
@@ -39,7 +39,7 @@ function ArticleCreateModal(params) {
     return (
         <Modal open={isOpen} onClose={onClose} >
             <Box component="form" sx={styleForBox}>
-                <TextField onChange={onTypingHandler} InputProps={{ sx: { fontSize: 20 }}} multiline placeholder={placeholder} sx={styleForTextField} />
+                <TextField id="content" onChange={onTypingHandler} InputProps={{ sx: { fontSize: 20 }}} multiline placeholder={placeholder} sx={styleForTextField} />
                 <Button type="submit" onClick={createArticle} variant='contained'>
                     글 작성
                 </Button>

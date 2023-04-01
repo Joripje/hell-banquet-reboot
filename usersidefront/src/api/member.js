@@ -3,15 +3,6 @@ import http from "./https.js";
 const api = http;
 
 // url이 auth인지 users인지 모르겠어용
-async function login(user, success, fail) {
-  await api.post(`/auth/login`, JSON.stringify(user)).then(success).catch(fail);
-}
-
-async function logout(success, fail) {
-  api.defaults.headers["refreshToken"] = localStorage.getItem("refreshToken")
-
-  await api.post(`/auth/logout`, ).then(success).catch(fail);
-}
 
 async function signup(data, success, fail) {
   await api.post(`/users/check`, {params: {data}}).then(success).catch(fail);
@@ -47,9 +38,4 @@ async function userFirst(user, success, fail) {
 }
 
 
-async function getMenus(success, fail) {
-  await api.get(`/menus`, ).then(success).catch(fail);
-}
-
-
-export { login, logout, signup, checkUnique, getUserInfo, updateUserInfo, updateUserPassword, findUserPassword, deleteUser, userFirst, getMenus }
+export { signup, checkUnique, getUserInfo, updateUserInfo, updateUserPassword, findUserPassword, deleteUser, userFirst, }

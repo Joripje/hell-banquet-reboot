@@ -3,10 +3,10 @@ import { ProfileUserInfo } from "../components/user"
 import { OverviewDailyJanban } from "../components/janban"
 import { useNavigate } from "react-router-dom"
 
+import { logout } from "../api/auth"
+
 import styled from "styled-components"
-import { Button } from "@mui/material"
-import { Container } from "@mui/system"
-import { logout } from "../api/member"
+import { Button, Container } from "@mui/material"
 
 function UserPage() {
     const navigate = useNavigate()

@@ -1,11 +1,24 @@
-import { Container } from "@mui/system"
 import styled from "styled-components"
+import { Button, Container } from "@mui/material"
 import { RecommendAritcle } from "../components/board"
 
 import { LogedPageTemplate, } from "../components/common"
 import { OverviewDailyJanban } from "../components/janban"
-
+// import { validateUser } from "../api/auth"
+import { getMenus } from "../api/menu"
+ 
 function LandingPage() {
+
+    const handleTest = async () => {
+        await getMenus(
+            // {userId: localStorage.getItem('userId')},
+            (data) => {
+                console.log(data)
+            },
+            (err) => console.log(err)
+        )
+    }
+
     /*
         첫 방문여부를 확인하고 첫 방문 시에는 안내 적용
     */
@@ -14,6 +27,7 @@ function LandingPage() {
     return(
         <>
         <LogedPageTemplate />
+        <Button variant="contained" onClick={handleTest} >실험하기</Button>
         <Container style={styleForContainer}>
             <JanvanSection>
                 <OverviewDailyJanban />

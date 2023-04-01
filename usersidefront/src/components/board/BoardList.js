@@ -1,8 +1,7 @@
 import { useRef, useEffect, useState } from "react"
 import styled from "styled-components"
 
-// getBoardList,
-import {  getEntireList } from "../../api/board"
+import { getBoardList,  } from "../../api/board"
 
 import BoardListItem from "./BoardListItem"
 
@@ -27,7 +26,7 @@ function BoardList() {
     
     useEffect(() => {
         const getMoreList = async () => {
-            await getEntireList(
+            await getBoardList(
                 boardInfo,
                 (data) => {
                     console.log(data.data)
@@ -35,18 +34,19 @@ function BoardList() {
                 },
                 (err) => console.log(err)
             )
-            .then( (data) => {
+            .then((data) => {
                 if (articles[0]?.id === -1) {
                     setArticles(data)
                 } else {
                     (articles.push(...data))
                 }
-                setBoardInfo({...boardInfo, lastBoardId: articles[articles.length - 1].id})
             })
         } 
 
         if (articles[0]?.id === -1) {
             getMoreList()
+            setBoardInfo({...boardInfo, lastBoardId: articles[articles.length - 1].id})
+            return
         }
 
         const observerOptions = {
@@ -57,8 +57,9 @@ function BoardList() {
         
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
-                if (entry.isIntersecting && boardInfo.lastBoardId !== 1) {
+                if (entry.isIntersecting) {
                     getMoreList()
+                    setBoardInfo({...boardInfo, lastBoardId: articles[articles.length - 1].id})
                 }
             });
         }, [observerOptions, articles]);

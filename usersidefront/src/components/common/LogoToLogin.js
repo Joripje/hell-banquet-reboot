@@ -4,6 +4,7 @@ import { LinkDecoNone } from './'
 import styled from "styled-components"
 import staticJanban from "../../assets/images/janban.png"
 import staticJenkins from "../../assets/images/angryJenkins.png"
+import { dailyRank } from "../../api/leftover"
 
 function LogoToLogin() {
     const [image, setImage] = useState("");
@@ -18,6 +19,9 @@ function LogoToLogin() {
             setImage(images[randomIndex]);
         };
         selectRandomImage()
+        dailyRank(
+            {userId: localStorage.getItem('userId')}
+        )
 
     }, [])
     return (

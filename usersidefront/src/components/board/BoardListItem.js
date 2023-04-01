@@ -11,12 +11,6 @@ function BoardListItem(params) {
     const { article } = params
     const [ showDropdown, setShowDropdown ] = useState(false)
 
-    // const onMoreClickHandler = (event) => {
-    //     event.preventDefault()
-    //     setShowDropdown(true)
-    //     console.log('hello')
-    // }
-
     const makeItCenter = {display: 'flex', alignItems: 'center'}
 
     return (
@@ -43,7 +37,7 @@ const ArticleCard = styled(Card)`
     position: relative;
     display: flex;
     margin: 10px 0px 10px 0px; 
-    height: 160px;
+    height: 200px;
 `
 
 const JanvanFace = styled.img`

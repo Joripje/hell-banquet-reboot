@@ -4,6 +4,7 @@ import { useState } from "react"
 
 import { Icon, IconButton } from "@mui/material"
 import { ThumbDown, ThumbUp, Comment,  } from "@mui/icons-material"
+import { putDisLike, putLike } from "../../api/board"
 
 function ArticleOption(params) {
     const { article } = params
@@ -15,19 +16,58 @@ function ArticleOption(params) {
     const [dislikeCount, setDislikeCount] = useState(article.dislikeCount)
     const [commentCount, setCommentCount] = useState(article.commentCount)
 
+    const changeLike = async () => await putLike(
+        {
+            userId: localStorage.getItem('userId'), 
+            boardId: article.id
+        },
+        (data) => {
+            console.log(data)
+        },
+        (err) => console.log(err)
+    )
+
+    const changeDisLike = async () => await putDisLike(
+        {
+            userId: localStorage.getItem('userId'), 
+            boardId: article.id
+        },
+        (data) => {
+            console.log(data)
+        },
+        (err) => console.log(err)
+    )
+
     const handleClickCount = (event) => {
         event.preventDefault()
+        console.log(event.target?.id)
+
         const target = event.target?.id
-        if (! target || isLiked === target) {
+        if (! target) {
             return
         }
-        const {onClick, num, otherHand } = articleOptions[target]
+
+        const { id, onClick, num, otherHand } = articleOptions[target]
         const otherHadnOption = articleOptions[otherHand]
-        if (isLiked !== -1) {
+
+        if (id === 'like') {
+            changeLike()
+        } else {
+            changeDisLike()
+        }
+        if (isLiked === target) {
+            onClick(article.likeCount)
+            setIsLiked(-1)
+        } else if (isLiked !== -1) {
             otherHadnOption.onClick(otherHadnOption.num - 1)
-        } 
-        setIsLiked(target)
-        onClick(num + 1)
+            onClick(num + 1)
+            setIsLiked(target)
+
+        } else {
+            onClick(num + 1)
+            setIsLiked(target)
+        }
+
     }
 
     const articleOptions = [
@@ -37,17 +77,23 @@ function ArticleOption(params) {
     ]
 
 
-
     return (
         articleOptions.map((option, index) => {
             const {iconName, num, } = option
             const styleForIcon = {
                 marginRight: 10,
+                fontSize: 34,
                 color: isLiked === index.toString() ? '#990000' : '#000000',
             }
+
+            const styleForButton = {
+                padding: 0,
+                width: '5rem',
+                height: '3rem',
+            }
             return (
-                <IconButton onClick={handleClickCount} key={index} id={index} >
-                    <Icon component={iconName} style={styleForIcon} />
+                <IconButton disableTouchRipple  onClick={handleClickCount} style={styleForButton} key={index} id={index} >
+                    <Icon component={iconName} style={styleForIcon} id={index} />
                     {num}
                 </IconButton>
                 )

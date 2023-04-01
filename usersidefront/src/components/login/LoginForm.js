@@ -2,7 +2,7 @@ import { useState }  from 'react'
 import { useNavigate } from 'react-router-dom'
 // import { useCookies } from 'react-cookie'
 
-import { login } from '../../api/member'
+import { login } from '../../api/auth'
 import { FormWithGrid } from "../common"
 
 
