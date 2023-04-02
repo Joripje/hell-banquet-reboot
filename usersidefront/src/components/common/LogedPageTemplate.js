@@ -15,7 +15,7 @@ function LogedPageTemplate() {
         console.log(location)
 
         // 방문여부를 검사하는 로직
-    }, [navigate])
+    }, [navigate, location])
 
     useEffect(()=> {
         if (localStorage.getItem('userId') === undefined){

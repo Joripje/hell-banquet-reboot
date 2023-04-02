@@ -5,7 +5,7 @@ const api = http;
 // url이 auth인지 users인지 모르겠어용
 
 async function signup(data, success, fail) {
-  await api.post(`/users/check`, {params: {data}}).then(success).catch(fail);
+  await api.post(`/users/register`, JSON.stringify(data)).then(success).catch(fail);
 }
 
 async function checkUnique(user, success, fail) {

@@ -14,21 +14,30 @@ function OverviewDailyJanban() {
     
 
     return (
-        <div style={{width: '100%', display: 'flex'}}>
+        <OverviewBox >
             <JanbanImg src={staticJanban} alt='잔반이' />
-            <Container style={{position: 'relative', display: 'flex'}}>
-                <Typography style={{alignSelf: 'center'}} >아직 안나옴!</Typography>
+            <Container style={{position: 'relative', height: '100%'}}>
+                <Typography style={{position: 'absolute', bottom: '50%'}} >아직 안나옴!</Typography>
                 <LinkDecoNone to={janbanOption.url} style={{position: 'absolute', bottom: '10%', right: '15%'}}>
                     <Button variant="contained" color="warning">
                         {janbanOption.message}
                     </Button>
                 </LinkDecoNone>
             </Container>
-        </div>
+        </OverviewBox>
     )
 }
 
+const OverviewBox = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+`
+
 const JanbanImg = styled.img`
+width: 200px;
+height: 200px;
 `
 
 export default OverviewDailyJanban

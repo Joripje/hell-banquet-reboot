@@ -67,7 +67,7 @@ function SignUpForm() {
 
     return (
         <Container fixed>
-            {FormWithGrid({option: textFieldOption, onClickHandler: userSignup, onTypingHandler: onTypingHandler, buttonName: '로그인'})}
+            {FormWithGrid({option: textFieldOption, onClickHandler: userSignup, onTypingHandler: onTypingHandler, buttonName: '회원가입'})}
         </Container>
     )
 }

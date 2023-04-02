@@ -1,18 +1,11 @@
-import styled from "styled-components"
-import {  Container } from "@mui/material"
 import { RecommendAritcle } from "../components/board"
-
 import { LogedPageTemplate, } from "../components/common"
 import { OverviewDailyJanban } from "../components/janban"
-// import { validateUser } from "../api/auth"
- 
+
+import styled from "styled-components"
+import {  Container } from "@mui/material"
+
 function LandingPage() {
-
-
-
-    /*
-        첫 방문여부를 확인하고 첫 방문 시에는 안내 적용
-    */
     const hour = new Date().getHours()
    
     return(
@@ -58,11 +51,12 @@ const styleForSection = `
     border-radius: 30px;
 
     display: flex;
-    justify-content: space-between;
 `
 
 const JanvanSection = styled.section`
     ${styleForSection}
+    height: 270px;
+
 `
 const DailyMenuSection = styled.section`
     ${styleForSection}
@@ -76,8 +70,9 @@ const DailyRankSection = styled.section`
 
 const RecommendArticleSection = styled.section`
     ${styleForSection}
-    height: 240px;
-
+    height: 260px;
+    justify-content: center;
+    margin-bottom: 110px;
 `
 
 export default LandingPage

@@ -22,4 +22,5 @@ const MyTypo = styled.span`
     font-size: ${props => {return props.fontSize}}px;
     margin: 8% 5% 0% 5%;
 `
+
 export default DrawSubject
