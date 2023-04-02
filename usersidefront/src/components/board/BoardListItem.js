@@ -9,9 +9,11 @@ import { Card, Container, Grid,  } from "@mui/material"
 
 function BoardListItem(params) {
     const { article } = params
-    const [ showDropdown, setShowDropdown ] = useState(false)
 
+    console.log(article)
+    // const [ showDropdown, setShowDropdown ] = useState(false)
     const makeItCenter = {display: 'flex', alignItems: 'center'}
+
 
     return (
         <LinkDecoNone to={`/board/${article.id}`} state={article} >

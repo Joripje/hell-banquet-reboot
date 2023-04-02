@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 
 import BoardListItem from "./BoardListItem"
-import { getCommentList } from "../../api/board"
+import { getArticleDeatail } from "../../api/board"
 
 import styled from "styled-components"
 
@@ -16,7 +16,7 @@ function ArticleDetail() {
     // const dummy = {content: '이건 더미에용!', src: undefined}
 
 
-    const [articles, setArticles] = useState(
+    const [comments, setComments] = useState(
         [{content: 'lorem', src: undefined, id: -1},
         {content: 'lorem', src: undefined},
         {content: 'lorem', src: undefined},
@@ -30,53 +30,56 @@ function ArticleDetail() {
     
     useEffect(() => {
         const getMoreComment = async () => {
-            const data = await getCommentList(
-                location.state.id,
+            const data = await getArticleDeatail(
+                {id: location.state.id, getForm: {lastCommentId: -1, size: 10}},
                 (data) => {
-                    return data.data
+                    return data.data.comments
                 },
                 (err) => console.log(err)
             )
-            if (articles[0]?.id === -1) {
-                setArticles(data)
+            if (comments[0]?.id === -1) {
+                setComments(data)
             } else {
-                setArticles([...articles, ...data])
+                setComments([...comments, ...data])
             }
         } 
         
-        if (articles[0]?.id === -1) {
-            console.log(`U R First at ${location.state.id}`)
+        if (comments[0]?.id === -1) {
             getMoreComment()
         }
 
-        const observerOptions = {
-            root: null,
-            rootMargin: '100px',
-            threshold: 0.5
-        };
+        // if (articleListRef && articleListRef.current && comments.length > 0) {
+        //     const observerOptions = {
+        //         root: null,
+        //         rootMargin: '100px',
+        //         threshold: 0.5
+        //     };
+        // }
         
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // article이 2배씩 증식함
-                    // setArticles(articles.flatMap(article => [article, article]));
-                    // getMoreList()
-                }
-            });
-        }, observerOptions);
+        // const observer = new IntersectionObserver(entries => {
+        //     entries.forEach(entry => {
+        //         if (entry.isIntersecting) {
+        //             // article이 2배씩 증식함
+        //             // setArticles(articles.flatMap(article => [article, article]));
+        //             // getMoreList()
+        //         }
+        //     });
+        // }, observerOptions);
 
-         observer.observe(articleListRef?.current.lastChild);
+        // console.log(articleListRef)
+        // console.log(comments)
+        // observer.observe(articleListRef?.current.lastChild);
 
-        return () => observer.disconnect();
-    }, [articles, location]);
+        // return () => observer.disconnect();
+    }, [comments, location, articleListRef]);
 
     return (
         <DetailBox >
             <BoardListItem article={article} />
             <div ref={articleListRef} style={{paddingTop: '100px',paddingBottom:'100px'}}>
-                    {articles.length === 0
+                    {comments.length === 0
                         ?<div style={{textAlign: 'center'}}>아직 댓글이 없어요</div>
-                        :articles.map((article, index) => {return (<BoardListItem article={article} index={index} key={index} />)})
+                        :comments.map((article, index) => {return (<BoardListItem article={article} index={index} key={index} />)})
                     }
             </div>
         </DetailBox>

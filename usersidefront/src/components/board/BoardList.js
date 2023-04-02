@@ -7,6 +7,8 @@ import BoardListItem from "./BoardListItem"
 
 
 function BoardList() {
+    const articleListRef = useRef(null);
+    const prevArticles = useRef([]);
     const [ boardInfo, setBoardInfo ] = useState({lastBoardId: -1, size: 10, userId: localStorage.getItem('userId')})
 
     const [articles, setArticles] = useState(
@@ -21,15 +23,11 @@ function BoardList() {
         {content: 'lorem', src: undefined, id: -1},]
     )
     
-    const articleListRef = useRef(null);
-
-    
     useEffect(() => {
         const getMoreList = async () => {
             await getBoardList(
                 boardInfo,
                 (data) => {
-                    console.log(data.data)
                     return data.data
                 },
                 (err) => console.log(err)
@@ -43,10 +41,10 @@ function BoardList() {
             })
         } 
 
-        if (articles[0]?.id === -1) {
+        if (prevArticles.current.length === 0) {
             getMoreList()
-            setBoardInfo({...boardInfo, lastBoardId: articles[articles.length - 1].id})
-            return
+            prevArticles.current = articles;
+            return;
         }
 
         const observerOptions = {
@@ -56,10 +54,9 @@ function BoardList() {
         };
         
         const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
+            entries.forEach(async (entry) => {
                 if (entry.isIntersecting) {
-                    getMoreList()
-                    setBoardInfo({...boardInfo, lastBoardId: articles[articles.length - 1].id})
+                    await getMoreList()
                 }
             });
         }, [observerOptions, articles]);
@@ -68,6 +65,11 @@ function BoardList() {
 
         return () => observer.disconnect();
     }, [articles, boardInfo]);
+
+    // Articles가 변경될 때마다 boardInfo를 수정
+    useEffect(() => {
+        setBoardInfo({lastBoardId: articles[articles.length - 1].id, size: 10, userId: localStorage.getItem('userId')})
+    }, [articles])
 
     return (
         <>
@@ -83,8 +85,8 @@ function BoardList() {
 }
 
 const BoardListBox = styled.div`
-background: #FFF3DF;
-padding: 10px 0px 90px 0px;
+    background: #FFF3DF;
+    padding: 10px 0px 90px 0px;
 `
 
 export default BoardList

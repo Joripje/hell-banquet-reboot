@@ -5,6 +5,7 @@ import { useState } from "react"
 import { Icon, IconButton } from "@mui/material"
 import { ThumbDown, ThumbUp, Comment,  } from "@mui/icons-material"
 import { putDisLike, putLike } from "../../api/board"
+import { useEffect } from "react"
 
 function ArticleOption(params) {
     const { article } = params
@@ -76,6 +77,11 @@ function ArticleOption(params) {
         {id: "comments", iconName: Comment, num: commentCount, onClick: setCommentCount}
     ]
 
+    useEffect(() => {
+        setLikeCount(article.likeCount)
+        setDislikeCount(article.dislikeCount)
+        setCommentCount(article.commentCount)
+    }, [article])
 
     return (
         articleOptions.map((option, index) => {

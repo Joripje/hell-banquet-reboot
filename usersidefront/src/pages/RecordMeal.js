@@ -26,6 +26,8 @@ function RecordMeal() {
         }
     };
 
+
+    // 개발 실험용으로 사용할 업로드
     const handleUploadImg = (e) => {
         const imageUrl = URL.createObjectURL(e.target.files[0]);
         const newImage = [...mealImages];

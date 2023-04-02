@@ -1,10 +1,12 @@
 import { Button, Modal, Box, TextField, } from '@mui/material'
 import { useState } from 'react'
-import { useNavigate } from "react-router-dom"
-import { putArticle } from '../../api/board'
+import { useNavigate, useLocation } from "react-router-dom"
+import { putArticle, putComment } from '../../api/board'
 
 function ArticleCreateModal(params) {
     const navigate = useNavigate()
+    const location = useLocation()
+
     const { isOpen, onClose } = params
     const [ content, setContent ] = useState()
     const placeholder = '내용을 입력해주세요'
@@ -24,15 +26,25 @@ function ArticleCreateModal(params) {
 
     async function createArticle(event) {
         event.preventDefault()
-        await putArticle(
-            {writer: localStorage.userId, content: content},
-            (data) => {
-                console.log(data)
-            },
-            (err) => console.log(err)
-        )
+        if (location.state === null) {
+            await putArticle(
+                {writer: localStorage.userId, content: content},
+                (data) => {
+                    console.log(data)
+                },
+                (err) => console.log(err)
+            )
+        } else {
+            await putComment(
+                {writer: localStorage.userId, content: content, boardId: location.state.id},
+                (data) => {
+                    console.log(data)
+                },
+                (err) => console.log(err)
+            )
+        }
         // 차후에 response가 변경된다면 생성된 게시글의 detail 페이지로 이동시키고 싶음
-        navigate(`/board`)
+        navigate(`${location.pathname}`, {state: location.state})
         return onClose()
     } 
 

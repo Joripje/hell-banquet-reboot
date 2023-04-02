@@ -1,10 +1,13 @@
 import { useState, } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import { signup } from '../../api/member'
 import { FormWithGrid } from '../common'
 
 import { Container,  } from '@mui/material'
 
 function SignUpForm() {
+    const navigate = useNavigate()
     const [ inputID, setInputID ] = useState()
     const [ inputPassword, setInputPassword ] = useState()
     const [ inputPasswordCheck, setInputPasswordCheck ] = useState()
@@ -59,6 +62,7 @@ function SignUpForm() {
             tempUserInfo,
             (data) => {
                 console.log(data)
+                navigate('/')
             },
             (err) => console.log(err)
         )

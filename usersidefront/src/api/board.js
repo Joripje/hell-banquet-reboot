@@ -2,36 +2,36 @@ import http from "./https.js";
 
 const api = http;
 
-async function getBoardList(params, success, fail) {
-    api.defaults.headers["refreshToken"] = localStorage.getItem("refreshToken")
+api.defaults.headers["Authorization"] = localStorage.getItem("auth")
+api.defaults.headers["refreshToken"] = localStorage.getItem("refreshToken")
 
+async function getBoardList(params, success, fail) {
     const res = await api.get(`/boards`, {params: {...params, userId: 'string'}}).then(success).catch(fail);
     return res
 }
 
 async function getEntireList(params, success, fail) {
-    api.defaults.headers["refreshToken"] = localStorage.getItem("refreshToken")
-
     const res = await api.get(`/boards/list`, {params: {...params, userId: 'string'}}).then(success).catch(fail);
     return res
 }
 
 async function putArticle(article, success, fail) {
-    api.defaults.headers["refreshToken"] = localStorage.getItem("refreshToken")
-
     await api.post(`/boards`, JSON.stringify(article)).then(success).catch(fail);
 }
 
-async function getCommentList(id, success, fail) {
-    const res = await api.get(`/boards/${id}/comments`, ).then(success).catch(fail);
+async function getArticleDeatail(detail, success, fail) {
+    const {id, getForm} = detail
+    const res = await api.get(`/boards/${id}/`, {params: getForm}).then(success).catch(fail);
     return res
 }
 
 async function getTodayArticle(date, success, fail) {
-    api.defaults.headers["refreshToken"] = localStorage.getItem("refreshToken")
-
     const res = await api.get(`/boards/today`, {params: {date: date}}).then(success).catch(fail);
     return res
+}
+
+async function putComment(comment, success, fail) {
+    await api.post(`/comments`, JSON.stringify(comment)).then(success).catch(fail);
 }
 
 async function putLike(data, success, fail) {
@@ -46,10 +46,8 @@ async function putDisLike(data, success, fail) {
 
 
 async function test(success, fail) {
-    api.defaults.headers["Authorization"] = localStorage.getItem("auth")
-    api.defaults.headers["refreshToken"] = localStorage.getItem("refresh")
     await api.get(`/menus`).then(success).catch(fail);
 }
 
 
-export { getBoardList, getEntireList, putArticle, getCommentList, getTodayArticle, putLike, putDisLike, test }
+export { getBoardList, getEntireList, putArticle, getArticleDeatail, getTodayArticle, putComment, putLike, putDisLike, test }
