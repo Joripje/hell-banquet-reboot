@@ -13,6 +13,9 @@ import UserInfoChangePage from "./UserInfoChangePage";
 import RecordMeal from "./RecordMeal";
 import DrawingPage from "./DrawingPage"
 import JanbanPresentPage from "./JanbanPresentPage";
+import MenusTestPage from "./test/MenusTestPage";
+import TestRoutingPage from "./test/TestRoutingPage";
+import LeftoversTestPage from "./test/LeftoversTestPage";
 
 const routes = [
     // error pages
@@ -70,6 +73,17 @@ const routes = [
     {
         path: "/janban",
         element: <JanbanPresentPage />
+    },
+    // Testing
+    {
+        path: "/test/test",
+        element: <TestRoutingPage />
+    },    {
+        path: "/test/test/menus",
+        element: <MenusTestPage />
+    },    {
+        path: "/test/test/leftovers",
+        element: <LeftoversTestPage />
     },
 ]
 

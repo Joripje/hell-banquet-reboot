@@ -1,20 +1,20 @@
-/* eslint-disable */
-
 import { useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import { getMenus } from "../../api/member"
-// import { test } from "../../api/board"
+import { useNavigate, useLocation } from "react-router-dom"
 import { StickyFooter, StickyHeader } from "../navbar"
 
 function LogedPageTemplate() {
     const navigate = useNavigate()
+    const location = useLocation()
+
     useEffect(()=> {
         if (localStorage.getItem('auth') === null) {
             localStorage.clear()
             navigate('/login')
             alert('로그인이 안돼있네요...?')
         }
-        // getMenus()
+        console.log(location)
+
+        // 방문여부를 검사하는 로직
     }, [navigate])
 
     useEffect(()=> {
@@ -32,5 +32,3 @@ function LogedPageTemplate() {
 }
 
 export default LogedPageTemplate
-
-/* eslint-enable */
