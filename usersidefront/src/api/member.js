@@ -2,10 +2,11 @@ import http from "./https.js";
 
 const api = http;
 
-// url이 auth인지 users인지 모르겠어용
-
 async function signup(data, success, fail) {
-  await api.post(`/users/register`, JSON.stringify(data)).then(success).catch(fail);
+  await api
+    .post(`/users/register`, JSON.stringify(data))
+    .then(success)
+    .catch(fail);
 }
 
 async function checkUnique(user, success, fail) {
@@ -13,12 +14,18 @@ async function checkUnique(user, success, fail) {
 }
 
 async function getUserInfo(user, success, fail) {
-  const res = await api.get(`/users/info/${user}`, JSON.stringify(user)).then(success).catch(fail);
-  return res
+  const res = await api
+    .get(`/users/info/${user}`, JSON.stringify(user))
+    .then(success)
+    .catch(fail);
+  return res;
 }
 
 async function updateUserInfo(user, success, fail) {
-  await api.put(`/users/info/${user.userId}`, JSON.stringify(user)).then(success).catch(fail);
+  await api
+    .put(`/users/info/${user.userId}`, JSON.stringify(user))
+    .then(success)
+    .catch(fail);
 }
 
 async function updateUserPassword(user, success, fail) {
@@ -34,8 +41,19 @@ async function deleteUser(user, success, fail) {
 }
 
 async function userFirst(user, success, fail) {
-  await api.delete(`/users/visited`, JSON.stringify(user)).then(success).catch(fail);
+  await api
+    .delete(`/users/visited`, JSON.stringify(user))
+    .then(success)
+    .catch(fail);
 }
 
-
-export { signup, checkUnique, getUserInfo, updateUserInfo, updateUserPassword, findUserPassword, deleteUser, userFirst, }
+export {
+  signup,
+  checkUnique,
+  getUserInfo,
+  updateUserInfo,
+  updateUserPassword,
+  findUserPassword,
+  deleteUser,
+  userFirst,
+};
