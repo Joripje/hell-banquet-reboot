@@ -9,7 +9,7 @@ import styled from "styled-components";
 function ArticleDetail() {
   const location = useLocation();
   const articleListRef = useRef(null);
-  const [article, setArtilce] = useState(location.state);
+  const [article] = useState(location.state);
 
   const [comments, setComments] = useState([
     { content: "lorem", src: undefined, id: -1 },

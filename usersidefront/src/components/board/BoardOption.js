@@ -4,21 +4,21 @@ import BoardOptionButton from "./BoardOptionButton";
 import ArticleCreateModal from "./ArticleCreateModal";
 
 import styled from "styled-components";
-import { Create, Search, ArrowBack, MoreVert } from "@mui/icons-material";
+import { Create, ArrowBack, MoreVert } from "@mui/icons-material";
 import BoardSearchModal from "./BoardSearchModal";
 import { Container } from "@mui/material";
 
 function BoardOption() {
   const navigate = useNavigate();
   const [boardOptions, setBoardOptions] = useState([
-    {
-      id: 1,
-      component: Search,
-      onClick: onClickHandler,
-      visible: false,
-      isOpen: false,
-      modal: <BoardSearchModal />,
-    },
+    // {
+    //   id: 1,
+    //   component: Search,
+    //   onClick: onClickHandler,
+    //   visible: false,
+    //   isOpen: false,
+    //   modal: <BoardSearchModal />,
+    // },
     {
       id: 2,
       component: Create,
