@@ -31,7 +31,6 @@ function BoardList() {
       await getBoardList(
         boardInfo,
         (data) => {
-          console.log(data.data);
           return data.data;
         },
         (err) => console.log(err)

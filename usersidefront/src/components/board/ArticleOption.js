@@ -28,6 +28,7 @@ function ArticleOption(params) {
       },
       (err) => console.log(err)
     );
+    // window.location.reload(true);
   };
 
   const changeDisLike = async () => {
@@ -38,6 +39,7 @@ function ArticleOption(params) {
       },
       (err) => console.log(err)
     );
+    // window.location.reload(true);
   };
 
   const articleOptions = [
@@ -72,32 +74,12 @@ function ArticleOption(params) {
     if (!target) {
       return;
     }
-    console.log(target);
 
     if (target === "1") {
       changeLike();
     } else if (target === "2") {
       changeDisLike();
     }
-
-    // const { myHand, otherHand, onClick } = articleOptions[target];
-
-    // console.log(myHand, isLiked);
-    // if (myHand === isLiked) {
-    //   // 선택 취소
-    //   onClick();
-    //   setIsLiked(100);
-    // } else if (isLiked === "0") {
-    //   // 선택
-    //   onClick();
-    //   setIsLiked(myHand);
-    // } else {
-    //   // 변경
-    //   const prevOption = articleOptions[otherHand];
-    //   prevOption.onClick();
-    //   onClick();
-    //   setIsLiked(myHand);
-    // }
   };
 
   useEffect(() => {

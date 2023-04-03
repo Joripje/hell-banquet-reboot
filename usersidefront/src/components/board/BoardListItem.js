@@ -1,6 +1,3 @@
-/* eslint-disable */
-import { useState } from "react";
-
 import { ArticleOption, UpDelModal } from "./";
 import { LinkDecoNone } from "../common";
 
@@ -9,31 +6,66 @@ import { Card, Container, Grid } from "@mui/material";
 
 function BoardListItem(params) {
   const { article } = params;
-  // const [ showDropdown, setShowDropdown ] = useState(false)
   const makeItCenter = { display: "flex", alignItems: "center" };
 
+  const handleClick = () => {
+    if (!article?.detail) {
+      // article.detail이 false인 경우 클릭 이벤트를 처리합니다.
+      return;
+    }
+    // article.detail이 true인 경우 클릭 이벤트를 처리하지 않습니다.
+  };
   return (
-    <LinkDecoNone to={`/board/${article.id}`} state={article}>
-      <ArticleCard>
-        <UpDelModal article={article} />
-        <Grid container style={makeItCenter}>
-          <Grid item xs={4}>
-            <JanvanFace src={article.src} alt={article?.id} />
+    <div onClick={handleClick}>
+      {article?.detail ? (
+        <ArticleCard>
+          <UpDelModal article={article} />
+          <Grid container style={makeItCenter}>
+            <Grid item xs={4}>
+              <JanvanFace src={article.src} alt={article?.id} />
+              <p>{article.writer}</p>
+            </Grid>
+            <Grid item xs={8}>
+              <Container style={{ height: 100, fontSize: 20 }}>
+                {article.content}
+              </Container>
+              <Container
+                style={{ display: "flex", justifyContent: "space-around" }}
+              ></Container>
+            </Grid>
+            <OptionBox>
+              <ArticleOption article={article} />
+            </OptionBox>
           </Grid>
-          <Grid item xs={8}>
-            <Container style={{ height: 100, fontSize: 20 }}>
-              {article.content}
-            </Container>
-            <Container
-              style={{ display: "flex", justifyContent: "space-around" }}
-            ></Container>
-          </Grid>
-          <OptionBox>
-            <ArticleOption article={article} />
-          </OptionBox>
-        </Grid>
-      </ArticleCard>
-    </LinkDecoNone>
+        </ArticleCard>
+      ) : (
+        <LinkDecoNone to={`/board/${article.id}`} state={article}>
+          <ArticleCard>
+            <UpDelModal article={article} />
+            <Grid container style={makeItCenter}>
+              <Grid item xs={4} style={{ textAlign: "center" }}>
+                <JanvanFace src={article.src} alt={article?.id} />
+                <p>{article.writer}</p>
+              </Grid>
+              <Grid item xs={8}>
+                <Container style={{ height: 100, fontSize: 20 }}>
+                  {article.content}
+                </Container>
+                <OptionBox>
+                  <ArticleOption article={article} />
+                </OptionBox>
+                {/* <Container
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-around",
+                  }}
+                ></Container> */}
+              </Grid>
+            </Grid>
+          </ArticleCard>
+        </LinkDecoNone>
+      )}
+    </div>
   );
 }
 
@@ -59,4 +91,3 @@ const OptionBox = styled.div`
 `;
 
 export default BoardListItem;
-/* eslint-enable */

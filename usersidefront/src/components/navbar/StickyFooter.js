@@ -1,50 +1,74 @@
 import { LinkDecoNone } from "../common";
+import { useLocation } from "react-router-dom";
 
-import styled from "styled-components"
-import { Icon } from '@mui/material';
-import { Forum, LocalDining, AccountCircle } from '@mui/icons-material';
-
+import styled from "styled-components";
+import { Icon } from "@mui/material";
+import {
+  Forum,
+  LocalDining,
+  AccountCircle,
+  Home,
+  BarChart,
+} from "@mui/icons-material";
 
 function StickyFooter() {
-    // const [ cookie, ] = useCookies(["userInfo"])
-    // const [ userId, ] = useState(localStorage.userId)
+  const location = useLocation();
 
-    const navlist = [
-        {name: "게시판", icon: Forum, url: "/board",},
-        {name: "식사기록", icon : LocalDining, url: "/record-meal",},
-        {name: "프로필", icon: AccountCircle, url: `/user/${localStorage.getItem('userId')}`,},
-    ]
+  const navlist = [
+    { name: "게시판", icon: Forum, url: "/board" },
+    { name: "식사기록", icon: LocalDining, url: "/record-meal" },
+    { name: "홈", icon: Home, url: "/" },
+    { name: "통계", icon: BarChart, url: "/analysis" },
+    {
+      name: "프로필",
+      icon: AccountCircle,
+      url: `/user/${localStorage.getItem("userId")}`,
+    },
+  ];
 
-    return (
-        <StickyFooterNav>
-            {navlist.map(item => {
-                return (
-                    <LinkDecoNone to={item.url} key={item.name} style={{textDecoration: "none", color: "black"}}>
-                        <Icon component={item.icon} style={{width: 50, height: 50, }} />
-                    </LinkDecoNone>
-                )
-            })}
-        </StickyFooterNav>
-    )
+  return (
+    <StickyFooterNav>
+      {navlist.map((item) => {
+        const pathname = location.pathname;
+        return (
+          <LinkDecoNone
+            to={item.url}
+            key={item.name}
+            style={{
+              textDecoration: "none",
+            }}
+          >
+            <Icon
+              component={item.icon}
+              style={{
+                width: 40,
+                height: 40,
+                color: pathname === item.url ? "#990000" : "black",
+              }}
+            />
+          </LinkDecoNone>
+        );
+      })}
+    </StickyFooterNav>
+  );
 }
 
-
 const StickyFooterNav = styled.footer`
-    position: fixed;
-    bottom: 0px;
+  position: fixed;
+  bottom: 0px;
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    width: 80%;
-    height: 80px;
-    padding: 0px 10% 0px 10%;
-    border-radius: 15px 15px 0 0;
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
-    background : #F2CCCC;
-    
-    z-index: 100;
-`
+  width: 80%;
+  height: 60px;
+  padding: 0px 10% 0px 10%;
+  border-radius: 15px 15px 0 0;
+  box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+  background: #f2cccc;
 
-export default StickyFooter
+  z-index: 100;
+`;
+
+export default StickyFooter;

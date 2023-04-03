@@ -44,7 +44,7 @@ function RecordMeal() {
           <MealInput
             type='file'
             accept='image/*'
-            onChange={(event) => handleUploadImg(event, 0)}
+            onChange={(event) => handleUploadImg(event, 1)}
           />
           <MealImg
             src={mealImages[1]}
