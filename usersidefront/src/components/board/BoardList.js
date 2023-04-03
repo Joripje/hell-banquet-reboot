@@ -1,92 +1,100 @@
-import { useRef, useEffect, useState } from "react"
-import styled from "styled-components"
+import { useRef, useEffect, useState } from "react";
+import styled from "styled-components";
 
-import { getBoardList,  } from "../../api/board"
+import { getBoardList } from "../../api/board";
 
-import BoardListItem from "./BoardListItem"
-
+import BoardListItem from "./BoardListItem";
 
 function BoardList() {
-    const articleListRef = useRef(null);
-    const prevArticles = useRef([]);
-    const [ boardInfo, setBoardInfo ] = useState({lastBoardId: -1, size: 10, userId: localStorage.getItem('userId')})
+  const articleListRef = useRef(null);
+  const prevArticles = useRef([]);
+  const [boardInfo, setBoardInfo] = useState({
+    lastBoardId: -1,
+    size: 10,
+    userId: localStorage.getItem("userId"),
+  });
 
-    const [articles, setArticles] = useState(
-        [{content: '', src: undefined, likeCount:0, dislikeCount: 0, id: -1},
-        {content: '', src: undefined},
-        {content: '', src: undefined},
-        {content: '', src: undefined},
-        {content: 'lorem', src: undefined},
-        {content: 'lorem', src: undefined},
-        {content: 'lorem', src: undefined},
-        {content: 'lorem', src: undefined},
-        {content: 'lorem', src: undefined, id: -1},]
-    )
-    
-    useEffect(() => {
-        const getMoreList = async () => {
-            await getBoardList(
-                boardInfo,
-                (data) => {
-                    return data.data
-                },
-                (err) => console.log(err)
-            )
-            .then((data) => {
-                if (articles[0]?.id === -1) {
-                    setArticles(data)
-                } else {
-                    (articles.push(...data))
-                }
-            })
-        } 
+  const [articles, setArticles] = useState([
+    { content: "", src: undefined, likeCount: 0, dislikeCount: 0, id: -1 },
+    { content: "", src: undefined },
+    { content: "", src: undefined },
+    { content: "", src: undefined },
+    { content: "lorem", src: undefined },
+    { content: "lorem", src: undefined },
+    { content: "lorem", src: undefined },
+    { content: "lorem", src: undefined },
+    { content: "lorem", src: undefined, id: -1 },
+  ]);
 
-        if (prevArticles.current.length === 0) {
-            getMoreList()
-            prevArticles.current = articles;
-            return;
+  useEffect(() => {
+    const getMoreList = async () => {
+      await getBoardList(
+        boardInfo,
+        (data) => {
+          console.log(data.data);
+          return data.data;
+        },
+        (err) => console.log(err)
+      ).then((data) => {
+        if (articles[0]?.id === -1) {
+          setArticles(data);
+        } else {
+          articles.push(...data);
         }
+      });
+    };
 
-        const observerOptions = {
-            root: null,
-            rootMargin: '100px',
-            threshold: 0.5
-        };
-        
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(async (entry) => {
-                if (entry.isIntersecting) {
-                    await getMoreList()
-                }
-            });
-        }, [observerOptions, articles]);
-        
-        observer.observe(articleListRef.current.lastChild);
+    if (prevArticles.current.length === 0) {
+      getMoreList();
+      prevArticles.current = articles;
+      return;
+    }
 
-        return () => observer.disconnect();
-    }, [articles, boardInfo]);
+    const observerOptions = {
+      root: null,
+      rootMargin: "100px",
+      threshold: 0.5,
+    };
 
-    // Articles가 변경될 때마다 boardInfo를 수정
-    useEffect(() => {
-        setBoardInfo({lastBoardId: articles[articles.length - 1].id, size: 10, userId: localStorage.getItem('userId')})
-    }, [articles])
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(async (entry) => {
+          if (entry.isIntersecting) {
+            await getMoreList();
+          }
+        });
+      },
+      [observerOptions, articles]
+    );
 
-    return (
-        <>
-        <BoardListBox ref={articleListRef} style={{background: '#FFF3DF'}} >
-            {articles.map((article, index) => {
-                return (
-                    <BoardListItem article={article} index={index} key={index} />
-                )
-            })}
-        </BoardListBox>
-        </>
-    )
+    observer.observe(articleListRef.current.lastChild);
+
+    return () => observer.disconnect();
+  }, [articles, boardInfo]);
+
+  // Articles가 변경될 때마다 boardInfo를 수정
+  useEffect(() => {
+    setBoardInfo({
+      lastBoardId: articles[articles.length - 1].id,
+      size: 10,
+      userId: localStorage.getItem("userId"),
+    });
+  }, [articles]);
+
+  return (
+    <>
+      <BoardListBox ref={articleListRef} style={{ background: "#FFF3DF" }}>
+        {articles.map((article, index) => {
+          return <BoardListItem article={article} index={index} key={index} />;
+        })}
+      </BoardListBox>
+    </>
+  );
 }
 
 const BoardListBox = styled.div`
-    background: #FFF3DF;
-    padding: 10px 0px 90px 0px;
-`
+  background: #fff3df;
+  padding: 10px 0px 90px 0px;
+`;
 
-export default BoardList
+export default BoardList;

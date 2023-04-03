@@ -19,7 +19,7 @@ function DeleteUser(params) {
     }
 
     return (
-        <Button variant="contained" color="error" onClick={userDelete}>
+        <Button variant="contained" color="error" onClick={userDelete} style={{marginBottom: 20, width: '10rem', height: '3rem'}} >
             계정 삭제
         </Button>
 

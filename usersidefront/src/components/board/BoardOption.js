@@ -1,79 +1,104 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import BoardOptionButton from "./BoardOptionButton"
+import BoardOptionButton from "./BoardOptionButton";
 import ArticleCreateModal from "./ArticleCreateModal";
 
-import styled from "styled-components"
-import { Create, Search, ArrowBack, MoreVert } from "@mui/icons-material"
+import styled from "styled-components";
+import { Create, Search, ArrowBack, MoreVert } from "@mui/icons-material";
 import BoardSearchModal from "./BoardSearchModal";
 import { Container } from "@mui/material";
 
-
 function BoardOption() {
-    const navigate = useNavigate()
-    const [boardOptions, setBoardOptions] = useState([
-        {id: 1, component: Search, onClick: onClickHandler, visible: false, isOpen: false, modal: <BoardSearchModal/>},
-        {id: 2, component: Create, onClick: onClickHandler, visible: false, isOpen: false, modal: <ArticleCreateModal/>},
-    ])
-    
-    const MoreButton = {id: 3, component: MoreVert, onClick: onClickHandler, visible: true, }
-    const moveBack = {id: 4, component: ArrowBack, onClick: () => navigate(-1), visible: true, }
+  const navigate = useNavigate();
+  const [boardOptions, setBoardOptions] = useState([
+    {
+      id: 1,
+      component: Search,
+      onClick: onClickHandler,
+      visible: false,
+      isOpen: false,
+      modal: <BoardSearchModal />,
+    },
+    {
+      id: 2,
+      component: Create,
+      onClick: onClickHandler,
+      visible: false,
+      isOpen: false,
+      modal: <ArticleCreateModal />,
+    },
+  ]);
 
-    function onClickHandler(targetId) {
-        setBoardOptions((prevOptions) =>
-            prevOptions.map((option) =>
-            // ({...option, visible: !option.visible})
-                option.id === targetId ? { ...option, isOpen: true, visible: !option.visible } : { ...option, isOpen: false, visible: !option.visible }
-            )
-        );
-    };
+  const MoreButton = {
+    id: 3,
+    component: MoreVert,
+    onClick: onClickHandler,
+    visible: true,
+  };
+  const moveBack = {
+    id: 4,
+    component: ArrowBack,
+    onClick: () => navigate(-1),
+    visible: true,
+  };
 
-    function onClose() {
-        setBoardOptions((prevOptions) =>
-            prevOptions.map((option) => ({
-                ...option,
-                isOpen: false
-            }))
-        );
-    };
+  function onClickHandler(targetId) {
+    setBoardOptions((prevOptions) =>
+      prevOptions.map((option) =>
+        // ({...option, visible: !option.visible})
+        option.id === targetId
+          ? { ...option, isOpen: true, visible: !option.visible }
+          : { ...option, isOpen: false, visible: !option.visible }
+      )
+    );
+  }
 
+  function onClose() {
+    setBoardOptions((prevOptions) =>
+      prevOptions.map((option) => ({
+        ...option,
+        isOpen: false,
+      }))
+    );
+  }
 
-    return(
-        <PositionProvider >
-            {boardOptions.map(option => {
-                if (option.visible) {
-                    return (
-                        <BoardOptionButton key={option.id} option={option} />
-                    )
-                } else {
-                    return (
-                        <Container key={option.id} >
-                            <ArticleCreateModal isOpen={option?.isOpen && option?.id === 2} onClose={onClose} />
-                            <BoardSearchModal isOpen={option?.isOpen && option?.id === 1} onClose={onClose} />
-                        </Container>
-                    )
-                }
-            })}
-            <BoardOptionButton option={MoreButton}/>
-            <BoardOptionButton option={moveBack} />
-        </PositionProvider>
-    )
-} 
+  return (
+    <PositionProvider>
+      {boardOptions.map((option) => {
+        if (option.visible) {
+          return <BoardOptionButton key={option.id} option={option} />;
+        } else {
+          return (
+            <Container key={option.id}>
+              <ArticleCreateModal
+                isOpen={option?.isOpen && option?.id === 2}
+                onClose={onClose}
+              />
+              <BoardSearchModal
+                isOpen={option?.isOpen && option?.id === 1}
+                onClose={onClose}
+              />
+            </Container>
+          );
+        }
+      })}
+      <BoardOptionButton option={MoreButton} />
+      <BoardOptionButton option={moveBack} />
+    </PositionProvider>
+  );
+}
 
 const PositionProvider = styled.div`
-    position: fixed;
-    bottom: 80px;
-    right: 20px;
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
+  border-radius: 50px;
+`;
 
-    border-radius: 50px;
-
-`
-
-
-export default BoardOption
+export default BoardOption;

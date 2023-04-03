@@ -1,13 +1,9 @@
-import { Button } from "@mui/material"
-// import { useState } from "react"
 import { updateUserInfo } from "../../api/member"
 
+import { Button } from "@mui/material"
+
 function UpdateUser(params) {
-    // const { userInfo } = params
-    const userInfo = {
-        id: 'ssafy',
-        email: 'ssafy@gmail.com'
-    }
+    const { userInfo, isChanging } = params
 
     async function update() {
         await updateUserInfo(
@@ -20,8 +16,8 @@ function UpdateUser(params) {
     }
 
     return (
-        <Button variant="contained" onClick={update} >
-            수정 완료
+        <Button variant="contained" onClick={update} style={{marginBottom: 20, width: '10rem', height: '3rem'}} >
+            {isChanging ? '수정 완료' : '수정하기'}
         </Button>
     )
 }
