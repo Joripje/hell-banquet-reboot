@@ -12,7 +12,7 @@ def check_image(img):
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = nets.resnet34()
-    model.to("cuda")
+    model.to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
 
     transform = transforms.Compose([transforms.Resize((28, 28)),
