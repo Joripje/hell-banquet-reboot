@@ -17,6 +17,7 @@ import MenusTestPage from "./test/MenusTestPage";
 import TestRoutingPage from "./test/TestRoutingPage";
 import LeftoversTestPage from "./test/LeftoversTestPage";
 import AnalysisPage from "./AnalysisPage";
+import RankingPage from "./RankingPage";
 
 const routes = [
   // error pages
@@ -66,6 +67,10 @@ const routes = [
   {
     path: "/analysis",
     element: <AnalysisPage />,
+  },
+  {
+    path: "/ranking",
+    element: <RankingPage />,
   },
   // AI Func
   {

@@ -1,5 +1,5 @@
 import { RecommendAritcle } from "../components/board";
-import { LogedPageTemplate } from "../components/common";
+import { LinkDecoNone, LogedPageTemplate } from "../components/common";
 import { OverviewDailyJanban } from "../components/janban";
 
 import styled from "styled-components";
@@ -23,7 +23,9 @@ function LandingPage() {
           </DailyMenuSection>
         ) : (
           <DailyRankSection>
-            <OverviewRanking />
+            <LinkDecoNone to={"/ranking"}>
+              <OverviewRanking />
+            </LinkDecoNone>
           </DailyRankSection>
         )}
         <RecommendArticleSection>

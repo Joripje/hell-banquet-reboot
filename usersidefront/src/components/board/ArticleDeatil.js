@@ -39,8 +39,8 @@ function ArticleDetail() {
           return data.data.comments;
         },
         (err) => console.log(err)
-      ).then((data) => setComments(data));
-      //   setArtilce(data);
+      );
+      setComments(data);
     };
 
     if (comments[0]?.id === -1) {

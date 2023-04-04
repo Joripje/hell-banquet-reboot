@@ -29,8 +29,10 @@ function RecommendAritcle() {
       <ContainerForNone>
         <Grid container>
           <Grid item xs={6} style={{ textAlign: "center" }}>
+            <Typo fontSize={24} style={{ marginTop: "15px" }}>
+              {todayArticle.writer}
+            </Typo>
             <StaticJanbanImg src={staticJanban} alt='잔반이' />
-            <Typo fontSize={24}>{todayArticle.writer}</Typo>
           </Grid>
           <Grid
             item
@@ -60,13 +62,14 @@ const ContainerForNone = styled.div`
   justify-content: center;
 `;
 
-const Typo = styled.span`
+const Typo = styled.div`
   font-size: 24px;
   text-align: center;
 `;
 
 const StaticJanbanImg = styled.img`
   width: 100%;
+  margin-top: 15px;
 `;
 
 export default RecommendAritcle;

@@ -1,3 +1,4 @@
 import OverviewRanking from "./OverviewRanking";
+import DailyRanking from "./DailyRanking";
 
-export { OverviewRanking };
+export { OverviewRanking, DailyRanking };
