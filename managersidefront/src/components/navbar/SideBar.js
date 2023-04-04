@@ -42,10 +42,9 @@ function SideBar() {
 }
 
 const NavbarContainer = styled.nav`
-  // position: absolute;
-  // width: 200px;
-  // height: 100vh;
-  // border-right: 2px solid black;
+  width: 300px;
+  height: 100vh;
+  border-right: 2px solid black;
 
   @media (max-width: 600px) {
     display: none;

@@ -33,7 +33,8 @@ function DietChange() {
 
   useEffect(() => {
     getMenuByDate(
-      { date: date, managerId: localStorage.getItem("userId") },
+      // { date: date, managerId: localStorage.getItem("userId") },
+      { date: date, managerId: "manager" },
       (data) => {
         return data.data;
       },
@@ -127,6 +128,7 @@ function DietChange() {
 //   width: 100vh;
 // `;
 const Container = styled.div`
+  width: 100%;
   margin: 30px 5% 0px 5%;
 `;
 const FlexBox = styled.div`

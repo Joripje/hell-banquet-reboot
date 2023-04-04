@@ -10,7 +10,7 @@ function MemberUpload() {
   return (
     <>
       <HeaderBar />
-      <div style={{ display: "flex", flexDirection: "column" }}>
+      <div style={{ display: "flex", flexDirection: "row" }}>
         <SideBar />
         <Container>
           <ExcelButton buttonName={"회원 일괄 등록"} />
@@ -30,8 +30,8 @@ function MemberUpload() {
 }
 
 const Container = styled.div`
-  width: 100vh;
-  margin: 30px calc(15%) 0px calc(200px + 15%);
+  width: 100%;
+  margin: 30px 5% 0px 5%;
 `;
 
 const Typo = styled.div`

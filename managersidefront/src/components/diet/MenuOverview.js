@@ -4,7 +4,7 @@ import { getMenuByDate } from "../../api/menu";
 import MenuBox from "./MenuBox";
 import styled from "styled-components";
 
-function MenuOverview() {
+function MenuOverview(params) {
   const [result, setResult] = useState([]);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ function MenuOverview() {
   //   useEffect(() => {}, [result]);
 
   return (
-    <Container>
+    <Container style={params?.style}>
       {result.map((menu, index) => {
         return <MenuBox menu={menu} key={index} />;
       })}

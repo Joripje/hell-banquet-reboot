@@ -8,7 +8,7 @@ function LoginPage() {
   return (
     <>
       <HeaderBar />
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", flexDirection: "row" }}>
         <SideBar />
         <Container>
           <DateSelector />
@@ -25,7 +25,7 @@ function LoginPage() {
 
 const Container = styled.div`
   width: 100%;
-  margin: 30px calc(15%) 0px calc(200px + 15%);
+  margin: 30px 5% 0px 5%;
 `;
 
 const DailyStaticContainer = styled.div`

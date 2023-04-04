@@ -89,6 +89,8 @@ function DietUpload() {
 }
 
 const Container = styled.div`
+  width: 100%;
+
   margin: 30px calc(5%) 0px calc(5%);
 `;
 
