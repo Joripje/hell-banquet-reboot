@@ -67,7 +67,7 @@ const DailyRankSection = styled.section`
 
 const RecommendArticleSection = styled.section`
   ${styleForSection}
-  height: 260px;
+  height: auto;
   justify-content: center;
   margin-bottom: 110px;
 `;

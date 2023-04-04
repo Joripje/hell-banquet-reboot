@@ -10,7 +10,7 @@ function MenuOverview() {
   useEffect(() => {
     const handleGetMenuByDate = async () => {
       await getMenusByDate(
-        { date: "2020-03-01", managerId: "mmy789" },
+        { date: "2023-04-03", managerId: "manager" },
         (data) => {
           return data.data;
         },
