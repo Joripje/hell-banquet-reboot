@@ -106,7 +106,7 @@ function ArticleOption(params) {
     const { iconName, num, myHand } = option;
     const styleForIcon = {
       marginRight: 10,
-      fontSize: 34,
+      fontSize: 20,
       color:
       iconName === Comment 
       ?num !== 0 
@@ -122,8 +122,9 @@ function ArticleOption(params) {
 
     const styleForButton = {
       padding: 0,
-      width: "6rem",
+      width: "4rem",
       height: "3rem",
+      fontSize: "20px",
     };
 
     return (
