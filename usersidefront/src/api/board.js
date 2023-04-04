@@ -32,7 +32,7 @@ async function updateArticle(article, success, fail) {
 async function getArticleDetail(detail, success, fail) {
   const { id, getForm } = detail;
   const res = await api
-    .get(`/boards/${id}/`, { params: getForm })
+    .get(`/boards/${id}`, { params: getForm })
     .then(success)
     .catch(fail);
   return res;
