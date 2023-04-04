@@ -1,6 +1,13 @@
-import http from "./https.js";
+import axios from "axios";
 
-const api = http;
+const api = axios.create({
+  baseURL: "https://j8a802.p.ssafy.io/api/",
+
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
 api.defaults.headers["Authorization"] = localStorage.getItem("auth");
 api.defaults.headers["refreshToken"] = localStorage.getItem("refresh");
 
