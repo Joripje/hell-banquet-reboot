@@ -1,0 +1,16 @@
+bowtie
+cake
+campfire
+cat
+flower
+guitar
+helmet
+moustache
+parachute
+rifle
+shovel
+snorkel
+snowman
+trombone
+trumpet
+umbrella
