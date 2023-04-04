@@ -21,9 +21,14 @@ const StickyHeaderNav = styled.header`
   align-items: center;
 
   width: 100%;
-  height: 60px;
+  height: 65px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   background: #492369;
+
+  background: linear-gradient(
+    rgba(73, 35, 105, 1) 40%,
+    rgba(73, 35, 105, 0.85)
+  );
 
   z-index: 10;
 `;

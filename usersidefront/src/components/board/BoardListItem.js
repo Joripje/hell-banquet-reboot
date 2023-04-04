@@ -17,10 +17,10 @@ function BoardListItem(params) {
     // article.detail이 true인 경우 클릭 이벤트를 처리하지 않습니다.
   };
   return (
-    <div onClick={handleClick}>
+    <div style={{margin: "15px 20px"}}>
       {article?.detail ? (
         // 디테일에서 보이는 게시물
-        <ArticleCard>
+        <ArticleCard onClick={handleClick}>
           <UpDelModal article={article} />
           <Grid container style={makeItCenter}>
             <Grid item xs={4}>
@@ -40,7 +40,7 @@ function BoardListItem(params) {
       ) : (
         // 게시물 목록에서 보이는 게시물
         <LinkDecoNone to={`/board/${article.id}`} state={article}>
-          <ArticleCard>
+          <ArticleCard onClick={handleClick}>
             <UpDelModal article={article} />
             <Grid container style={makeItCenter}>
               <Grid item xs={4} style={{ textAlign: "center" }}>
@@ -72,7 +72,7 @@ function BoardListItem(params) {
 const ArticleCard = styled.div`
   position: relative;
   display: flex;
-  margin: 15px 20px;
+  // margin: 15px 20px;
   height: 200px;
   background: #f9f9f9;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
