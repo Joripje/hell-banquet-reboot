@@ -9,7 +9,7 @@ function BoardOptionButton(params) {
     return (
         <>
             <OptionButton id={id} style={{background: "#A084CA", borderRadius: 40,}} onClick={() => onClick(id)}>
-                <OptionIcon component={component} style={{width: 50, height: 50, }} />
+                <OptionIcon component={component} />
             </OptionButton>
             <br />
         </>
@@ -17,13 +17,15 @@ function BoardOptionButton(params) {
 }
 
 const OptionButton = styled(Button)`
-    width: 80px;
-    height: 80px;
+    width: 50px;
+    height: 50px;
+    background: #A084CA;
+    border-radius: 40;
 `
 
 const OptionIcon = styled(Icon)`
-    width: 60px;
-    height: 60px;
+    width: 10px;
+    height: 10px;
 
     color: black;
 `

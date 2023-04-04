@@ -5,8 +5,8 @@ import styled from "styled-components";
 function StickyHeader() {
   return (
     <StickyHeaderNav>
-      <LinkDecoNone to='/' style={{ textDecoration: "none", color: "black" }}>
-        <span style={{ fontSize: 24, fontWeight: 1000, color: "#edebe9", fontFamily: "KimjungchulMyungjo-Bold" }}>지옥 뷔페</span>
+      <LinkDecoNone to='/'>
+        <TypoStyle>지옥 뷔페</TypoStyle>
       </LinkDecoNone>
     </StickyHeaderNav>
   );
@@ -27,5 +27,13 @@ const StickyHeaderNav = styled.header`
 
   z-index: 10;
 `;
+
+const TypoStyle = styled.p`
+  font-size: 30px; 
+  font-weight: 500; 
+  font-family: Cafe24ClassicType-Regular;
+  color: #edebe9; 
+  text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+`
 
 export default StickyHeader;
