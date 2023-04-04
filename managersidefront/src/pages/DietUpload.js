@@ -42,7 +42,7 @@ function DietUpload() {
   return (
     <>
       <HeaderBar />
-      <div style={{ display: "flex", flexDirection: "column" }}>
+      <div style={{ display: "flex", flexDirection: "row" }}>
         <SideBar />
         <Container>
           <ExcelButton buttonName={"식단 일괄 등록"} />
@@ -77,20 +77,19 @@ function DietUpload() {
           })}
           <br />
           <hr />
-        </Container>
-        <Container style={{ display: "flex", justifyContent: "center" }}>
           <Button variant='outlined' style={styleForButton}>
             등록
           </Button>
         </Container>
+        {/* <Container style={{ display: "flex", justifyContent: "center" }}>
+        </Container> */}
       </div>
     </>
   );
 }
 
 const Container = styled.div`
-  width: 100vh;
-  margin: 30px calc(15%) 0px calc(200px + 15%);
+  margin: 30px calc(5%) 0px calc(5%);
 `;
 
 const FlexBox = styled.div`

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Button, Select, TextField, MenuItem } from "@mui/material";
 
 function DietField(params) {
+  console.log(params);
   const { food, addFood, deleteFood, index } = params;
   const { name, isChild } = food;
   const [category, setCategory] = useState(
