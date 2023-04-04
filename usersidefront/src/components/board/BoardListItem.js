@@ -69,11 +69,14 @@ function BoardListItem(params) {
   );
 }
 
-const ArticleCard = styled(Card)`
+const ArticleCard = styled.div`
   position: relative;
   display: flex;
-  margin: 10px 0px 10px 0px;
+  margin: 15px 20px;
   height: 200px;
+  background: #faf6ee;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 5px 5px 25px 5px;
 `;
 
 const JanvanFace = styled.img`

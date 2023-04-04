@@ -43,7 +43,7 @@ function StickyFooter() {
               style={{
                 width: 40,
                 height: 40,
-                color: pathname === item.url ? "#990000" : "black",
+                color: pathname === item.url ? "#edebe9" : "black",
               }}
             />
           </LinkDecoNone>
@@ -66,7 +66,7 @@ const StickyFooterNav = styled.footer`
   padding: 0px 10% 0px 10%;
   border-radius: 15px 15px 0 0;
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
-  background: #f2cccc;
+  background: #492369;
 
   z-index: 100;
 `;

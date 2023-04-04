@@ -31,6 +31,7 @@ function ArticleCreateModal(params) {
         { writer: localStorage.userId, content: content },
         (data) => {
           console.log(data);
+          window.location.reload()
         },
         (err) => console.log(err)
       );

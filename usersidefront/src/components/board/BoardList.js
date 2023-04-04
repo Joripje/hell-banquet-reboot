@@ -82,7 +82,7 @@ function BoardList() {
 
   return (
     <>
-      <BoardListBox ref={articleListRef} style={{ background: "#FFF3DF" }}>
+      <BoardListBox ref={articleListRef}>
         {articles.map((article, index) => {
           return <BoardListItem article={article} index={index} key={index} />;
         })}
@@ -92,7 +92,7 @@ function BoardList() {
 }
 
 const BoardListBox = styled.div`
-  background: #fff3df;
+  background: #EDEBE9;
   padding: 10px 0px 90px 0px;
 `;
 

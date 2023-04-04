@@ -8,7 +8,7 @@ function BoardOptionButton(params) {
 
     return (
         <>
-            <OptionButton id={id} style={{background: "#B8DDFF", borderRadius: 40,}} onClick={() => onClick(id)}>
+            <OptionButton id={id} style={{background: "#A084CA", borderRadius: 40,}} onClick={() => onClick(id)}>
                 <OptionIcon component={component} style={{width: 50, height: 50, }} />
             </OptionButton>
             <br />

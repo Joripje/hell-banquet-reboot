@@ -51,10 +51,7 @@ function ArticleDetail() {
   return (
     <DetailBox>
       <BoardListItem article={{ ...article, detail: true }} />
-      <div
-        ref={articleListRef}
-        style={{ paddingTop: "100px", paddingBottom: "100px" }}
-      >
+  
         {comments.length === 0 ? (
           <div style={{ textAlign: "center" }}>아직 댓글이 없어요</div>
         ) : (
@@ -64,13 +61,12 @@ function ArticleDetail() {
             );
           })
         )}
-      </div>
     </DetailBox>
   );
 }
 
 const DetailBox = styled.div`
-  background: #fff3df;
+  background: #EDEBE9;
 `;
 
 export default ArticleDetail;
