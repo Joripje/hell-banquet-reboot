@@ -20,19 +20,6 @@ async function getLeftoverData(date, success, fail) {
     .catch(fail);
 }
 
-// FastAPI로 사진을 보내는 POST 요청이 필요합니다
-async function sendLeftoverImg(leftover, success, fail) {
-  const formData = new FormData();
-  formData.append(
-    "board",
-    new Blob([JSON.stringify(leftover)], { type: "application/json" })
-  );
-  formData.append("file", leftover.img);
-
-  api.defaults.headers["Content-Type"] = "multipart/form-data";
-  await api.post(`?????`, formData).then(success).catch(fail);
-}
-
 async function sendLeftoverData(leftover, success, fail) {
   await api
     .post(`/leftovers/register`, JSON.stringify(leftover))
@@ -40,4 +27,4 @@ async function sendLeftoverData(leftover, success, fail) {
     .catch(fail);
 }
 
-export { getDailyRank, getLeftoverData, sendLeftoverImg, sendLeftoverData };
+export { getDailyRank, getLeftoverData, sendLeftoverData };
