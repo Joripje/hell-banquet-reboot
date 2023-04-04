@@ -17,6 +17,7 @@ import MenusTestPage from "./test/MenusTestPage";
 import TestRoutingPage from "./test/TestRoutingPage";
 import LeftoversTestPage from "./test/LeftoversTestPage";
 import AnalysisPage from "./AnalysisPage";
+import ABCGamePage from "./ABCGamePage";
 import RankingPage from "./RankingPage";
 
 const routes = [
@@ -97,6 +98,10 @@ const routes = [
   {
     path: "/test/test/leftovers",
     element: <LeftoversTestPage />,
+  },
+  {
+    path: "/abcgame",
+    element: <ABCGamePage />,
   },
 ];
 
