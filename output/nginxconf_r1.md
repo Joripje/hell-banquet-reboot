@@ -11,10 +11,10 @@ events {
 
 http {
 
-	# -------------------------------------------User-----------------------------------------
-
-    upstream UserFrontServers {
+    upstream FrontServers {
 		server 172.17.0.1:3000;
+		server 172.17.0.1:4000;
+		keepalive 32;
 	}
 
     server {
@@ -42,42 +42,11 @@ http {
 			proxy_pass http://172.17.0.1:3000;
 		}
 
-		location /api {
-				rewrite ^/api(.*)$ $1 break;
-				proxy_pass http://j8a802.p.ssafy.io:8000;
-		}
-
-	}
-
-	# -------------------------------------------Manager-----------------------------------------
-		
-    upstream ManagerFrontServers {
-		server 172.17.0.1:4000;
-	}
-		
-	server {
-			listen 80;
-			listen [::]:80;
-			server_name j8a802.p.ssafy.io/manager;
-			location / {
-				return 301 https://j8a802.p.ssafy.io/manager;
-			}
-		}
-
-    server {
-		listen 443 ssl;
-		listen [::]:443 ssl;
-		server_name j8a802.p.ssafy.io/manager;
-
-		access_log /var/log/nginx/access.log;
-		error_log /var/log/nginx/error.log;
-
-		ssl_certificate /etc/letsencrypt/live/j8a802.p.ssafy.io/fullchain.pem;
-		ssl_certificate_key /etc/letsencrypt/live/j8a802.p.ssafy.io/privkey.pem;
-
 		location /manager {
 			proxy_pass http://172.17.0.1:4000;
 		}
+
+
 
 		location /api {
 				rewrite ^/api(.*)$ $1 break;
