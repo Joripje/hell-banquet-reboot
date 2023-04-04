@@ -26,17 +26,20 @@ function ArticleDetail() {
   useEffect(() => {
     const getMoreComment = async () => {
       const data = await getArticleDetail(
-        { id: location.state.id, getForm: { lastCommentId: -1, size: 10 } },
+        {
+          id: location.state.id,
+          getForm: {
+            lastCommentId: -1,
+            size: 10,
+            userId: localStorage.getItem("userId"),
+          },
+        },
         (data) => {
-          return data.data;
+          console.log(data);
+          return data.data.comments;
         },
         (err) => console.log(err)
-      );
-      if (comments[0]?.id === -1) {
-        setComments(data.comments);
-      } else {
-        setComments([...comments, ...data.comments]);
-      }
+      ).then((data) => setComments(data));
       //   setArtilce(data);
     };
 
