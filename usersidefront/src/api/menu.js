@@ -22,6 +22,8 @@ async function createMenus(menu, success, fail) {
 }
 
 async function getMenusByDate(data, success, fail) {
+  api.defaults.headers["Authorization"] = localStorage.getItem("auth");
+  api.defaults.headers["refreshToken"] = localStorage.getItem("refresh");
   const res = await api
     .get(`/menus/date`, { params: data })
     .then(success)

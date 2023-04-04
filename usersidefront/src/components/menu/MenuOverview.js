@@ -5,28 +5,29 @@ import MenuBox from "./MenuBox";
 import styled from "styled-components";
 
 function MenuOverview() {
-  const [result, setResult] = useState([]);
+  const [result, setResult] = useState();
 
   useEffect(() => {
-    const handleGetMenuByDate = async () => {
-      await getMenusByDate(
-        { date: "2023-04-03", managerId: "manager" },
-        (data) => {
-          return data.data;
-        },
-        (err) => console.log(err)
-      ).then((data) => {
-        setResult(data);
-      });
-    };
-    handleGetMenuByDate();
+      const handleGetMenuByDate = async () => {
+        await getMenusByDate(
+          { date: "2023-04-03", managerId: "manager" },
+          (data) => {
+            return data.data;
+          },
+          (err) => console.log(err)
+        ).then((data) => {
+          setResult(data);
+        });
+
+      }
+      handleGetMenuByDate();
   }, []);
 
-  //   useEffect(() => {}, [result]);
+  // useEffect(() => {}, [result, localStorage]);
 
   return (
     <Container>
-      {result.map((menu, index) => {
+      {result?.map((menu, index) => {
         return <MenuBox menu={menu} key={index} />;
       })}
     </Container>

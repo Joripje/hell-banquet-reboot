@@ -12,7 +12,7 @@ function MenuBox(params) {
         {menu.type}: {menu.category === "KOREAN" ? "한식" : "일품"}
       </p>
       <hr style={{ marginBottom: 25 }} />
-      {menu.menuItems.map((item) => {
+      {menu?.menuItems.map((item) => {
         return <TypoForMenus key={item}>{item}</TypoForMenus>;
       })}
     </Box>
