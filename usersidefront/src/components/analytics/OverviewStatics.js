@@ -3,50 +3,39 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 import { Doughnut } from "react-chartjs-2";
 
-import { getAnalysis } from "../../api/leftover";
+import { getLeftover } from "../../api/leftover";
 
 import styled from "styled-components";
 
 function OverviewStatics(params) {
-  const { date, course } = params;
-  const [info, setInfo] = useState([
-    {
-      id: 1,
-      served: 1062,
-      leftovers: 59,
-      courseNo: 1,
-      date: "2023-03-24",
-    },
-    {
-      id: 1,
-      served: 1062,
-      leftovers: 59,
-      courseNo: 1,
-      date: "2023-03-24",
-    },
-  ]);
+  // const { date, course,  } = params;
+  const date = "2023-04-04";
+  const userId = "manager";
+  const [info, setInfo] = useState([10, 10]);
 
   ChartJS.register(ArcElement, Tooltip, Legend);
 
   useEffect(() => {
-    getAnalysis(
-      { startDate: date, endDate: date },
+    getLeftover(
+      { userId: userId, date: date },
       (data) => {
         return data.data;
       },
       (err) => console.log(err)
-    ).then((data) => setInfo(data));
+    ).then((data) => setInfo([data?.before, data?.after]));
   }, [date]);
 
   const chartData = {
     labels: ["배식량", "잔반량"],
     datasets: [
       {
-        data: [info[course].served, info[course].leftovers],
-        backgroundColor: ["#63C132", "#F44336"],
+        data: [info[0], info[1]],
+        backgroundColor: ["#078767", "#FF0000"],
       },
     ],
   };
+
+  useEffect(() => {}, [info]);
 
   return (
     <CicleStaticContainer>

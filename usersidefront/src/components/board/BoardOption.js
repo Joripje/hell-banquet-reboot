@@ -10,6 +10,7 @@ import { Container } from "@mui/material";
 
 function BoardOption() {
   const navigate = useNavigate();
+  const [scrollY, setScrollY] = useState(window.scrollY);
   const [boardOptions, setBoardOptions] = useState([
     // {
     //   id: 1,
@@ -62,8 +63,12 @@ function BoardOption() {
     );
   }
 
+  window.addEventListener("scroll", () => {
+    setScrollY(window.scrollY);
+  });
+
   return (
-    <PositionProvider>
+    <PositionProvider scrollY={scrollY} screenHeight={window.screen.height}>
       {boardOptions.map((option) => {
         if (option.visible) {
           return <BoardOptionButton key={option.id} option={option} />;
@@ -89,8 +94,10 @@ function BoardOption() {
 }
 
 const PositionProvider = styled.div`
-  position: fixed;
-  bottom: 80px;
+  position: absolute;
+  top: calc(
+    ${(props) => props.screenHeight}px - 200px + ${(props) => props.scrollY}px
+  );
   right: 20px;
 
   display: flex;

@@ -1,5 +1,6 @@
 import { LinkDecoNone } from "../common";
 import { useLocation } from "react-router-dom";
+import atlas from "../../assets/images/atlas.png";
 
 import styled from "styled-components";
 import { Icon } from "@mui/material";
@@ -10,9 +11,11 @@ import {
   Home,
   BarChart,
 } from "@mui/icons-material";
+import { useEffect, useState } from "react";
 
 function StickyFooter() {
   const location = useLocation();
+  const [scrollY, setScrollY] = useState(window.scrollY);
 
   const navlist = [
     { name: "게시판", icon: Forum, url: "/board" },
@@ -26,40 +29,55 @@ function StickyFooter() {
     },
   ];
 
+  window.addEventListener("scroll", () => {
+    setScrollY(window.scrollY);
+  });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
-    <StickyFooterNav>
-      {navlist.map((item) => {
-        const pathname = location.pathname;
-        return (
-          <LinkDecoNone
-            to={item.url}
-            key={item.name}
-            style={{
-              textDecoration: "none",
-            }}
-          >
-            <Icon
-              component={item.icon}
+    <>
+      <StickyFooterNav scrollY={scrollY}>
+        {navlist.map((item) => {
+          const pathname = location.pathname;
+          return (
+            <LinkDecoNone
+              to={item.url}
+              key={item.name}
               style={{
-                width: 40,
-                height: 40,
-                color: pathname.includes(item.url)
-                  ? item.name === "홈" && pathname !== "/"
-                    ? "black"
-                    : "#edebe9"
-                  : "black",
+                textDecoration: "none",
               }}
-            />
-          </LinkDecoNone>
-        );
-      })}
-    </StickyFooterNav>
+            >
+              <Icon
+                component={item.icon}
+                style={{
+                  width: 40,
+                  height: 40,
+                  color: pathname.includes(item.url)
+                    ? item.name === "홈" && pathname !== "/"
+                      ? "black"
+                      : "#edebe9"
+                    : "black",
+                }}
+              />
+            </LinkDecoNone>
+          );
+        })}
+        <img
+          style={{ position: "absolute", top: "100%" }}
+          src={atlas}
+          alt='atlas'
+        />
+      </StickyFooterNav>
+    </>
   );
 }
 
 const StickyFooterNav = styled.footer`
-  position: fixed;
-  bottom: 0px;
+  position: absolute;
+  top: calc(100vh - 65px + ${(props) => props.scrollY}px);
 
   display: flex;
   justify-content: space-between;

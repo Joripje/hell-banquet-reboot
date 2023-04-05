@@ -1,6 +1,8 @@
 import { LogedPageTemplate } from "../components/common";
 import { ProfileUserInfo } from "../components/user";
 import { OverviewDailyJanban } from "../components/janban";
+import { OverviewStatics } from "../components/analytics";
+
 import { useNavigate } from "react-router-dom";
 
 import { logout } from "../api/auth";
@@ -33,7 +35,9 @@ function UserPage() {
         <UserInfoSection to='/'>
           <ProfileUserInfo />
         </UserInfoSection>
-        <StatisticsSection>여긴 통계가 들어가야해요</StatisticsSection>
+        <StatisticsSection>
+          <OverviewStatics />
+        </StatisticsSection>
         <Button
           onClick={onLogoutHandler}
           color='error'
@@ -56,7 +60,7 @@ const styleForContainer = {
 
 const styleForSection = `
     width: 100%;
-    height: 200px;
+    height: auto;
     background: #E5E5E5;
 
     margin: 15px 0px 15px 0px;
@@ -71,7 +75,6 @@ const JanbanSection = styled.section`
 `;
 const UserInfoSection = styled.section`
   ${styleForSection}
-  height: 290px;
   background: #d0bcff;
 `;
 const StatisticsSection = styled.section`

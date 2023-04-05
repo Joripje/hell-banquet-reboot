@@ -6,12 +6,12 @@ api.defaults.headers["Authorization"] = localStorage.getItem("auth");
 api.defaults.headers["refreshToken"] = localStorage.getItem("refresh");
 
 async function getLeftover(info, success, fail) {
-  await api
+  const res = await api
     .get(`/leftovers`, { params: info })
     .then(success)
     .catch(fail);
+  return res;
 }
-
 
 async function getLeftoverData(date, success, fail) {
   await api
@@ -56,4 +56,12 @@ async function sendLeftoverData(leftover, success, fail) {
     .catch(fail);
 }
 
-export { getLeftover, getCookieGameInfo, getDailyRank, getLeftoverData, sendLeftoverData, putDrawingGameInfo, getDrawingGameInfo };
+export {
+  getLeftover,
+  getCookieGameInfo,
+  getDailyRank,
+  getLeftoverData,
+  sendLeftoverData,
+  putDrawingGameInfo,
+  getDrawingGameInfo,
+};
