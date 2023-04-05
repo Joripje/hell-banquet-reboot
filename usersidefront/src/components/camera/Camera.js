@@ -1,60 +1,67 @@
-import React, { useRef, useState, forwardRef, useImperativeHandle } from 'react';
-import styled from 'styled-components';
-import { Button,  } from '@mui/material';
+import React, {
+  useRef,
+  useState,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
+import styled from "styled-components";
+import { Button } from "@mui/material";
 
 const Camera = forwardRef(({ onCapture }, ref) => {
   const videoRef = useRef();
   const canvasRef = useRef();
   const streamRef = useRef();
-  const [ isRecording, setIsRecording ] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
 
   useImperativeHandle(ref, () => ({
     startStream: startStream,
   }));
 
-    const startStream = async () => {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-                videoRef.current.srcObject = stream;
-                streamRef.current = stream;
-                setIsRecording(true);
-            } catch (err) {
-                console.error(err);
-            }
-    };
+  const startStream = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      videoRef.current.srcObject = stream;
+      streamRef.current = stream;
+      setIsRecording(true);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-    const takePicture = () => {
-        const canvas = canvasRef.current;
-        const video = videoRef.current;
-        const stream = streamRef.current;
+  const takePicture = () => {
+    const canvas = canvasRef.current;
+    const video = videoRef.current;
+    const stream = streamRef.current;
 
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        
-        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-        
-        canvas.toBlob(blob => {
-            onCapture(blob);
-        }, 'image/jpeg');
-        
-        if (stream) {
-            stream.getTracks().forEach((track) => track.stop());
-            setIsRecording(false);
-        }
-    };
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
 
-    return (
-        <>
-        <VideoContainer>
-            <Video ref={videoRef} autoPlay />
-            {isRecording ? <Rectangle /> : <></>}
-            <canvas ref={canvasRef} style={{ display: 'none' }} />
-        </VideoContainer>
-        <Container>
-            <Button onClick={takePicture} variant="contained">내가 왜 열심히 했지...? 그냥 적당히 하면서 취준이나 할걸</Button>
-        </Container>
-        </>
-    );
+    canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    canvas.toBlob((blob) => {
+      onCapture(blob);
+    }, "image/jpeg");
+
+    if (stream) {
+      stream.getTracks().forEach((track) => track.stop());
+      setIsRecording(false);
+    }
+  };
+
+  return (
+    <>
+      <VideoContainer>
+        <Video ref={videoRef} autoPlay />
+        {isRecording ? <Rectangle /> : <></>}
+        <canvas ref={canvasRef} style={{ display: "none" }} />
+      </VideoContainer>
+      <Container>
+        <Button onClick={takePicture} variant="contained">
+          ㅜ
+        </Button>
+      </Container>
+    </>
+  );
 });
 
 const Container = styled.div`
