@@ -1,12 +1,16 @@
 import { LinkDecoNone } from "../common";
 
 import styled from "styled-components";
+import WaiterSrc from "../../assets/images/waiter.png"
 
 function StickyHeader() {
   return (
     <StickyHeaderNav>
       <LinkDecoNone to='/'>
-        <TypoStyle>지옥 뷔페</TypoStyle>
+        <HeaderStyle>
+          <WaiterImg src={WaiterSrc}/>
+          <TypoStyle>지옥 뷔페</TypoStyle>
+        </HeaderStyle>
       </LinkDecoNone>
     </StickyHeaderNav>
   );
@@ -39,6 +43,19 @@ const TypoStyle = styled.p`
   font-family: Cafe24ClassicType-Regular;
   color: #edebe9; 
   text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
+  margin: 0;
+`
+
+const WaiterImg = styled.img`
+  height: 50px;
+  transform: scaleX(-1);
+  margin-right: 10px;
+`
+
+const HeaderStyle = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 export default StickyHeader;

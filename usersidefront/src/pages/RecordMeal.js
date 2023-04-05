@@ -8,6 +8,11 @@ import styled from "styled-components";
 import { Button } from "@mui/material";
 import { postRecordMeal } from "../api/ai";
 import { sendLeftoverData } from "../api/leftover";
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import ReplayIcon from '@mui/icons-material/Replay';
+import { green } from '@mui/material/colors';
+
+import PlateSrc from "../assets/images/plate.png"
 
 function RecordMeal() {
   const navigate = useNavigate();
@@ -92,17 +97,22 @@ function RecordMeal() {
           {mealImages[0] === undefined ? (
             <MealAlt src={mealImages[0]}>Before</MealAlt>
           ) : (
-            <Button
-              style={sytleForButton}
-              variant='contained'
-              color='warning'
-              onClick={(event) => handleUploadImg(event, 0)}
-            >
-              제출하기
-            </Button>
+            // <Button
+            //   style={sytleForButton}
+            //   variant='contained'
+            //   color='warning'
+            //   onClick={(event) => handleUploadImg(event, 0)}
+            // >
+            //   제출하기
+            // </Button>
+            <>
+              <CheckCircleOutlineIcon sx={{ color: green[500] }} style={sytleForButton} onClick={(event) => handleUploadImg(event, 0)}/>
+              <ReplayIcon color="primary" style={sytleForRetryButton}/>
+            </>
           )}
         </MealBox>
         <MealBox>
+          {/* <PlateImg src={PlateSrc}/> */}
           <MealInput
             type='file'
             accept='image/*'
@@ -117,23 +127,28 @@ function RecordMeal() {
           {mealImages[1] === undefined ? (
             <MealAlt src={mealImages[0]}>After</MealAlt>
           ) : (
-            <Button
-              style={sytleForButton}
-              variant='contained'
-              color='warning'
-              onClick={(event) => handleUploadImg(event, 1)}
-            >
-              제출하기
-            </Button>
+            // <Button
+            // style={sytleForButton}
+            // variant='contained'
+            // color='warning'
+            // onClick={(event) => handleUploadImg(event, 1)}
+            // >
+            //   제출하기
+            // </Button>
+            <>
+              <CheckCircleOutlineIcon sx={{ color: green[500] }} style={sytleForButton} onClick={(event) => handleUploadImg(event, 0)}/>
+              <ReplayIcon color="primary" style={sytleForRetryButton}/>
+            </>
           )}
         </MealBox>
+        <MessageBox>정말 제출하시겠습니까?</MessageBox>
         <Button
           variant='contained'
-          style={{ width: "50%", marginTop: 30 }}
+          style={{ width: "40%", backgroundColor: "#950101" }}
           size='large'
           onClick={handleSubmit}
         >
-          최종제출
+          <TypoStyle>예</TypoStyle>
         </Button>
         {/* <TextField type='file' accept='image/*' onChange={handleUploadImg} />, */}
       </StyledContainer>
@@ -144,20 +159,43 @@ function RecordMeal() {
 const styleForSection = `
     width: 100%;
     height: 300px;
-    background: #E5E5E5;
+    background-image: url(${PlateSrc});
+    background-size: contain;
+    background-repeat:no-repeat;
+    background-position: center;
+    // background: #E5E5E5;
 
     border-radius: 30px;
 `;
 
 const sytleForButton = {
   position: "absolute",
-  right: "0%",
-  bottom: "0%",
+  right: "5%",
+  bottom: "5%",
   // transform: "translate(-50%, -50%)",
   zIndex: 2,
 
-  width: "30%",
-  height: "20%",
+  width: "60px",
+  height: "60px",
+
+  cursor: "pointer",
+  backgroundColor: "rgba(255, 255, 255, 0.8)",
+  borderRadius: "35px",
+};
+
+const sytleForRetryButton = {
+  position: "absolute",
+  left: "5%",
+  bottom: "5%",
+  // transform: "translate(-50%, -50%)",
+  zIndex: 2,
+
+  width: "60px",
+  height: "60px",
+
+  cursor: "pointer",
+  backgroundColor: "rgba(255, 255, 255, 0.8)",
+  borderRadius: "35px",
 };
 
 const StyledContainer = styled.div`
@@ -193,5 +231,25 @@ const MealAlt = styled.p`
   font-size: 36px;
   font-weight: 1000;
 `;
+
+// const PlateImg = styled.img`
+//   width: 600px;
+//   height: 480px;
+// `
+
+const styleForTypo = {
+  fontFamily: "ChosunCentennial",
+  margin: 0,
+}
+
+const TypoStyle = styled.p`
+  ${styleForTypo}
+`
+
+const MessageBox = styled.p`
+  ${styleForTypo}
+  font-size: 20px;
+  padding: 20px;
+`
 
 export default RecordMeal;
