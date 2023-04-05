@@ -13,12 +13,20 @@ import UserInfoChangePage from "./user/UserInfoChangePage";
 import RecordMeal from "./user/RecordMeal";
 import DrawingPage from "./user/DrawingPage";
 import JanbanPresentPage from "./user/JanbanPresentPage";
-import MenusTestPage from "./test/MenusTestPage";
-import TestRoutingPage from ".//test/TestRoutingPage";
-import LeftoversTestPage from "./test/LeftoversTestPage";
 import AnalysisPage from "./user/AnalysisPage";
 import ABCGamePage from "./user/ABCGamePage";
 import RankingPage from "./user/RankingPage";
+
+import ManagerLoginPage from "./manager/LoginPage";
+import ManagerLandingPage from "./manager/ManagerLandingPage";
+import DietUpload from "./manager/DietUpload";
+import DietChange from "./manager/DietChange";
+import MemberUpload from "./manager/MemberUpload";
+import MemberRead from "./manager/MeberRead";
+
+import MenusTestPage from "./test/MenusTestPage";
+import TestRoutingPage from "./test/TestRoutingPage";
+import LeftoversTestPage from "./test/LeftoversTestPage";
 
 const routes = [
   // error pages
@@ -85,6 +93,39 @@ const routes = [
   {
     path: "/janban",
     element: <JanbanPresentPage />,
+  },
+  // Manager
+  {
+    path: "/manager/login",
+    element: <ManagerLoginPage />,
+  },
+  {
+    path: "/manager",
+    element: <ManagerLandingPage />,
+  },
+  {
+    path: "/manager/diet/upload",
+    element: <DietUpload />,
+  },
+  {
+    path: "/manager/diet/update",
+    element: <DietChange />,
+  },
+  {
+    path: "/manager/statistics/daily",
+    element: <LandingPage />,
+  },
+  {
+    path: "/manager/statistics/weekly",
+    element: <LandingPage />,
+  },
+  {
+    path: "/manager/member/upload",
+    element: <MemberUpload />,
+  },
+  {
+    path: "manager/member/read",
+    element: <MemberRead />,
   },
   // Testing
   {

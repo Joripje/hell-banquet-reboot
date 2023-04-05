@@ -166,7 +166,7 @@ function Canvas(params) {
           height={390}
         />
         {isFinished && (
-          <Button variant="contained" onClick={checkCorrect}>
+          <Button variant='contained' onClick={checkCorrect}>
             결과를 알아볼까요?!
           </Button>
         )}

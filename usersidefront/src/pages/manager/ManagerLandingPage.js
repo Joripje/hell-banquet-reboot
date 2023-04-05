@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { HeaderBar, SideBar } from "../../components/navbar";
 import { DateSelector } from "../../components/common";
-import MenuOverview from "../components/diet/MenuOverview";
-import DailyStatistics from "../components/statistics/DailyStatistics";
+import MenuOverview from "../../components/diet/MenuOverview";
+import DailyStatistics from "../../components/statistics/DailyStatistics";
 
-function LoginPage() {
+function ManagerLandingPage() {
   return (
     <>
       <HeaderBar />
@@ -38,4 +38,4 @@ const DailyStaticContainer = styled.div`
   margin: 4% 0 4% 0;
 `;
 
-export default LoginPage;
+export default ManagerLandingPage;

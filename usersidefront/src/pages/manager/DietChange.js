@@ -1,11 +1,12 @@
-import { DateSelector } from "../components/common";
-import { HeaderBar, SideBar } from "../components/navbar";
+import { useEffect, useState } from "react";
+
+import { DateSelector } from "../../components/common";
+import { HeaderBar, SideBar } from "../../components/navbar";
+import { DietField, ExcelButton } from "../../components/diet";
+import { getMenusByDate } from "../../api/menu";
 
 import styled from "styled-components";
-import { DietField, ExcelButton } from "../components/diet";
-import { useEffect, useState } from "react";
 import { Button, ButtonGroup } from "@mui/material";
-import { getMenuByDate } from "../api/menu";
 
 function DietChange() {
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
@@ -32,7 +33,7 @@ function DietChange() {
   const [selectedButton, setSelectedButton] = useState("A");
 
   useEffect(() => {
-    getMenuByDate(
+    getMenusByDate(
       // { date: date, managerId: localStorage.getItem("userId") },
       { date: date, managerId: "manager" },
       (data) => {

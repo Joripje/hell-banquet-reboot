@@ -1,5 +1,5 @@
-import { ExcelButton } from "../components/common";
-import { HeaderBar, SideBar } from "../components/navbar";
+import { ExcelButton } from "../../components/common";
+import { HeaderBar, SideBar } from "../../components/navbar";
 
 import styled from "styled-components";
 // import { Button, Icon } from "@mui/material";

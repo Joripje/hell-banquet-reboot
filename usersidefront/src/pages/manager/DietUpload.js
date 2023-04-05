@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
-import { HeaderBar, SideBar } from "../components/navbar";
-import { DateSelector, ExcelButton } from "../components/common";
-import { DietField } from "../components/diet";
+import { HeaderBar, SideBar } from "../../components/navbar";
+import { DateSelector, ExcelButton } from "../../components/common";
+import { DietField } from "../../components/diet";
 
 import styled from "styled-components";
 import { Button, ButtonGroup } from "@mui/material";

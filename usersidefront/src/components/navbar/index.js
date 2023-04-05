@@ -1,5 +1,6 @@
-import StickyHeader from './StickyHeader'
-import StickyFooter from './StickyFooter'
+import StickyHeader from "./StickyHeader";
+import StickyFooter from "./StickyFooter";
+import HeaderBar from "./HeaderBar";
+import SideBar from "./SideBar";
 
-
-export { StickyFooter, StickyHeader }
+export { StickyFooter, StickyHeader, HeaderBar, SideBar };
