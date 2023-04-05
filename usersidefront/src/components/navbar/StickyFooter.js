@@ -65,11 +65,11 @@ function StickyFooter() {
             </LinkDecoNone>
           );
         })}
-        <img
+        {/* <img
           style={{ position: "absolute", top: "100%" }}
           src={atlas}
           alt='atlas'
-        />
+        /> */}
       </StickyFooterNav>
     </>
   );

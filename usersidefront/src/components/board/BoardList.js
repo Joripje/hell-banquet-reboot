@@ -96,7 +96,6 @@ function BoardList() {
 
 const BoardListBox = styled.div`
   // background: #EDEBE9;
-  background: url("../../assets/bg_purple.png");
   padding: 10px 0px 90px 0px;
 `;
 

@@ -44,6 +44,8 @@ const TypoStyle = styled.p`
   color: #edebe9; 
   text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
   margin: 0;
+  width: 100%;
+  white-space: nowrap;
 `
 
 const WaiterImg = styled.img`

@@ -16,7 +16,7 @@ function BoardListItem(params) {
     // article.detail이 true인 경우 클릭 이벤트를 처리하지 않습니다.
   };
   return (
-    <div style={{margin: "15px 20px"}}>
+    <div style={{margin: "25px 30px"}}>
       {article?.detail ? (
         // 디테일에서 보이는 게시물
         <ArticleCard onClick={handleClick}>
@@ -73,7 +73,7 @@ const ArticleCard = styled.div`
   display: flex;
   // margin: 15px 20px;
   height: 200px;
-  background: #f9f9f9;
+  background: #faf6ee;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 25px 5px 25px 5px;
 `;
