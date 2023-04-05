@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 function DrawSubject(params) {
   const { subjectIndex } = params;
+  // const subject = '조재경'
   const subjects = [
     "나비넥타이",
     "케이크",
@@ -19,12 +20,10 @@ function DrawSubject(params) {
     "트럼펫",
     "우산",
   ];
-  // const subject = '조재경'
-
   return (
     <ColumnBox>
       <MyTypo fontSize="40">주제</MyTypo>
-      <MyTypo fontSize="100">{subjects[subjectIndex]}</MyTypo>
+      {subjectIndex && <MyTypo fontSize="100">{subjects[subjectIndex]}</MyTypo>}
     </ColumnBox>
   );
 }

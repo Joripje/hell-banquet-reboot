@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { Button } from "@mui/material";
 import axios from "axios";
 import styled from "styled-components";
+import { putDrawingGameInfo } from "../../api/leftover";
 
 function Canvas(params) {
   const { isStarted, isFinished, subjectIndex } = params;
@@ -25,13 +26,48 @@ function Canvas(params) {
     "trumpet",
     "umbrella",
   ];
-
+  const subjectsKorean = [
+    "나비넥타이",
+    "케이크",
+    "캠프파이어",
+    "고양이",
+    "꽃",
+    "기타",
+    "헬멧",
+    "콧수영",
+    "낙하산",
+    "총",
+    "삽",
+    "스노클",
+    "눈사람",
+    "트럼펫",
+    "우산",
+  ];
   // 캔버스 context 가져오기
   const getCanvasContext = () => {
     const canvas = canvasRef.current;
     return canvas.getContext("2d");
   };
-
+  const putDrawResult = async (c) => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, "0");
+    const day = today.getDate().toString().padStart(2, "0");
+    const todayString = `${year}-${month}-${day}`;
+    await putDrawingGameInfo(
+      {
+        propName: c,
+        today: todayString,
+        userId: localStorage.userId,
+      },
+      (data) => {
+        console.log(data);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  };
   const checkCorrect = async () => {
     try {
       const canvas = canvasRef.current;
@@ -51,6 +87,11 @@ function Canvas(params) {
         );
         console.log(response);
         console.log(subjects[subjectIndex]);
+        if (response.data.success) {
+          putDrawResult(subjectsKorean[subjectIndex]);
+        } else {
+          putDrawResult("None");
+        }
       }, "image/png");
     } catch (error) {
       alert(error.message);
@@ -68,6 +109,7 @@ function Canvas(params) {
 
   // 그리기 시작
   const startDrawing = (event) => {
+    event.preventDefault();
     const context = getCanvasContext();
     const { x, y } = getTouchPosition(event.touches[0]);
     context.beginPath();
@@ -77,6 +119,7 @@ function Canvas(params) {
 
   // 그리기 중
   const draw = (event) => {
+    event.preventDefault();
     if (!isDrawing) return;
     const context = getCanvasContext();
     const { x, y } = getTouchPosition(event.touches[0]);
@@ -95,7 +138,7 @@ function Canvas(params) {
 
     // 선 스타일 설정
     context.strokeStyle = "#000000"; // 검은색
-    context.lineWidth = 10;
+    context.lineWidth = 16;
     context.lineJoin = "round";
     context.lineCap = "round";
   }, []);
