@@ -111,8 +111,8 @@ function RecordMeal() {
       <StyledContainer style={{ marginBottom: 100, marginTop: 30 }}>
         <MealBox>
           <MealInput
-            type='file'
-            accept='image/*'
+            type="file"
+            accept="image/*"
             onChange={(event) => handleTakeImg(event, 0)}
           />
           <MealImg
@@ -137,8 +137,8 @@ function RecordMeal() {
         <MealBox>
           {/* <PlateImg src={PlateSrc}/> */}
           <MealInput
-            type='file'
-            accept='image/*'
+            type="file"
+            accept="image/*"
             onChange={(event) => handleTakeImg(event, 1)}
           />
           <MealImg
@@ -156,19 +156,26 @@ function RecordMeal() {
                 style={sytleForButton}
                 onClick={(event) => handleUploadImg(event, 0)}
               />
-              <ReplayIcon color='primary' style={sytleForRetryButton} />
+              <ReplayIcon color="primary" style={sytleForRetryButton} />
             </>
           )}
         </MealBox>
-        <MessageBox>정말 제출하시겠습니까?</MessageBox>
-        <Button
-          variant='contained'
-          style={{ width: "40%", backgroundColor: "#950101" }}
-          size='large'
-          onClick={handleSubmit}
-        >
-          <TypoStyle>예</TypoStyle>
-        </Button>
+        {isUploaded[0] !== false && isUploaded[1] !== false ? (
+          <>
+            <MessageBox>정말 제출하시겠습니까?</MessageBox>
+            <Button
+              variant="contained"
+              style={{ width: "40%", backgroundColor: "#950101" }}
+              size="large"
+              onClick={handleSubmit}
+            >
+              <TypoStyle>예</TypoStyle>
+            </Button>
+          </>
+        ) : (
+          <></>
+        )}
+        {/* <TextField type='file' accept='image/*' onChange={handleUploadImg} />, */}
       </StyledContainer>
     </>
   );
@@ -230,10 +237,10 @@ const MealBox = styled.label`
   position: relative;
   justify-content: center;
   align-items: center;
-  background-image: url(${PlateSrc};
-  background-size: "contain";
-  background-repeat: "no-repeat";
-  background-position: "center";;;;;;;;;
+  background-image: url(${PlateSrc});
+  background-size: contain;
+  background-repeat:no-repeat;
+  background-position: center;
 `;
 
 const MealInput = styled.input`
