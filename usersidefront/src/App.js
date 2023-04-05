@@ -18,7 +18,6 @@ function App() {
           // backgroundColor: "#EDEBE9",
           backgroundImage: `url(${BgImg})`,
           backgroundSize: "cover",
-          transform: "rotate(0)",
           minHeight: "100vh",
           height: "auto",
           paddingBottom: "65px",

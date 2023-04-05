@@ -30,7 +30,8 @@ function OverviewStatics(params) {
     datasets: [
       {
         data: [info[0], info[1]],
-        backgroundColor: ["#078767", "#FF0000"],
+        // backgroundColor: ["#078767", "#FF0000"],
+        backgroundColor: ["#93329E", "#440A67"],
       },
     ],
   };

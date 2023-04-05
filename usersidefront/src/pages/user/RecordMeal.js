@@ -109,6 +109,9 @@ function RecordMeal() {
   return (
     <>
       <LogedPageTemplate />
+      <MessageBox>
+        <TypoStyle>식판 사진을 업로드</TypoStyle>
+      </MessageBox>
       <StyledContainer style={{ marginBottom: 100, marginTop: 30 }}>
         <MealBox>
           <MealInput
@@ -238,10 +241,6 @@ const MealBox = styled.label`
   position: relative;
   justify-content: center;
   align-items: center;
-  background-image: url(${PlateSrc});
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
 `;
 
 const MealInput = styled.input`

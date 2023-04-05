@@ -76,9 +76,8 @@ function StickyFooter() {
 }
 
 const StickyFooterNav = styled.footer`
-  position: absolute;
-  top: calc(100vh - 65px + ${(props) => props.scrollY}px);
-
+  position: fixed;
+  bottom: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -96,6 +95,11 @@ const StickyFooterNav = styled.footer`
   );
 
   z-index: 100;
+  @media (min-width: 600px) {
+    display: none;
+  }
 `;
+// position: absolute;
+// top: calc(100vh - 65px + ${(props) => props.scrollY}px);
 
 export default StickyFooter;
