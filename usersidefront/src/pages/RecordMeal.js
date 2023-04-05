@@ -17,17 +17,25 @@ function RecordMeal() {
   const navigate = useNavigate();
   const [mealImages, setMealImages] = useState([undefined, undefined]);
   const [isUploaded, setIsUploaded] = useState([false, false]);
-  console.log(isUploaded);
 
   const handleTakeImg = (event, target) => {
     const file = event.target?.files[0];
     if (!file) return;
 
-    const imageUrl = URL.createObjectURL(file);
-    const newImage = [...mealImages];
-    newImage[target] = imageUrl;
-    setMealImages(newImage);
+    shrinkImage(file)
+      .then((blob) => {
+        const imageUrl = URL.createObjectURL(blob);
+        const newImage = [...mealImages];
+        newImage[target] = imageUrl;
+        setMealImages(newImage);
+
+        const newMealImg = [...mealImages];
+        newMealImg[target] = imageUrl;
+        setMealImages(newMealImg);
+      })
+      .catch((error) => console.error(error));
   };
+  console.log(mealImages[0]);
 
   const handleUploadImg = async (event, target) => {
     event.preventDefault();
@@ -47,6 +55,27 @@ function RecordMeal() {
       const newBoolean = [...isUploaded];
       newBoolean[target] = data?.amount;
       setIsUploaded(newBoolean);
+    });
+  };
+
+  const shrinkImage = (file) => {
+    const newWidth = 400;
+    const newHeight = 300;
+    return new Promise((resolve, reject) => {
+      const image = new Image();
+      image.src = URL.createObjectURL(file);
+      image.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(image, 0, 0, newWidth, newHeight);
+
+        canvas.toBlob((blob) => {
+          resolve(blob);
+        }, file.type);
+      };
+      image.onerror = reject;
     });
   };
 
@@ -140,7 +169,6 @@ function RecordMeal() {
         >
           <TypoStyle>예</TypoStyle>
         </Button>
-        {/* <TextField type='file' accept='image/*' onChange={handleUploadImg} />, */}
       </StyledContainer>
     </>
   );
