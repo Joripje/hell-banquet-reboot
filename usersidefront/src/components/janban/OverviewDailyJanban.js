@@ -21,9 +21,8 @@ function OverviewDailyJanban() {
       await getJanbanImg(
         { janbanCode: janbanCode },
         (data) => {
-          const blob = new Blob([data.data], { type: "image/png" });
-          const imageURL = URL.createObjectURL(blob);
-          return imageURL;
+          console.log(data.data);
+          return data.data;
         },
         (err) => console.log(err)
       ).then((res) => {
@@ -33,21 +32,19 @@ function OverviewDailyJanban() {
     handleGetJanban();
   }, []);
 
-  useEffect(() => {
-  }, [janbanImg]);
+  useEffect(() => {}, [janbanImg]);
 
   return (
     <OverviewBox>
-      <img src={"http://localhost:3000/f87a806b-055f-4b91-a073-4f8c2ab20e33"} />
       <JanbanImg src={janbanImg} alt='잔반이' />
       <Container style={{ position: "relative", height: "100%" }}>
         <LinkDecoNone
           to={janbanOption.url}
           style={{ position: "absolute", bottom: "10%", right: "15%" }}
         >
-          <Button variant='contained' color='warning'>
+          {/* <Button variant='contained' color='warning'>
             {janbanOption.message}
-          </Button>
+          </Button> */}
         </LinkDecoNone>
       </Container>
     </OverviewBox>

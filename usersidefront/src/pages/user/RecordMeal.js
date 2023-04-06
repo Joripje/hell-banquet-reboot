@@ -4,20 +4,17 @@ import { useNavigate } from "react-router";
 import { LogedPageTemplate } from "../../components/common";
 import { postRecordMeal } from "../../api/ai";
 import { sendLeftoverData } from "../../api/leftover";
+import PlateSrc from "../../assets/images/plate.png";
 
 import styled from "styled-components";
 import { Button } from "@mui/material";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import ReplayIcon from "@mui/icons-material/Replay";
+import { Replay, CheckCircleOutline } from "@mui/icons-material";
 import { green } from "@mui/material/colors";
-
-import PlateSrc from "../../assets/images/plate.png";
 
 function RecordMeal() {
   const navigate = useNavigate();
   const [mealImages, setMealImages] = useState([undefined, undefined]);
   const [isUploaded, setIsUploaded] = useState([false, false]);
-  console.log(mealImages)
   const handleTakeImg = (event, target) => {
     const file = event.target?.files[0];
     if (!file) return;
@@ -106,9 +103,8 @@ function RecordMeal() {
   useEffect(() => {}, [mealImages]);
 
   return (
-      <LogedPageTemplate>
-
-      <TypoStyle style={{fontSize: 24, padding: 20}}>
+    <LogedPageTemplate>
+      <TypoStyle style={{ fontSize: 24, padding: 20 }}>
         식판 사진을 업로드
       </TypoStyle>
       <StyledContainer style={{ marginBottom: 100, marginTop: 30 }}>
@@ -128,12 +124,12 @@ function RecordMeal() {
             <MealAlt src={mealImages[0]}>Before</MealAlt>
           ) : (
             <>
-              <CheckCircleOutlineIcon
+              <CheckCircleOutline
                 sx={{ color: green[500] }}
                 style={sytleForButton}
                 onClick={(event) => handleUploadImg(event, 0)}
               />
-              <ReplayIcon color='primary' style={sytleForRetryButton} />
+              <Replay color='primary' style={sytleForRetryButton} />
             </>
           )}
         </MealBox>
@@ -153,18 +149,20 @@ function RecordMeal() {
             <MealAlt src={mealImages[0]}>After</MealAlt>
           ) : (
             <>
-              <CheckCircleOutlineIcon
+              <CheckCircleOutline
                 sx={{ color: green[500] }}
                 style={sytleForButton}
                 onClick={(event) => handleUploadImg(event, 1)}
               />
-              <ReplayIcon color='primary' style={sytleForRetryButton} />
+              <Replay color='primary' style={sytleForRetryButton} />
             </>
           )}
         </MealBox>
         {isUploaded[0] !== false && isUploaded[1] !== false ? (
           <>
-            <TypoStyle style={{fontSize: 24, padding: 20}} >정말 제출하시겠습니까?</TypoStyle>
+            <TypoStyle style={{ fontSize: 24, padding: 20 }}>
+              정말 제출하시겠습니까?
+            </TypoStyle>
             <Button
               variant='contained'
               style={{ width: "40%", backgroundColor: "#950101" }}
@@ -178,8 +176,7 @@ function RecordMeal() {
           <></>
         )}
       </StyledContainer>
-      </LogedPageTemplate>
-
+    </LogedPageTemplate>
   );
 }
 
@@ -245,7 +242,6 @@ const MealAlt = styled.p`
   font-size: 36px;
   font-weight: 1000;
   z-index: ${(props) => (props.src ? -1 : 1)};
-
 `;
 
 const styleForTypo = {

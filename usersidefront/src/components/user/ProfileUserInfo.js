@@ -68,13 +68,13 @@ function ProfileUserInfo() {
             </InfoBox>
           );
         })}
-        <Button
+        {/* <Button
           variant='contained'
           style={{ alignSelf: "end", marginRight: "8%" }}
           color='warning'
         >
           수정하러 가기
-        </Button>
+        </Button> */}
       </UserInfoBox>
     </LinkDecoNone>
   );
