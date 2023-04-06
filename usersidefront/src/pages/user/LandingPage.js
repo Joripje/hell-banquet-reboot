@@ -11,11 +11,10 @@ function LandingPage() {
   const hour = new Date().getHours();
 
   return (
-      <LogedPageTemplate >
-
+    <LogedPageTemplate>
       <Container style={styleForContainer}>
         <JanvanSection>
-        {/* <TypoSectionTitle>잔반이를 만나보세요</TypoSectionTitle> */}
+          <TypoJanban>오늘의 잔반이는...</TypoJanban>
           <OverviewDailyJanban />
         </JanvanSection>
         {hour < 14 ? (
@@ -24,19 +23,22 @@ function LandingPage() {
           </DailyMenuSection>
         ) : (
           <DailyRankSection>
-            <TypoSectionTitle>오늘의 <span style={{color: "#950101"}}>잔반</span> 순위</TypoSectionTitle>
+            <TypoSectionTitle>
+              오늘의 <span style={{ color: "#950101" }}>잔반</span> 순위
+            </TypoSectionTitle>
             <LinkDecoNone to={"/ranking"}>
               <OverviewRanking />
             </LinkDecoNone>
           </DailyRankSection>
         )}
         <RecommendArticleSection>
-          <TypoSectionTitle>지옥의 <span style={{color: "#950101"}}>HOT</span> 게시물</TypoSectionTitle>
+          <TypoSectionTitle>
+            지옥의 <span style={{ color: "#950101" }}>HOT</span> 게시물
+          </TypoSectionTitle>
           <RecommendAritcle />
         </RecommendArticleSection>
       </Container>
-      </LogedPageTemplate>
-
+    </LogedPageTemplate>
   );
 }
 const styleForContainer = {
@@ -48,7 +50,7 @@ const styleForContainer = {
 
 const styleForSection = `
     width: 100%;
-    height: 200px;
+    height: auto;
     background: #faf6ee;
 
     margin: 15px 0px 5px 0px;
@@ -60,17 +62,18 @@ const styleForSection = `
 
 const JanvanSection = styled.section`
   ${styleForSection}
+  position: relative;
   flex-direction: column;
 `;
 const DailyMenuSection = styled.section`
   ${styleForSection}
-  height: 280px;
+  height: auto;
   flex-direction: column;
 `;
 
 const DailyRankSection = styled.section`
   ${styleForSection}
-  height: 280px;
+  height: auto;
   flex-direction: column;
 `;
 
@@ -85,10 +88,15 @@ const RecommendArticleSection = styled.section`
   border-radius: 5px;
 `;
 
+const TypoJanban = styled.p`
+  margin-left: 5%;
+  font-family: CookieRun-Regular;
+  font-size: 26px;
+`
 const TypoSectionTitle = styled.p`
   font-family: Cafe24ClassicType-Regular;
   font-size: 26px;
   text-align: center;
-`
+`;
 
 export default LandingPage;

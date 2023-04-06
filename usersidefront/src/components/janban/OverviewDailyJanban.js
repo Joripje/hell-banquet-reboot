@@ -5,7 +5,7 @@ import { LinkDecoNone } from "../common";
 import { getUserImg } from "../../api/janbani";
 
 import styled from "styled-components";
-import { Container } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import HellLivingPoint from "./HellLivingPoint";
@@ -37,20 +37,33 @@ function OverviewDailyJanban() {
     handleGetJanban();
   }, []);
 
-
   return (
-    <OverviewBox>
-      <Container style={{ position: "relative", height: "100%", }}>
-        <Box sx={{ display: "flex", flexDirection:'row', alignItems: 'center' }}>
-        {isLoading ? (
+      <Container style={styleForContainer}>
+        <Box>
+          {isLoading ? (
             <CircularProgress />
-            ) : (
-              <>
-          <JanbanImg src={janbanImg ? janbanImg : staticJanban} alt="잔반이" />
-          <HellLivingPoint />
-          </>
-        )}
+          ) : (
+            <>
+              <JanbanImg
+                src={janbanImg ? janbanImg : staticJanban}
+                alt="잔반이"
+              />
+              <HellLivingPoint />
+            </>
+          )}
         </Box>
+        {isLoading ? <></> : (
+          <TypoJanban>
+          {janbanImg ? janbanImg : "... 잔반이가 아직 자고있네요 zZ"}
+        </TypoJanban>
+        )}
+        {!janbanImg && (
+          <LinkDecoNone to="/record-meal">
+            <Button variant="contained" style={{ backgroundColor: "#492369", margin: 10 }}>
+              잔반이 깨우러 가기
+            </Button>
+          </LinkDecoNone>
+        )}
         <LinkDecoNone
           to={janbanOption.url}
           style={{ position: "absolute", bottom: "10%", right: "15%" }}
@@ -60,25 +73,31 @@ function OverviewDailyJanban() {
           </Button> */}
         </LinkDecoNone>
       </Container>
-    </OverviewBox>
   );
 }
 
+const styleForContainer = {
+  display: 'flex',
+  flexDirection: 'column',
+  height: "100%",
+  alignItems: 'center',
 
-const OverviewBox = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
+}
 
 const JanbanImg = styled.img`
   width: auto;
   height: auto;
   max-width: 200px;
   max-height: 200px;
-  margin-top: 5%;
-  margin-left: 10%;
+  // margin-top: 5%;
+  // margin-left: 10%;
+`;
+
+const TypoJanban = styled.p`
+  margin: 0;
+  text-align: center;
+  font-family: CookieRun-Regular;
+  font-size: 20px;
 `;
 
 export default OverviewDailyJanban;

@@ -39,11 +39,10 @@ function UserPage() {
         </StatisticsSection>
         <Button
           onClick={onLogoutHandler}
-          color="error"
           variant="contained"
-          style={{ zIndex: 0, marginBottom: 100, width: "30%" }}
+          style={{ zIndex: 0, marginBottom: 100, width: "30%", backgroundColor: "#950101" }}
         >
-          로그아웃
+          <TypoStyle>로그아웃</TypoStyle>
         </Button>
       </Container>
     </LogedPageTemplate>
@@ -60,7 +59,7 @@ const styleForContainer = {
 const styleForSection = `
     width: 100%;
     height: auto;
-    background: #E5E5E5;
+    background: #faf6ee;
 
     margin: 15px 0px 15px 0px;
     border-radius: 30px;
@@ -71,6 +70,8 @@ const styleForSection = `
 
 const JanbanSection = styled.section`
   ${styleForSection}
+  padding-top: 80px;
+  position: relative;
 `;
 const UserInfoSection = styled.section`
   ${styleForSection}
@@ -79,5 +80,10 @@ const UserInfoSection = styled.section`
 const StatisticsSection = styled.section`
   ${styleForSection}
 `;
+const TypoStyle = styled.p`
+  font-family: ChosunCentennial;
+  font-size: 15px;
+  margin: 0;
+`
 
 export default UserPage;
