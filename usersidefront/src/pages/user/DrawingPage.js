@@ -170,9 +170,12 @@ function DrawingPage() {
 
 const CanvasWrapper = styled.div`
   position: relative;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 5% 5% 5% 5%;
   border-radius: 20px;
+  width: 90%;
 `;
 
 const StartButton = styled.div`

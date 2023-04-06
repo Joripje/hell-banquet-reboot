@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import axios from "axios";
 import styled from "styled-components";
 import { putDrawingGameInfo } from "../../api/leftover";
-
+import blank from "../../assets/images/blank.png";
 function Canvas(params) {
   const { isStarted, isFinished, subjectIndex } = params;
   const canvasRef = useRef(null);
@@ -71,13 +71,15 @@ function Canvas(params) {
   const checkCorrect = async () => {
     try {
       const canvas = canvasRef.current;
+      // canvas.style.background = "#FFFFFF";
+      // console.log(canvas.toDataURL());
       canvas.toBlob(async (blob) => {
         const formData = new FormData();
         formData.append("image", blob);
         formData.append("category", subjects[subjectIndex]);
         const response = await axios.post(
           // "http://127.0.0.1:8000/ai/draw/",
-          "http://j8a802.p.ssafy.io:5000/ai/draw/",
+          "https://j8a802.p.ssafy.io:5000/ai/draw/",
           formData,
           {
             headers: {
@@ -107,11 +109,21 @@ function Canvas(params) {
     return { x, y };
   };
 
+  const getMousePosition = (touch) => {
+    const canvas = canvasRef.current;
+    const { left, top } = canvas.getBoundingClientRect();
+    const x = touch.clientX - left;
+    const y = touch.clientY - top;
+    return { x, y };
+  };
+
   // 그리기 시작
   const startDrawing = (event) => {
-    event.preventDefault();
     const context = getCanvasContext();
-    const { x, y } = getTouchPosition(event.touches[0]);
+    // const { x, y } = getTouchPosition(event.touches[0]);
+    const { x, y } = event.type.startsWith("touch")
+      ? getTouchPosition(event.touches[0])
+      : getMousePosition(event);
     context.beginPath();
     context.moveTo(x, y);
     setIsDrawing(true);
@@ -119,10 +131,13 @@ function Canvas(params) {
 
   // 그리기 중
   const draw = (event) => {
-    event.preventDefault();
     if (!isDrawing) return;
     const context = getCanvasContext();
-    const { x, y } = getTouchPosition(event.touches[0]);
+    // const { x, y } = getTouchPosition(event.touches[0]);
+    const { x, y } = event.type.startsWith("touch")
+      ? getTouchPosition(event.touches[0])
+      : getMousePosition(event);
+    // context.beginPath();
     context.lineTo(x, y);
     context.stroke();
   };
@@ -141,15 +156,24 @@ function Canvas(params) {
     context.lineWidth = 16;
     context.lineJoin = "round";
     context.lineCap = "round";
+
+    const img = new Image();
+    img.onload = () => {
+      context.drawImage(img, 0, 0);
+    };
+    img.src = blank;
   }, []);
 
   if (isStarted && !isFinished) {
     return (
       <canvas
-        style={{ background: "#E5E5E5" }}
+        style={{ background: "#FFFFFF" }}
         ref={canvasRef}
-        width={390}
-        height={390}
+        width={300}
+        height={300}
+        onMouseDown={startDrawing}
+        onMouseMove={draw}
+        onMouseUp={stopDrawing}
         onTouchStart={startDrawing}
         onTouchMove={draw}
         onTouchEnd={stopDrawing}
@@ -160,13 +184,13 @@ function Canvas(params) {
     return (
       <>
         <canvas
-          style={{ background: "#E5E5E5" }}
+          style={{ background: "#FFFFFF" }}
           ref={canvasRef}
-          width={390}
-          height={390}
+          width={300}
+          height={300}
         />
         {isFinished && (
-          <Button variant='contained' onClick={checkCorrect}>
+          <Button variant="contained" onClick={checkCorrect}>
             결과를 알아볼까요?!
           </Button>
         )}
