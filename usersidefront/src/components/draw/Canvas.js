@@ -1,11 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Button } from "@mui/material";
 import axios from "axios";
-import styled from "styled-components";
+// import styled from "styled-components";
 import { putDrawingGameInfo } from "../../api/leftover";
 import blank from "../../assets/images/blank.png";
 function Canvas(params) {
-  const { isStarted, isFinished, subjectIndex } = params;
+  const { isStarted, isFinished, subjectIndex, endDraw } = params;
   const canvasRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
   // const [imageFile, setImageFile] = useState(null);
@@ -91,8 +91,10 @@ function Canvas(params) {
         console.log(subjects[subjectIndex]);
         if (response.data.success) {
           putDrawResult(subjectsKorean[subjectIndex]);
+          endDraw(true);
         } else {
           putDrawResult("None");
+          endDraw(false);
         }
       }, "image/png");
     } catch (error) {
