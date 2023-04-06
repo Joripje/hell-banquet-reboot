@@ -15,6 +15,7 @@ function LandingPage() {
 
       <Container style={styleForContainer}>
         <JanvanSection>
+        {/* <TypoSectionTitle>잔반이를 만나보세요</TypoSectionTitle> */}
           <OverviewDailyJanban />
         </JanvanSection>
         {hour < 14 ? (
@@ -23,12 +24,14 @@ function LandingPage() {
           </DailyMenuSection>
         ) : (
           <DailyRankSection>
+            <TypoSectionTitle>오늘의 <span style={{color: "#950101"}}>잔반</span> 순위</TypoSectionTitle>
             <LinkDecoNone to={"/ranking"}>
               <OverviewRanking />
             </LinkDecoNone>
           </DailyRankSection>
         )}
         <RecommendArticleSection>
+          <TypoSectionTitle>지옥의 <span style={{color: "#950101"}}>HOT</span> 게시물</TypoSectionTitle>
           <RecommendAritcle />
         </RecommendArticleSection>
       </Container>
@@ -57,22 +60,35 @@ const styleForSection = `
 
 const JanvanSection = styled.section`
   ${styleForSection}
+  flex-direction: column;
 `;
 const DailyMenuSection = styled.section`
   ${styleForSection}
   height: 280px;
+  flex-direction: column;
 `;
 
 const DailyRankSection = styled.section`
   ${styleForSection}
   height: 280px;
+  flex-direction: column;
 `;
 
 const RecommendArticleSection = styled.section`
   ${styleForSection}
   height: auto;
+  flex-direction: column;
   justify-content: center;
   margin-bottom: 110px;
+  // background: url(https://img.freepik.com/free-photo/timber-interior-texture_1194-6767.jpg?w=996&t=st=1680784390~exp=1680784990~hmac=2587790423a02bb26309efc77977607e3889cce7422b33baebc82b393db3f0ef);
+  background-size: cover;
+  border-radius: 5px;
 `;
+
+const TypoSectionTitle = styled.p`
+  font-family: Cafe24ClassicType-Regular;
+  font-size: 26px;
+  text-align: center;
+`
 
 export default LandingPage;

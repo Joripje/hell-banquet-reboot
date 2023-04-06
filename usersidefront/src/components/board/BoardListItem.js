@@ -45,16 +45,16 @@ function BoardListItem(params) {
                 src={janbanImg ? janbanImg : staticJanban}
                 alt={article?.id}
               />
-              <TypoWriter>{article.writer}</TypoWriter>
+              <TypoWriter style={{textAlign: "center", margin: 0}}>{article.writer}</TypoWriter>
             </Grid>
             <Grid item xs={8}>
               <Container>
                 <TypoContent>{article.content}</TypoContent>
               </Container>
-            </Grid>
             <OptionBox>
               <ArticleOption article={article} />
             </OptionBox>
+            </Grid>
           </Grid>
         </ArticleCard>
       ) : (

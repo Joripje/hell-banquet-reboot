@@ -25,7 +25,7 @@ function BoardList() {
     { content: "", src: undefined, writer: "ssafy" },
     { content: "", src: undefined, writer: "ssafy" },
     { content: "", src: undefined, writer: "ssafy" },
-    { content: "lorem", src: undefined, id: -1 },
+    { content: "Loading...", src: undefined, id: -1 },
   ]);
 
   useEffect(() => {

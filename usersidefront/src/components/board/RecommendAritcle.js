@@ -6,6 +6,8 @@ import { getUserImg } from "../../api/janbani";
 import styled from "styled-components";
 import { Grid } from "@mui/material";
 
+import { BoardListItem } from ".";
+
 function RecommendAritcle() {
   const dummy = {
     writer: "manager",
@@ -47,7 +49,9 @@ function RecommendAritcle() {
   if (todayArticle !== "아직 오늘 작성된 게시글이 없어요") {
     return (
       <ContainerForNone>
-        <Grid container>
+        <Typo><span style={{color: "#950101"}}>{todayArticle.writer}</span>님의 메시지입니다.</Typo>
+        <BoardListItem article={todayArticle} isChild={true}/>
+        {/* <Grid container>
           <Grid item xs={6} style={{ textAlign: "center" }}>
             <Typo fontSize={24} style={{ marginTop: "15px" }}>
               {todayArticle?.writer}
@@ -64,7 +68,7 @@ function RecommendAritcle() {
           >
             <Typo fontSize={24}>{todayArticle.content}</Typo>
           </Grid>
-        </Grid>
+        </Grid> */}
       </ContainerForNone>
     );
   } else {
@@ -86,8 +90,9 @@ const ContainerForNone = styled.div`
 `;
 
 const Typo = styled.div`
-  font-size: 24px;
+  font-size: 18px;
   text-align: center;
+  font-family: KimjungchulMyungjo-Bold;
 `;
 
 const StaticJanbanImg = styled.img`

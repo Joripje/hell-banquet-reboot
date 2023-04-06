@@ -27,6 +27,10 @@ function ArticleCreateSection(params) {
       const onSubmitHandler = async (event) => {
         event.preventDefault()
         setIsOpen(false)
+        if (content === '') {
+          alert("내용을 입력해주세요.")
+          return
+        }
         if (location.pathname === '/board') {
             await putArticle(
                 { writer: localStorage.userId, content: content },

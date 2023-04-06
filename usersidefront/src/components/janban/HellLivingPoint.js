@@ -1,32 +1,45 @@
 import { useState, useEffect } from "react";
-import styled from "styled-components"
+import styled from "styled-components";
 
 function HellLivingPoint() {
-    const [randomIndex, setRandomIndex] = useState(0)
-    const tips = ['지옥엔 비빔밥이란 단어가 없습니다. 이미 다 비벼져 있죠.', '지옥에선 게시글을 삭제할 수 없답니다. 한 말에 책임을 질 줄 알아야 합니다.', '쯔양은 평생 잔반 면제권이 있다고 합니다.', '해반이에겐 팔이 없어 모든 걸 입으로 한답니다.', '잔반을 너무 많이 가져간 잔반이는 염라대왕과 개인면담 시간을 가져야 합니다.', '잔반이의 정식명칭은 잔반의 요정으로, 버려진 음식들의 한을 풀어주기 위해 탄생했답니다.', '알레르기가 생기는 이유는 잔반이가 그 음식이 먹고 싶어 장난을 친 것입니다.']
-    useEffect(() => {
-        setRandomIndex(Math.floor(Math.random() * tips.length))
-    }, [])
+  const [randomIndex, setRandomIndex] = useState(0);
+  const tips = [
+    "지옥엔 비빔밥이란 단어가 없습니다. 이미 다 비벼져 있죠.",
+    "지옥에선 자기가 한 말에 영원히 책임을 져야 합니다.",
+    "쯔양은 평생 잔반 면제권이 있다고 합니다.",
+    "해반이에겐 팔이 없어 모든 걸 입으로 한답니다.",
+    "잔반을 너무 많이 가져간 잔반이는 염라대왕과 개인면담 시간을 가집니다.",
+    "잔반이의 정체는 잔반의 요정으로, 버려지는 음식들의 한을 풀어주기 위해 탄생했습니다.",
+    "알레르기가 생기는 이유는 잔반이가 먹고 싶어 장난을 친 것입니다.",
+    "ALGO 계셨나요? 흘린 물을 주워담을 수 없는건 상식입니다.",
+    "살아 생전 밥을 많이 남긴 사람은 잔반이로 환생합니다. 기준이요? 대외비입니다.",
+    "기술의 발전으로 지옥에 잔반량 인식 AI가 도입되었습니다.",
+    "지옥에서도 개발자 붐이 일고 있습니다.",
+    "10층에 가는 사람들은 면제권이 부여됩니다.",
+    "지옥에선 게시물도 죽을 수 없습니다."
+  ];
+  useEffect(() => {
+    setRandomIndex(Math.floor(Math.random() * tips.length));
+  }, []);
 
-    return(<TypoContent>{tips[randomIndex]}</TypoContent>)
+  return <TypoContent>{tips[randomIndex]}</TypoContent>;
 }
 
 const TypoContent = styled.div`
-position: absolute;
-top: 9%;
-right: 9%;
+  position: absolute;
+  top: 9%;
+  right: 9%;
 
-width: 40%;
-height: auto;
-font-size: 16px;
+  width: 40%;
+  height: auto;
+  font-size: 16px;
 
-padding: 10px;
-background: #e5e5e5;
+  padding: 10px;
+  background: #e5e5e5;
 
-font-family: ChosunCentennial;
-border: 1px solid black;  
-border-radius: 10px;
-  
+  font-family: ChosunCentennial;
+  border: 1px solid black;
+  border-radius: 10px;
 `;
 
-export default HellLivingPoint
+export default HellLivingPoint;

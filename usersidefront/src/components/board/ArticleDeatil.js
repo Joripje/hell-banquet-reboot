@@ -10,17 +10,16 @@ function ArticleDetail() {
   const location = useLocation();
   const articleListRef = useRef(null);
   const [article] = useState(location.state);
-  console.log("HIHI", location);
   const [comments, setComments] = useState([
-    { content: "lorem", src: undefined, id: -1 },
-    { content: "lorem", src: undefined },
-    { content: "lorem", src: undefined },
-    { content: "lorem", src: undefined },
-    { content: "lorem", src: undefined },
-    { content: "lorem", src: undefined },
-    { content: "lorem", src: undefined },
-    { content: "lorem", src: undefined },
-    { content: "lorem", src: undefined, id: -1 },
+    { content: "Loading...", src: undefined, id: -1 },
+    { content: "Loading...", src: undefined },
+    { content: "Loading...", src: undefined },
+    { content: "Loading...", src: undefined },
+    { content: "Loading...", src: undefined },
+    { content: "Loading...", src: undefined },
+    { content: "Loading...", src: undefined },
+    { content: "Loading...", src: undefined },
+    { content: "Loading...", src: undefined, id: -1 },
   ]);
 
   useEffect(() => {
@@ -46,23 +45,22 @@ function ArticleDetail() {
       getMoreComment();
     }
   }, [comments, location, articleListRef]);
+  console.log(comments);
 
   return (
     <>
       <DetailBox>
         <BoardListItem article={{ ...article, detail: true }} />
-
-        {comments.length === 0 ? (
-          <div style={{ textAlign: "center", paddingTop: 100 }}>
-            아직 댓글이 없어요
-          </div>
-        ) : (
+        <CommentBox>
+        {comments.length === 0 && <p style={{ textAlign: "center" }}>아직 댓글이 없어요.</p>}
+        {comments.length > 0 && (
           comments.map((article, index) => {
             return (
               <BoardListItem article={article} isChild={true} index={index} key={index} />
             );
           })
         )}
+        </CommentBox>
       </DetailBox>
     </>
   );
@@ -70,7 +68,15 @@ function ArticleDetail() {
 
 const DetailBox = styled.div`
   padding: 10px 0px calc(100vh - 470px) 0px;
-  background: #edebe9;
+  // background: #edebe9;
+`;
+
+const CommentBox = styled.div`
+  background: white;
+  margin: 5%;
+  // padding-left: 5%;
+  padding-top: 5%;
+  padding-bottom: 5%;
 `;
 
 export default ArticleDetail;

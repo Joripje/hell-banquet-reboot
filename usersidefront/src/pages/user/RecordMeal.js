@@ -182,7 +182,7 @@ function RecordMeal() {
             accept='image/*'
             onChange={(event) => handleTakeImg(event, 0)}
           />
-          {isUploadingImg[0] ? <MealImg src={LoadingImg}/> :
+          {isUploadingImg[0] ? <div><p style={{position: "absolute", bottom: "5%", left: "40%"}}>음식을 인식하는 중...</p><MealImg src={LoadingImg}/></div> :
           <MealImg
             src={mealImages[0] ? mealImages[0] : PlateSrc}
             onError={(e) => {
@@ -208,7 +208,7 @@ function RecordMeal() {
             accept='image/*'
             onChange={(event) => handleTakeImg(event, 1)}
           />
-          {isUploadingImg[1] ? <MealImg src={LoadingImg}/> :
+          {isUploadingImg[1] ? <div><p style={{position: "absolute", bottom: "5%", left: "30%"}}>잔반을 지옥으로 가져가는 중...</p><MealImg src={LoadingImg}/></div> :
           <MealImg
             src={mealImages[1] ? mealImages[1] : PlateSrc}
             onError={(e) => {
