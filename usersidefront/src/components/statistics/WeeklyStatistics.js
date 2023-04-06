@@ -72,16 +72,18 @@ function WeeklyStatistics(params) {
 
   useEffect(() => {
     setChartData({
-      labels: ["배식량", "잔반량"],
+      labels: ["섭취량", "잔반량"],
       datasets: [
         {
-          data: [info.served, info.leftovers],
+          data: [info.served - info.leftovers, info.leftovers],
           backgroundColor: ["#63C132", "#F44336"],
         },
       ],
     });
   }, [info]);
 
+
+  
   return (
     <CicleStaticContainer>
       <Doughnut data={chartData} style={{ margin: 0 }} />
@@ -90,7 +92,8 @@ function WeeklyStatistics(params) {
 }
 
 const CicleStaticContainer = styled.div`
-  height: 30vh;
+position: relative;
+  height: auto;
   margin: 4% 0 4% 0;
 `;
 

@@ -15,6 +15,7 @@ function MenuOverview(params) {
       await getMenusByDate(
         { date: date, managerId: "manager" },
         (data) => {
+          console.log(data)
           return data.data;
         },
         (err) => console.log(err)

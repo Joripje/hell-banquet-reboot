@@ -25,6 +25,7 @@ function OverviewDailyJanban() {
       await getUserImg(
         { userId: localStorage.getItem("userId") },
         (data) => {
+          console.log(data)
           return data.data;
         },
         (err) => console.log(err)

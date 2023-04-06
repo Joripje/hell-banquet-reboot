@@ -30,6 +30,7 @@ function RecommendAritcle() {
       if (data) setTodayArticle(data);
     });
   }, [date]);
+  
   useEffect(() => {
     const handleGetJanban = async () => {
       await getUserImg(

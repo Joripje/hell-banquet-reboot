@@ -1,5 +1,6 @@
 import OverviewRanking from "./OverviewRanking";
-import DailyRanking from "./DailyRanking";
 import OverviewStatics from "./OverviewStatics";
+import DailyRanking from "./DailyRanking";
+import RankingItem from "./RankingItem"
 
-export { OverviewRanking, DailyRanking, OverviewStatics };
+export { OverviewRanking, DailyRanking, OverviewStatics, RankingItem };

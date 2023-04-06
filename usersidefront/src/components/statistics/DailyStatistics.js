@@ -61,10 +61,10 @@ function DailyStatistics(params) {
 
   useEffect(() => {
     setChartData({
-      labels: ["배식량", "잔반량"],
+      labels: ["섭취량", "잔반량"],
       datasets: [
         {
-          data: [info[course - 1].served, info[course - 1].leftovers],
+          data: [info[course - 1].served - info[course - 1].leftovers, info[course - 1].leftovers],
           backgroundColor: ["#63C132", "#F44336"],
         },
       ],
@@ -79,7 +79,7 @@ function DailyStatistics(params) {
 }
 
 const CicleStaticContainer = styled.div`
-  height: 30vh;
+  height: auto;
   margin: 4% 0 4% 0;
 `;
 

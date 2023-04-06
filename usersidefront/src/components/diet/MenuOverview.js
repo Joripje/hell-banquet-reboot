@@ -5,14 +5,14 @@ import MenuBox from "./MenuBox";
 import styled from "styled-components";
 
 function MenuOverview(params) {
+  const { date } = params
   const [result, setResult] = useState([]);
 
   useEffect(() => {
     const handleGetMenuByDate = async () => {
       await getMenusByDate(
-        { date: "2023-04-03", managerId: "manager" },
+        { date: date, managerId: "manager" },
         (data) => {
-          console.log(data.data);
           return data.data;
         },
         (err) => console.log(err)
@@ -21,9 +21,7 @@ function MenuOverview(params) {
       });
     };
     handleGetMenuByDate();
-  }, []);
-
-  //   useEffect(() => {}, [result]);
+  }, [date]);
 
   return (
     <Container style={params?.style}>

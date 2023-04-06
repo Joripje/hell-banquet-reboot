@@ -1,12 +1,35 @@
-import styled from "styled-components";
+import { useState, useEffect } from "react";
+
 import staticJanban from "../../assets/images/janban.png";
+import { getUserImg } from "../../api/janbani";
+
+import styled from "styled-components";
 
 function DailyRanking(params) {
   const { info, king } = params;
+  const [janbanImg, setJanbanImg ] = useState()
+
+  const handleGetJanban = async () => {
+    await getUserImg(
+      { userId: info.userId },
+      (data) => {
+        return data.data;
+      },
+      (err) => console.log(err)
+    ).then((res) => {
+        console.log(res)
+      setJanbanImg(res);
+    });
+  };
+
+useEffect(() => {
+    handleGetJanban()
+}, [info])
+
   return (
     <RankBox>
       <div>
-        <StaticJanbanImg src={staticJanban} />
+        <StaticJanbanImg src={janbanImg ? janbanImg : staticJanban} />
         {info.rank - king.rank} {info.userId}
       </div>
     </RankBox>
