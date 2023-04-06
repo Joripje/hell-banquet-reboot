@@ -86,6 +86,10 @@ const routes = [
     path: "/janban",
     element: <JanbanPresentPage />,
   },
+  {
+    path: "/record-meal/janban",
+    element: <JanbanPresentPage />,
+  },
   // Testing
   {
     path: "/test/test",

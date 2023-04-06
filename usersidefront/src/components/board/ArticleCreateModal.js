@@ -31,7 +31,7 @@ function ArticleCreateModal(params) {
         { writer: localStorage.userId, content: content },
         (data) => {
           console.log(data);
-          window.location.reload()
+          window.location.reload();
         },
         (err) => console.log(err)
       );
@@ -48,7 +48,6 @@ function ArticleCreateModal(params) {
         (err) => console.log(err)
       );
     }
-    // 차후에 response가 변경된다면 생성된 게시글의 detail 페이지로 이동시키고 싶음
     navigate(`${location.pathname}`, { state: location.state });
     return onClose();
   }

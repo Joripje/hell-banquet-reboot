@@ -1,23 +1,37 @@
 import { useState } from "react";
-
-// update 만들 때 주석해제할 것
-// import ArticleCreateModal from './ArticleCreateModal'
+import { useNavigate } from "react-router-dom";
 import { Button, Modal, Box, TextField } from "@mui/material";
 
 import { MoreHoriz } from "@mui/icons-material";
 import { updateArticle } from "../../api/board";
 
 function UpDelModal(params) {
+  const navigate = useNavigate();
   const { article } = params;
   const [isOpen, setIsOpen] = useState(false);
+  const [content, setContent] = useState(article.content);
 
   const onMoreClickHandler = (event) => {
     event.preventDefault();
     setIsOpen(!isOpen);
   };
 
-  const handleUpdate = () => {
-    updateArticle();
+  const handleUpdate = (event) => {
+    event.preventDefault();
+    updateArticle(
+      { ...article, content: content },
+      () => {
+        navigate(`/board/${article.id}`, {
+          state: { ...article, content: content },
+        });
+        window.location.reload();
+      },
+      (err) => console.log(err)
+    );
+  };
+
+  const onTypingHandler = (event) => {
+    setContent(event.target.value);
   };
 
   const moreButtonStyle = {
@@ -34,6 +48,8 @@ function UpDelModal(params) {
             <Box component='form' sx={styleForBox}>
               <TextField
                 id='content'
+                value={content}
+                onChange={onTypingHandler}
                 InputProps={{ sx: { fontSize: 20 } }}
                 multiline
                 sx={styleForTextField}

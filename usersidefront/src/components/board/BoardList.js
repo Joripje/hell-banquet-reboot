@@ -16,23 +16,22 @@ function BoardList() {
   });
 
   const [articles, setArticles] = useState([
-    { content: "", src: undefined, likeCount: 0, dislikeCount: 0, id: -1 },
-    { content: "", src: undefined },
-    { content: "", src: undefined },
-    { content: "", src: undefined },
-    { content: "lorem", src: undefined },
-    { content: "lorem", src: undefined },
-    { content: "lorem", src: undefined },
-    { content: "lorem", src: undefined },
+    { content: "", src: undefined, writer: "ssafy", id: -1 },
+    { content: "", src: undefined, writer: "ssafy" },
+    { content: "", src: undefined, writer: "ssafy" },
+    { content: "", src: undefined, writer: "ssafy" },
+    { content: "", src: undefined, writer: "ssafy" },
+    { content: "", src: undefined, writer: "ssafy" },
+    { content: "", src: undefined, writer: "ssafy" },
+    { content: "", src: undefined, writer: "ssafy" },
+    { content: "", src: undefined, writer: "ssafy" },
     { content: "lorem", src: undefined, id: -1 },
   ]);
-
-
 
   useEffect(() => {
     const getMoreList = async () => {
       if (boardInfo.lastBoardId === 1) {
-        return
+        return;
       }
       await getBoardList(
         boardInfo,
@@ -44,7 +43,7 @@ function BoardList() {
         if (articles[0]?.id === -1) {
           setArticles(data);
         } else {
-          setArticles([...articles, ...data])
+          setArticles([...articles, ...data]);
         }
       });
     };
@@ -113,11 +112,11 @@ const MessageBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const TypoStyle = styled.p`
   font-family: ChosunCentennial;
   font-size: 15px;
-`
+`;
 
 export default BoardList;

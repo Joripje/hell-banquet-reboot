@@ -26,7 +26,10 @@ async function putArticle(article, success, fail) {
 }
 
 async function updateArticle(article, success, fail) {
-  await api.put(`/boards`, JSON.stringify(article)).then(success).catch(fail);
+  await api
+    .put(`/boards/${article.id}`, JSON.stringify(article))
+    .then(success)
+    .catch(fail);
 }
 
 async function getArticleDetail(detail, success, fail) {

@@ -92,7 +92,7 @@ function SignUpForm() {
     await signup(
       tempUserInfo,
       (data) => {
-        console.log(data);
+        alert(data.data);
         navigate("/login");
       },
       (err) => console.log(err)

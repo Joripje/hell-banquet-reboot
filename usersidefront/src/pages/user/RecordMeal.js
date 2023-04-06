@@ -158,11 +158,12 @@ function RecordMeal() {
       });
 
       if (cookie || drawing) {
-        navigate("/janban");
+        alert("오늘은 이미 밥을 드셨군요!");
+        navigate("/record-meal/janban");
       }
     };
     userStateChecker();
-  }, [mealImages]);
+  }, [mealImages, navigate]);
 
   return (
     <LogedPageTemplate>

@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
-import staticJanban from "../../assets/images/janban.png";
+import staticJanban from "../../assets/images/staticJanban.png";
 import { getTodayArticle } from "../../api/board";
+import { getUserImg } from "../../api/janbani";
 
 import styled from "styled-components";
 import { Grid } from "@mui/material";
 
 function RecommendAritcle() {
   const dummy = {
-    writer: "관리자",
+    writer: "manager",
     content: "아직 오늘 작성된 게시글이 없어요",
   };
   const [todayArticle, setTodayArticle] = useState(dummy);
+  const [janbanImg, setJanbanImg] = useState();
 
   const date = new Date().toISOString().split("T")[0];
 
@@ -18,6 +20,7 @@ function RecommendAritcle() {
     getTodayArticle(
       date,
       (data) => {
+        console.log(data);
         return data.data;
       },
       (err) => console.log(err)
@@ -25,6 +28,21 @@ function RecommendAritcle() {
       if (data) setTodayArticle(data);
     });
   }, [date]);
+  useEffect(() => {
+    const handleGetJanban = async () => {
+      await getUserImg(
+        { userId: todayArticle.writer },
+        (data) => {
+          console.log(data.data);
+          return data.data;
+        },
+        (err) => console.log(err)
+      ).then((res) => {
+        setJanbanImg(res);
+      });
+    };
+    handleGetJanban();
+  }, [todayArticle]);
 
   if (todayArticle !== "아직 오늘 작성된 게시글이 없어요") {
     return (
@@ -34,7 +52,10 @@ function RecommendAritcle() {
             <Typo fontSize={24} style={{ marginTop: "15px" }}>
               {todayArticle?.writer}
             </Typo>
-            <StaticJanbanImg src={staticJanban} alt='잔반이' />
+            <StaticJanbanImg
+              src={janbanImg ? janbanImg : staticJanban}
+              alt='잔반이'
+            />
           </Grid>
           <Grid
             item

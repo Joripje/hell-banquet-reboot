@@ -10,7 +10,7 @@ function ArticleDetail() {
   const location = useLocation();
   const articleListRef = useRef(null);
   const [article] = useState(location.state);
-
+  console.log("HIHI", location);
   const [comments, setComments] = useState([
     { content: "lorem", src: undefined, id: -1 },
     { content: "lorem", src: undefined },
@@ -35,7 +35,6 @@ function ArticleDetail() {
           },
         },
         (data) => {
-          console.log(data);
           return data.data.comments;
         },
         (err) => console.log(err)
