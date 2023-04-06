@@ -106,7 +106,7 @@ const OverviewStatics = () => {
   return (
     <>
       <CicleStaticContainer>
-        {isEat ? <Doughnut data={chartData} /> : <div>밥안먹음</div>}
+        {isEat ? <Doughnut data={chartData} /> : <TypoMessage>지옥 뷔페 입장 전입니다.</TypoMessage>}
       </CicleStaticContainer>
     </>
   );
@@ -119,6 +119,14 @@ const CicleStaticContainer = styled.div`
 
   align-items: center;
   justify-content: center;
+`;
+
+const TypoMessage = styled.p`
+  font-family: ChosunCentennial;
+  font-size: 15px;
+  text-align: center;
+  margin: 0;
+  color: #5f5f5f;
 `;
 
 export default OverviewStatics;

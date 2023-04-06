@@ -16,7 +16,7 @@ import { Button } from "@mui/material";
 import { Replay, CheckCircleOutline } from "@mui/icons-material";
 import { green } from "@mui/material/colors";
 
-import LoadingImg from "../../assets/images/loadingFood.gif"
+import LoadingImg from "../../assets/images/loadingFood.gif";
 
 function RecordMeal() {
   const navigate = useNavigate();
@@ -50,8 +50,8 @@ function RecordMeal() {
 
     const loadImgBoolean = [...isUploadingImg];
     loadImgBoolean[target] = !isUploadingImg[target];
-    setIsUploadingImg(loadImgBoolean)
-    
+    setIsUploadingImg(loadImgBoolean);
+
     await postRecordMeal(
       imageUrl,
       (data) => {
@@ -60,27 +60,29 @@ function RecordMeal() {
       (err) => {
         console.log(err);
       }
-      ).then((data) => {
-        console.log(data)
+    )
+      .then((data) => {
+        console.log(data);
         if (data.status === false) {
-          alert('식판이 감지되지 않았습니다. 사진을 다시 찍어주세요.')
+          alert("식판이 감지되지 않았습니다. 사진을 다시 찍어주세요.");
         }
         const newImage = [...mealImages];
         newImage[target] = data?.s3_file_path;
         setMealImages(newImage);
-        
+
         const newBoolean = [...isUploaded];
         newBoolean[target] = data?.amount;
         setIsUploaded(newBoolean);
-        
+
         const loadImgBoolean = [...isUploadingImg];
         loadImgBoolean[target] = false;
-        setIsUploadingImg(loadImgBoolean)
-      }).catch((err) => {
-        console.log(err)
+        setIsUploadingImg(loadImgBoolean);
+      })
+      .catch((err) => {
+        console.log(err);
         const loadImgBoolean = [...isUploadingImg];
         loadImgBoolean[target] = false;
-        setIsUploadingImg(loadImgBoolean)
+        setIsUploadingImg(loadImgBoolean);
       });
   };
 
@@ -168,9 +170,26 @@ function RecordMeal() {
   return (
     <LogedPageTemplate>
       {/* <MealImg src={LoadingImg}/> */}
-      <TypoStyle style={{ fontSize: 24, padding: 20 }}>
-        식판 사진을 업로드
-      </TypoStyle>
+      <MessageBox>
+        <TypoStyle style={{ fontSize: 22, padding: 18, fontWeight: "bold" }}>
+          지옥 뷔페에 오신 것을 환영합니다...
+        </TypoStyle>
+        <TypoStyle style={{ color: "#5f5f5f", paddingBottom: 15 }}>
+          입장을 위해 식사 전후 사진을 올려주세요.
+        </TypoStyle>
+        <TypoStyle style={{color: "#950101", padding: 5, fontSize: 20, fontWeight: "bold"}}>
+          주의사항
+        </TypoStyle>
+        <TypoStyle>
+          1. 식판이 전부 보이게 찍어주세요.
+        </TypoStyle>
+        <TypoStyle>
+          2. 최종 제출 후에는 사진 수정이 불가합니다.
+        </TypoStyle>
+        <TypoStyle style={{fontWeight: "bold"}}>
+          3. 잔반을 남기면 지옥에서 먹어야합니다.
+        </TypoStyle>
+      </MessageBox>
       <MenuOverview
         target={selectedMenu}
         onClick={(target) => setSelectedMenu(target)}
@@ -178,17 +197,25 @@ function RecordMeal() {
       <StyledContainer style={{ marginBottom: 100, marginTop: 30 }}>
         <MealBox>
           <MealInput
-            type='file'
-            accept='image/*'
+            type="file"
+            accept="image/*"
             onChange={(event) => handleTakeImg(event, 0)}
           />
-          {isUploadingImg[0] ? <div><p style={{position: "absolute", bottom: "5%", left: "40%"}}>음식을 인식하는 중...</p><MealImg src={LoadingImg}/></div> :
-          <MealImg
-            src={mealImages[0] ? mealImages[0] : PlateSrc}
-            onError={(e) => {
-              e.target.style.display = "none";
-            }}
-          />}
+          {isUploadingImg[0] ? (
+            <div>
+              <p style={{ position: "absolute", bottom: "5%", left: "40%" }}>
+                음식을 인식하는 중...
+              </p>
+              <MealImg src={LoadingImg} />
+            </div>
+          ) : (
+            <MealImg
+              src={mealImages[0] ? mealImages[0] : PlateSrc}
+              onError={(e) => {
+                e.target.style.display = "none";
+              }}
+            />
+          )}
           {mealImages[0] === undefined ? (
             <MealAlt src={mealImages[0]}>Before</MealAlt>
           ) : (
@@ -198,23 +225,31 @@ function RecordMeal() {
                 style={sytleForButton}
                 onClick={(event) => handleUploadImg(event, 0)}
               />
-              <Replay color='primary' style={sytleForRetryButton} />
+              <Replay color="primary" style={sytleForRetryButton} />
             </>
           )}
         </MealBox>
         <MealBox>
           <MealInput
-            type='file'
-            accept='image/*'
+            type="file"
+            accept="image/*"
             onChange={(event) => handleTakeImg(event, 1)}
           />
-          {isUploadingImg[1] ? <div><p style={{position: "absolute", bottom: "5%", left: "30%"}}>잔반을 지옥으로 가져가는 중...</p><MealImg src={LoadingImg}/></div> :
-          <MealImg
-            src={mealImages[1] ? mealImages[1] : PlateSrc}
-            onError={(e) => {
-              e.target.style.display = "none";
-            }}
-          />}
+          {isUploadingImg[1] ? (
+            <div>
+              <p style={{ position: "absolute", bottom: "5%", left: "30%" }}>
+                잔반을 지옥으로 가져가는 중...
+              </p>
+              <MealImg src={LoadingImg} />
+            </div>
+          ) : (
+            <MealImg
+              src={mealImages[1] ? mealImages[1] : PlateSrc}
+              onError={(e) => {
+                e.target.style.display = "none";
+              }}
+            />
+          )}
           {mealImages[1] === undefined ? (
             <MealAlt src={mealImages[1]}>After</MealAlt>
           ) : (
@@ -224,7 +259,7 @@ function RecordMeal() {
                 style={sytleForButton}
                 onClick={(event) => handleUploadImg(event, 1)}
               />
-              <Replay color='primary' style={sytleForRetryButton} />
+              <Replay color="primary" style={sytleForRetryButton} />
             </>
           )}
         </MealBox>
@@ -234,9 +269,9 @@ function RecordMeal() {
               정말 제출하시겠습니까?
             </TypoStyle>
             <Button
-              variant='contained'
+              variant="contained"
               style={{ width: "40%", backgroundColor: "#950101" }}
-              size='large'
+              size="large"
               onClick={handleSubmit}
             >
               <TypoStyle>예</TypoStyle>
@@ -321,6 +356,19 @@ const styleForTypo = {
 
 const TypoStyle = styled.p`
   ${styleForTypo}
+  padding: 5px;
+`;
+
+const MessageBox = styled.div`
+  background: #faf6ee;
+  padding: 5px;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export default RecordMeal;

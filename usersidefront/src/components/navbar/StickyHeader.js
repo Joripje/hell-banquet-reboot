@@ -14,11 +14,11 @@ function StickyHeader() {
           </LogoStyle>
         </LinkDecoNone>
         <MenuStyle>
-          <LinkDecoNone to="/board">
-            <TypoStyleMenu>게시판</TypoStyleMenu>
-          </LinkDecoNone>
           <LinkDecoNone to="/record-meal">
             <TypoStyleMenu>식사하기</TypoStyleMenu>
+          </LinkDecoNone>
+          <LinkDecoNone to="/board">
+            <TypoStyleMenu>게시판</TypoStyleMenu>
           </LinkDecoNone>
           <LinkDecoNone to="/analysis">
             <TypoStyleMenu>통계</TypoStyleMenu>

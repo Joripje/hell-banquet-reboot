@@ -6,38 +6,39 @@ import { getUserImg } from "../../api/janbani";
 import styled from "styled-components";
 
 function RankingItem(params) {
-    const {rankIndex, userId} = params
-    const [janbanImg, setJanbanImg ] = useState()
+  const { rankIndex, userId } = params;
+  const [janbanImg, setJanbanImg] = useState();
 
-    const handleGetJanban = async () => {
-        await getUserImg(
-          { userId: userId },
-          (data) => {
-            return data.data;
-          },
-          (err) => console.log(err)
-        ).then((res) => {
-            console.log(res)
-          setJanbanImg(res);
-        });
-      };
+  const handleGetJanban = async () => {
+    await getUserImg(
+      { userId: userId },
+      (data) => {
+        return data.data;
+      },
+      (err) => console.log(err)
+    ).then((res) => {
+      console.log(res);
+      setJanbanImg(res);
+    });
+  };
 
-    useEffect(() => {
-        handleGetJanban()
-    }, [userId])
+  useEffect(() => {
+    handleGetJanban();
+  }, [userId]);
 
-    return (
-        <RankBox key={rankIndex}>
-        <StaticJanbanImg
-          src={janbanImg ? janbanImg : staticJanban}
-          rank={rankIndex}
-          alt='잔반이'
-        />
-        <div>
-          {rankIndex}등 {userId}
-        </div>
-      </RankBox>
-    )
+  return (
+    <RankBox key={rankIndex}>
+      <StaticJanbanImg
+        src={janbanImg ? janbanImg : staticJanban}
+        rank={rankIndex}
+        alt="잔반이"
+      />
+      <Typo>{rankIndex}등</Typo>
+      <Typo style={{ fontSize: "20px", fontWeight: "600" }}>
+        {userId}
+      </Typo>
+    </RankBox>
+  );
 }
 
 const RankBox = styled.div`
@@ -45,6 +46,7 @@ const RankBox = styled.div`
   flex-direction: column;
   border-radius: 20px;
   text-align: center;
+  align-items: center;
 `;
 
 const StaticJanbanImg = styled.img`
@@ -52,4 +54,10 @@ const StaticJanbanImg = styled.img`
   margin-top: 15px;
 `;
 
-export default RankingItem
+const Typo = styled.p`
+  font-family: CookieRun-Regular;
+  margin: 0;
+  text-transform: uppercase;
+`;
+
+export default RankingItem;

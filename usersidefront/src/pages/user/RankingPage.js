@@ -20,8 +20,7 @@ function RankingPage() {
   }, []);
 
   return (
-      <LogedPageTemplate>
-
+    <LogedPageTemplate>
       <Container>
         <OverviewRanking />
         {result.length > 4 ? (
@@ -32,7 +31,7 @@ function RankingPage() {
           <RankBox> 오늘은 참여자가 별로 없네요ㅠ</RankBox>
         )}
       </Container>
-      </LogedPageTemplate>
+    </LogedPageTemplate>
   );
 }
 

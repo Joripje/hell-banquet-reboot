@@ -10,6 +10,12 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import HellLivingPoint from "./HellLivingPoint";
 
+const janbanNames = {
+  GRD: "잔반이",
+  SEA: "해반이",
+  SKY: "공반이",
+};
+
 function OverviewDailyJanban() {
   const [isLoading, setIsLoading] = useState(true);
   const [janbanImg, setJanbanImg] = useState(staticJanban);
@@ -25,7 +31,7 @@ function OverviewDailyJanban() {
       await getUserImg(
         { userId: localStorage.getItem("userId") },
         (data) => {
-          console.log(data)
+          // console.log(data)
           return data.data;
         },
         (err) => console.log(err)
@@ -37,52 +43,66 @@ function OverviewDailyJanban() {
     handleGetJanban();
   }, []);
 
+  let janbanName = "";
+  if (janbanImg) {
+    const type = janbanImg.split("/").pop().split("_")[0];
+    janbanName = janbanNames[type];
+  }
+
   return (
-      <Container style={styleForContainer}>
-        <Box>
-          {isLoading ? (
-            <CircularProgress />
-          ) : (
-            <>
-              <JanbanImg
-                src={janbanImg ? janbanImg : staticJanban}
-                alt="잔반이"
-              />
-              <HellLivingPoint />
-            </>
-          )}
-        </Box>
-        {isLoading ? <></> : (
-          <TypoJanban>
-          {janbanImg ? janbanImg : "... 잔반이가 아직 자고있네요 zZ"}
+    <Container style={styleForContainer}>
+      <Box>
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
+          <>
+            <JanbanImg
+              src={janbanImg ? janbanImg : staticJanban}
+              alt="잔반이"
+            />
+            <HellLivingPoint />
+          </>
+        )}
+      </Box>
+      {isLoading ? (
+        <></>
+      ) : (
+        <TypoJanban>
+          {janbanImg
+            ? `${janbanName} 입니다!`
+            : "... 잔반이가 아직 자고있네요 zZ"}
         </TypoJanban>
-        )}
-        {!janbanImg && (
-          <LinkDecoNone to="/record-meal">
-            <Button variant="contained" style={{ backgroundColor: "#492369", margin: 10 }}>
-              잔반이 깨우러 가기
-            </Button>
-          </LinkDecoNone>
-        )}
-        <LinkDecoNone
-          to={janbanOption.url}
-          style={{ position: "absolute", bottom: "10%", right: "15%" }}
-        >
-          {/* <Button variant='contained' color='warning'>
+      )}
+      {!janbanImg && (
+        <LinkDecoNone to="/record-meal">
+          <Button
+            variant="contained"
+            style={{ backgroundColor: "#492369", margin: 10 }}
+          >
+            <TypoJanban style={{fontSize: "15px"}}>잔반이 깨우러 가기</TypoJanban>
+          </Button>
+        </LinkDecoNone>
+      )}
+      <LinkDecoNone
+        to={janbanOption.url}
+        style={{ position: "absolute", bottom: "10%", right: "15%" }}
+      >
+        {/* <Button variant='contained' color='warning'>
             {janbanOption.message}
           </Button> */}
-        </LinkDecoNone>
-      </Container>
+      </LinkDecoNone>
+    </Container>
   );
 }
 
 const styleForContainer = {
-  display: 'flex',
-  flexDirection: 'column',
+  display: "flex",
+  flexDirection: "column",
   height: "100%",
-  alignItems: 'center',
-
-}
+  alignItems: "center",
+  justifyContent: "center",
+  textAlign: "center",
+};
 
 const JanbanImg = styled.img`
   width: auto;

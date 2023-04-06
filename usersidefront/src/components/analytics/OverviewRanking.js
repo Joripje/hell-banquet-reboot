@@ -6,7 +6,7 @@ import RankingItem from "./RankingItem";
 
 function OverviewRanking() {
   const [result, setResult] = useState(["user1", "user3", "user2"]);
-  const [janbanImg, setJanbanImg ] = useState(staticJanban)
+  const [janbanImg, setJanbanImg] = useState(staticJanban);
   const rankingIndex = [2, 1, 3];
 
   useEffect(() => {
@@ -17,9 +17,7 @@ function OverviewRanking() {
       },
       (err) => console.log(err)
     ).then((data) => setResult(data));
-  }, [])
-
-
+  }, []);
 
   return (
     <Container>
@@ -27,7 +25,7 @@ function OverviewRanking() {
         if (result.length > index) {
           const { userId } = result[rankIndex - 1];
           return (
-            <RankingItem userId={userId} rankIndex={rankIndex} ></RankingItem>
+            <RankingItem userId={userId} rankIndex={rankIndex}></RankingItem>
           );
         } else {
           return <div key={index}>왜 아무도 밥을 안먹어!ㅠㅠㅠ</div>;
@@ -44,6 +42,5 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
 `;
-
 
 export default OverviewRanking;
