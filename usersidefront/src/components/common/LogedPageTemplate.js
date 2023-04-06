@@ -28,12 +28,12 @@ function LogedPageTemplate(params) {
 
   return (
     <Grid container>
-    <Grid item sm={3} md={4}></Grid>
+    <Grid item sm={1} md={2}></Grid>
     <Grid
       item
       xs={12}
-      sm={6}
-      md={4}
+      sm={10}
+      md={8}
       style={{
         // backgroundColor: "#EDEBE9",
         backgroundImage: `url(${BgImg})`,
@@ -47,7 +47,7 @@ function LogedPageTemplate(params) {
       <StickyFooter />
       {params?.children}
     </Grid>
-    <Grid item sm={3} md={4}></Grid>
+    <Grid item sm={1} md={2}></Grid>
   </Grid>
   );
 }

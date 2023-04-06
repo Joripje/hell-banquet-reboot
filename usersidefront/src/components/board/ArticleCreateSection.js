@@ -85,7 +85,7 @@ const MessageBox = styled.div`
   padding: 5px;
   margin-left: 10%;
   margin-right: 10%;
-  margin-top: 10%;
+  margin-top: 5%;
   display: flex;
   flex-direction: column;
   justify-content: center;
