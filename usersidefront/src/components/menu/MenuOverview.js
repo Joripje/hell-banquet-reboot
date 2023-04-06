@@ -4,23 +4,25 @@ import { getMenusByDate } from "../../api/menu";
 import MenuBox from "./MenuBox";
 import styled from "styled-components";
 
-function MenuOverview() {
+function MenuOverview(params) {
+  const date = new Date().toISOString().split("T")[0];
+  const onClick = params?.onClick;
+  const target = params?.target;
   const [result, setResult] = useState();
 
   useEffect(() => {
-      const handleGetMenuByDate = async () => {
-        await getMenusByDate(
-          { date: "2023-04-03", managerId: "manager" },
-          (data) => {
-            return data.data;
-          },
-          (err) => console.log(err)
-        ).then((data) => {
-          setResult(data);
-        });
-
-      }
-      handleGetMenuByDate();
+    const handleGetMenuByDate = async () => {
+      await getMenusByDate(
+        { date: date, managerId: "manager" },
+        (data) => {
+          return data.data;
+        },
+        (err) => console.log(err)
+      ).then((data) => {
+        setResult(data);
+      });
+    };
+    handleGetMenuByDate();
   }, []);
 
   // useEffect(() => {}, [result, localStorage]);
@@ -28,7 +30,9 @@ function MenuOverview() {
   return (
     <Container>
       {result?.map((menu, index) => {
-        return <MenuBox menu={menu} key={index} />;
+        return (
+          <MenuBox menu={menu} key={index} target={target} onClick={onClick} />
+        );
       })}
     </Container>
   );

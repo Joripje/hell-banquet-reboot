@@ -2,8 +2,13 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 
 import { LogedPageTemplate } from "../../components/common";
+import { MenuOverview } from "../../components/menu";
 import { postRecordMeal } from "../../api/ai";
-import { sendLeftoverData } from "../../api/leftover";
+import {
+  getCookieGameInfo,
+  getDrawingGameInfo,
+  sendLeftoverData,
+} from "../../api/leftover";
 import PlateSrc from "../../assets/images/plate.png";
 
 import styled from "styled-components";
@@ -13,8 +18,10 @@ import { green } from "@mui/material/colors";
 
 function RecordMeal() {
   const navigate = useNavigate();
-  const [mealImages, setMealImages] = useState([undefined, undefined]);
   const [isUploaded, setIsUploaded] = useState([false, false]);
+  const [mealImages, setMealImages] = useState([undefined, undefined]);
+  const [selectedMenu, setSelectedMenu] = useState("A");
+
   const handleTakeImg = (event, target) => {
     const file = event.target?.files[0];
     if (!file) return;
@@ -82,7 +89,7 @@ function RecordMeal() {
     const leftOverData = {
       before: isUploaded[0],
       after: isUploaded[1],
-      courseNo: 0,
+      courseNo: selectedMenu === "A" ? 0 : 1,
       userId: localStorage.getItem("userId"),
     };
 
@@ -100,13 +107,50 @@ function RecordMeal() {
     );
   };
 
-  useEffect(() => {}, [mealImages]);
+  useEffect(() => {
+    const today = new Date().toISOString().split("T")[0];
+    const userStateChecker = async () => {
+      const cookie = await getCookieGameInfo(
+        {
+          today: today,
+          userId: localStorage.getItem("userId"),
+        },
+        (data) => {
+          return data.data;
+        },
+        (err) => console.log(err)
+      ).then((result) => {
+        return result;
+      });
+      const drawing = await getDrawingGameInfo(
+        {
+          today: today,
+          userId: localStorage.getItem("userId"),
+        },
+        (data) => {
+          return data.data;
+        },
+        (err) => console.log(err)
+      ).then((result) => {
+        return result;
+      });
+
+      if (cookie || drawing) {
+        navigate("/janban");
+      }
+    };
+    userStateChecker();
+  }, [mealImages]);
 
   return (
     <LogedPageTemplate>
       <TypoStyle style={{ fontSize: 24, padding: 20 }}>
         식판 사진을 업로드
       </TypoStyle>
+      <MenuOverview
+        target={selectedMenu}
+        onClick={(target) => setSelectedMenu(target)}
+      />
       <StyledContainer style={{ marginBottom: 100, marginTop: 30 }}>
         <MealBox>
           <MealInput

@@ -21,10 +21,11 @@ async function getLeftoverData(date, success, fail) {
 }
 
 async function getCookieGameInfo(info, success, fail) {
-  await api
+  const res = await api
     .get(`/leftovers/cookie/check`, { params: info })
     .then(success)
     .catch(fail);
+  return res;
 }
 
 async function putDrawingGameInfo(info, success, fail) {
@@ -35,10 +36,11 @@ async function putDrawingGameInfo(info, success, fail) {
 }
 
 async function getDrawingGameInfo(info, success, fail) {
-  await api
+  const res = await api
     .get(`/leftovers/drawing/check`, { params: info })
     .then(success)
     .catch(fail);
+  return res;
 }
 
 async function getDailyRank(user, success, fail) {

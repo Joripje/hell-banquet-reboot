@@ -7,7 +7,10 @@ function MenuBox(params) {
   useEffect(() => {}, []);
 
   return (
-    <Box>
+    <Box
+      isTarget={params?.target === menu.type}
+      onClick={() => params?.onClick(menu.type)}
+    >
       <p>
         {menu.type}: {menu.category === "KOREAN" ? "한식" : "일품"}
       </p>
@@ -23,7 +26,8 @@ const Box = styled.div`
   width: 40%;
   height: 80%;
   text-align: center;
-  background: rgb(255, 255, 255, 0.4);
+  background: ${(props) =>
+    props.isTarget ? "rgb(255, 255, 255, 0.8)" : "rgb(255, 255, 255, 0.4)"};
   border-radius: 20px;
 `;
 

@@ -9,7 +9,7 @@ function JanbanPresentPage() {
   return (
     <LogedPageTemplate>
       <JanbanImg src={staticJanban} />
-      <LinkDecoNone to={"/drawing"}>
+      <LinkDecoNone to={"/drawing"} style={{ position: "relative" }}>
         <IconBox>
           <StyledGestureIcon
             component={Gesture}
@@ -34,6 +34,8 @@ const JanbanImg = styled.img`
   border-radius: 20px;
 `;
 const IconBox = styled.div`
+  position: relative;
+  height: 50%;
   background: rgba(191, 192, 187, 0.5);
 
   margin: 5% 5% 25% 5%;
