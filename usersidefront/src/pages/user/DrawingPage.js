@@ -144,56 +144,57 @@ function DrawingPage() {
 
   return (
     <>
-      <LogedPageTemplate />
-      {/* <Container> */}
-      {isDrawed ? (
-        <>
-          {isCorrect ? (
-            <div style={{ fontWeight: "bold", color: "green" }}>
-              맞았습니다!!
-            </div>
-          ) : (
-            <div style={{ color: "red" }}>틀렸습니다</div>
-          )}
-        </>
-      ) : (
-        <>
-          <DrawSubject subjectIndex={subjectIndex} />
-          <CanvasWrapper>
-            <Canvas
-              isStarted={isStarted}
-              isFinished={isFinished}
-              subjectIndex={subjectIndex}
-              endDraw={endDraw}
-            />
-            {!isStarted && (
-              <StartButton>
-                {isFinished ? (
-                  <Button variant="contained" color="error">
-                    여기까지입니다!!
-                  </Button>
-                ) : (
-                  <Button variant="contained" onClick={handleStartDrawing}>
-                    그리기 시작
-                  </Button>
-                )}
-              </StartButton>
-            )}
-          </CanvasWrapper>
-          <TimerWrapper>
-            {isStarted ? (
-              isFinished ? (
-                <Button variant="contained">결과를 알아볼까요?!</Button>
-              ) : (
-                <p>남은 시간: {remainingTime}초</p>
-              )
+      <LogedPageTemplate>
+        {/* <Container> */}
+        {isDrawed ? (
+          <>
+            {isCorrect ? (
+              <div style={{ fontWeight: "bold", color: "green" }}>
+                맞았습니다!!
+              </div>
             ) : (
-              <></>
+              <div style={{ color: "red" }}>틀렸습니다</div>
             )}
-          </TimerWrapper>
-        </>
-      )}
-      {/* </Container> */}
+          </>
+        ) : (
+          <>
+            <DrawSubject subjectIndex={subjectIndex} />
+            <CanvasWrapper>
+              <Canvas
+                isStarted={isStarted}
+                isFinished={isFinished}
+                subjectIndex={subjectIndex}
+                endDraw={endDraw}
+              />
+              {!isStarted && (
+                <StartButton>
+                  {isFinished ? (
+                    <Button variant="contained" color="error">
+                      여기까지입니다!!
+                    </Button>
+                  ) : (
+                    <Button variant="contained" onClick={handleStartDrawing}>
+                      그리기 시작
+                    </Button>
+                  )}
+                </StartButton>
+              )}
+            </CanvasWrapper>
+            <TimerWrapper>
+              {isStarted ? (
+                isFinished ? (
+                  <Button variant="contained">결과를 알아볼까요?!</Button>
+                ) : (
+                  <p>남은 시간: {remainingTime}초</p>
+                )
+              ) : (
+                <></>
+              )}
+            </TimerWrapper>
+          </>
+        )}
+        {/* </Container> */}
+      </LogedPageTemplate>
     </>
   );
 }

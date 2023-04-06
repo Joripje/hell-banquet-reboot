@@ -65,6 +65,9 @@ function Canvas(params) {
       },
       (err) => {
         console.log(err);
+        // console.log(c);
+        // console.log(localStorage.userId);
+        // console.log(todayString);
       }
     );
   };
@@ -155,7 +158,7 @@ function Canvas(params) {
 
     // 선 스타일 설정
     context.strokeStyle = "#000000"; // 검은색
-    context.lineWidth = 16;
+    context.lineWidth = 13;
     context.lineJoin = "round";
     context.lineCap = "round";
 

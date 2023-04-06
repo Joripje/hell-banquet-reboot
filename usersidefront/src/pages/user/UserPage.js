@@ -2,7 +2,6 @@ import { LogedPageTemplate } from "../../components/common";
 import { ProfileUserInfo } from "../../components/user";
 import { OverviewDailyJanban } from "../../components/janban";
 import { OverviewStatics } from "../../components/analytics";
-
 import { useNavigate } from "react-router-dom";
 
 import { logout } from "../../api/auth";
@@ -12,7 +11,7 @@ import { Button, Container } from "@mui/material";
 
 function UserPage() {
   const navigate = useNavigate();
-  const date = new Date().toISOString().split("T")[0]
+  const date = new Date().toISOString().split("T")[0];
 
   const onLogoutHandler = async () => {
     await logout(
@@ -27,13 +26,12 @@ function UserPage() {
   };
 
   return (
-      <LogedPageTemplate>
-
+    <LogedPageTemplate>
       <Container sx={styleForContainer}>
         <JanbanSection>
           <OverviewDailyJanban />
         </JanbanSection>
-        <UserInfoSection to='/'>
+        <UserInfoSection to="/">
           <ProfileUserInfo />
         </UserInfoSection>
         <StatisticsSection>
@@ -41,14 +39,14 @@ function UserPage() {
         </StatisticsSection>
         <Button
           onClick={onLogoutHandler}
-          color='error'
-          variant='contained'
+          color="error"
+          variant="contained"
           style={{ zIndex: 0, marginBottom: 100, width: "30%" }}
         >
           로그아웃
         </Button>
       </Container>
-      </LogedPageTemplate>
+    </LogedPageTemplate>
   );
 }
 
