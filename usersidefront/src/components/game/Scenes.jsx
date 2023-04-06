@@ -85,7 +85,7 @@ export class Scenes extends Phaser.Scene {
     });
 
     // 텍스트 생성
-    this.text = this.add.text(10, 10, `Byungsin: ${this.timeLimit}`, {
+    this.text = this.add.text(10, 10, `Time: ${this.timeLimit}`, {
       fontFamily: "DotFont",
       fontSize: 32,
       color: "#000000",
@@ -358,7 +358,7 @@ export class Scenes extends Phaser.Scene {
 
   onTimerTick() {
     this.timeLimit--;
-    this.text.setText(`Byungsin: ${this.timeLimit}`);
+    this.text.setText(`Time: ${this.timeLimit}`);
 
     if (this.timeLimit <= 0) {
       this.timer.remove(false);

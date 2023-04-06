@@ -8,8 +8,11 @@ import {
   getDrawingGameInfo,
 } from "../../api/leftover";
 
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Button } from "@mui/material";
+import RequestJanbani from "../../components/draw/RequestJanbani";
+import stamp from "../../assets/images/stamp.png";
+import ddang from "../../assets/images/ddang.png";
 // import { draw } from "face-api.js";
 
 // 모달
@@ -32,13 +35,31 @@ const style = {
 };
 // 모달
 
+// const StampContainer = styled.div`
+//   height: 80vh;
+//   display: absolute;
+//   justify-content: center;
+//   align-items: center;
+// `;
+
+// const AnimatedComponent = styled.div`
+//   animation: ${keyframes`
+//     from {
+//       transform: scale(4);
+//     }
+//     to {
+//       transform: scale(1);
+//     }
+//   `} 0.4s ease;
+//   visibility: ${(props) => (props.visible ? "visible" : "hidden")};
+// `;
 function DrawingPage() {
   // 모달띄우는곳
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   // 모달 띄우는곳
-
+  const [canvasImage, setCanvasImage] = useState(null);
   const [isStarted, setIsStarted] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   const [remainingTime, setRemainingTime] = useState(10);
@@ -47,13 +68,23 @@ function DrawingPage() {
   const [isCheck, setIsCheck] = useState(1); // 0: 밥 안먹음, 1: 게임가능, 2: 이미함
   const [subjectIndex, setSubjectIndex] = useState(0);
   const timerRef = useRef(null); // 타이머 참조
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    setVisible(isCorrect);
+  }, [isCorrect]);
   const navigate = useNavigate();
+
   // 그리기 시작 버튼 클릭 핸들러
 
-  const endDraw = (data) => {
+  const BackToMain = () => {
+    navigate("/");
+  };
+  const endDraw = (data1, data2) => {
     setIsDrawed(true);
+    setCanvasImage(data2);
     handleClose();
-    setIsCorrect(data);
+    setIsCorrect(data1);
   };
   const handleStartDrawing = () => {
     setIsStarted(true);
@@ -79,13 +110,13 @@ function DrawingPage() {
             console.log("그림아직");
           } else {
             setIsCheck(2);
-            // alert("오늘은 이미 그림을 그렸어요.");
-            // navigate(-1);
+            alert("오늘은 이미 그림을 그렸어요.");
+            navigate(-1);
           }
         },
         (err) => {
-          // alert("밥먹고 오세요.");
-          // navigate(-1);
+          alert("밥먹고 오세요.");
+          navigate(-1);
         }
       );
     };
@@ -176,17 +207,61 @@ function DrawingPage() {
         {isDrawed ? (
           <>
             {isCorrect ? (
-              <div style={{ fontWeight: "bold", color: "green" }}>
-                맞았을 때 결과
-              </div>
+              <Container>
+                <img src={canvasImage} alt="" />
+                <WhiteBackground>
+                  <img src={stamp} alt="" />
+                </WhiteBackground>
+                <StartButton>
+                  <div
+                    style={{
+                      fontSize: "1rem",
+                      color: "#009874",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    맞았습니다!!
+                  </div>
+
+                  <br />
+                  <Button
+                    variant="contained"
+                    onClick={BackToMain}
+                    color="secondary"
+                  >
+                    돌아가기
+                  </Button>
+                </StartButton>
+              </Container>
             ) : (
-              <div style={{ color: "red" }}>틀렸을 때 결과요</div>
+              <Container>
+                <img src={canvasImage} alt="" />
+                <WhiteBackground>
+                  <img src={ddang} alt="" />
+                </WhiteBackground>
+
+                <StartButton>
+                  <div style={{ fontSize: "1rem", color: "#DE4124" }}>
+                    틀렸습니다
+                  </div>
+                  <br />
+                  <Button
+                    variant="contained"
+                    onClick={BackToMain}
+                    color="secondary"
+                  >
+                    돌아가기
+                  </Button>
+                </StartButton>
+              </Container>
             )}
           </>
         ) : (
           <>
-            <DrawSubject subjectIndex={subjectIndex} />
-            <Button onClick={handleOpen}>그려볼까?</Button>
+            <RequestJanbani
+              subjectIndex={subjectIndex}
+              handleOpen={handleOpen}
+            />
           </>
         )}
         {/* </Container> */}
@@ -250,10 +325,12 @@ function DrawingPage() {
   );
 }
 const Container = styled.div`
+position: relative
   height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 20%
 `;
 const CanvasWrapper = styled.div`
   position: relative;
@@ -267,7 +344,7 @@ const CanvasWrapper = styled.div`
 
 const StartButton = styled.div`
   position: absolute;
-  top: 50%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
@@ -282,6 +359,22 @@ const TimerWrapper = styled.div`
   transform: translate(-50%, 0%);
   background-color: white;
   padding: 10px;
+`;
+
+const WhiteBackground = styled.div`
+  animation: ${keyframes`
+from {
+  transform: scale(4);
+}
+to {
+  transform: scale(1);
+}
+`} 0.4s ease;
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
 `;
 
 export default DrawingPage;

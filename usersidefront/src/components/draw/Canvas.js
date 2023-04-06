@@ -95,10 +95,10 @@ function Canvas(params) {
         // console.log(subjects[subjectIndex]);
         if (response.data.success) {
           putDrawResult(subjectsKorean[subjectIndex]);
-          endDraw(true);
+          endDraw(true, canvas.toDataURL());
         } else {
           putDrawResult("None");
-          endDraw(false);
+          endDraw(false, canvas.toDataURL());
         }
       }, "image/png");
     } catch (error) {
@@ -173,7 +173,11 @@ function Canvas(params) {
   if (isStarted && !isFinished) {
     return (
       <canvas
-        style={{ background: "#FFFFFF" }}
+        style={{
+          background: "#FFFFFF",
+
+          boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+        }}
         ref={canvasRef}
         width={300}
         height={300}
@@ -190,7 +194,11 @@ function Canvas(params) {
     return (
       <>
         <canvas
-          style={{ background: "#FFFFFF" }}
+          style={{
+            background: "#FFFFFF",
+
+            boxShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+          }}
           ref={canvasRef}
           width={300}
           height={300}
