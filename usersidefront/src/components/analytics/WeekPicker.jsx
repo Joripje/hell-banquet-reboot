@@ -36,6 +36,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
+import { ko } from "date-fns/esm/locale";
 function WeekPicker(props) {
   const [startDate, setStartDate] = useState(
     startOfWeek(new Date(), { weekStartsOn: 1 })
@@ -72,6 +73,7 @@ function WeekPicker(props) {
   return (
     <>
       <DatePicker
+        locale={ko}
         selected={startDate}
         onChange={handleWeekChange}
         dateFormat="yyyy.MM.dd"

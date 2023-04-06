@@ -168,7 +168,8 @@ import StatsticsToday from "../../components/analytics/StatisticsToday";
 import WeekPicker from "../../components/analytics/WeekPicker";
 import StatisticsWeek from "../../components/analytics/StatisticsWeek";
 import StatisticWeekDou from "../../components/analytics/StatisticWeekDou";
-
+import { SelectMunu } from "../../components/menu";
+import Grid from "@mui/material/Grid";
 const AnalysisPage = () => {
   const [value, setValue] = React.useState("1");
   const [mon, setMon] = useState([]);
@@ -352,7 +353,10 @@ const AnalysisPage = () => {
             </Box>
             <TabPanel value="1">
               {/* <Content> */}
+
               <StatsticsToday />
+              <SelectMunu />
+
               {/* </Content> */}
             </TabPanel>
             <TabPanel value="2">
@@ -374,6 +378,15 @@ const AnalysisPage = () => {
     </LogedPageTemplate>
   );
 };
+
+// const MCContainer = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-around;
+//   align-items: center;
+
+//   width: 100%;
+// `;
 
 const Container = styled.div`
   width: 95%;

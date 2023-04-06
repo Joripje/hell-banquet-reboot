@@ -7,7 +7,7 @@ import { getLeftover } from "../../api/leftover";
 import Button from "@mui/material/Button";
 import styled from "styled-components";
 const StatsticsToday = () => {
-  const [isEat, setIsEat] = useState(false);
+  const [isEat, setIsEat] = useState(0); // 0: 로드중, 1: 먹음, 2: 안먹음
   // const { date, course,  } = params;
   const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
   const today = new Date();
@@ -28,12 +28,12 @@ const StatsticsToday = () => {
       { userId: userId, date: date },
       // { userId: "string", date: "2023-04-04" },
       (data) => {
-        setIsEat(true);
+        setIsEat(1);
         return data.data;
       },
       (err) => {
         console.log(err);
-        setIsEat(false);
+        setIsEat(2);
       }
     ).then((data) => setInfo([data?.before, data?.after]));
   }, [date]);
@@ -63,7 +63,12 @@ const StatsticsToday = () => {
       </Button>
 
       <CicleStaticContainer>
-        {isEat ? <Doughnut data={chartData} /> : <div>밥안먹음</div>}
+        {/* {isEat ? <Doughnut data={chartData} /> : <div>밥안먹음</div>} */}
+        {isEat === 0 ? null : isEat === 1 ? (
+          <Doughnut data={chartData} />
+        ) : (
+          <div>밥안먹음</div>
+        )}
       </CicleStaticContainer>
     </>
   );
