@@ -9,7 +9,7 @@ import { Container, Grid } from "@mui/material";
 import staticJanban from "../../assets/images/staticJanban.png";
 
 function BoardListItem(params) {
-  const { article } = params;
+  const { article, isChild } = params;
   const [janbanImg, setJanbanImg] = useState(staticJanban);
   const makeItCenter = { display: "flex", alignItems: "center" };
   const handleClick = () => {
@@ -60,13 +60,14 @@ function BoardListItem(params) {
       ) : (
         // 게시물 목록에서 보이는 게시물
         <LinkDecoNone to={`/board/${article.id}`} state={article}>
-          <ArticleCard onClick={handleClick} id={article.id}>
+          <ArticleCard onClick={handleClick} id={article.id} isChild={isChild}>
             <UpDelModal article={article} />
             <Grid container style={makeItCenter}>
               <Grid item xs={4} style={{ textAlign: "center" }}>
                 <JanvanFace
                   src={janbanImg ? janbanImg : staticJanban}
                   alt={article?.id}
+                  isChild={isChild}
                 />
                 <TypoWriter>{article.writer}</TypoWriter>
               </Grid>
@@ -74,9 +75,14 @@ function BoardListItem(params) {
                 <Container style={{ height: 100, fontSize: 20 }}>
                   <TypoContent>{article.content}</TypoContent>
                 </Container>
+                {isChild 
+                ?
+                 <></>
+                 :
                 <OptionBox>
                   <ArticleOption article={article} />
                 </OptionBox>
+                 }
               </Grid>
             </Grid>
           </ArticleCard>
@@ -90,7 +96,7 @@ const ArticleCard = styled.div`
   position: relative;
   display: flex;
   // margin: 15px 20px;
-  height: 200px;
+  height: ${props => props.isChild ? '140px' :'200px'};
   background: #faf6ee;
   background-image: ${(props) =>
     props.id % 2
@@ -103,8 +109,9 @@ const ArticleCard = styled.div`
 `;
 
 const JanvanFace = styled.img`
-  width: 140px;
-  height: 140px;
+
+  width: ${props => props.isChild ? '100px' :'140px'};
+  height: ${props => props.isChild ? '100px' :'140px'};
 
   margin-left: 0px 10px 0px 10px;
 `;
@@ -121,9 +128,10 @@ const TypoContent = styled.p`
   font-size: 20px;
 `;
 
-const TypoWriter = styled.p`
+const TypoWriter = styled.div`
   font-family: ChosunCentennial;
   font-size: 15px;
+  text-align:center;
 `;
 
 export default BoardListItem;

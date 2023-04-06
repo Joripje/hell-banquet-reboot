@@ -5,14 +5,14 @@ import { LinkDecoNone } from "../common";
 import { getUserImg } from "../../api/janbani";
 
 import styled from "styled-components";
-import { Button, Container } from "@mui/material";
+import { Container } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
+import HellLivingPoint from "./HellLivingPoint";
 
 function OverviewDailyJanban() {
   const [isLoading, setIsLoading] = useState(true);
   const [janbanImg, setJanbanImg] = useState(staticJanban);
-  const [janbanCode, setJanbanCode] = useState("GRD_001");
   const date = new Date().getHours();
   // const janbanCode = "GRD_002";
   const janbanOption =
@@ -25,7 +25,6 @@ function OverviewDailyJanban() {
       await getUserImg(
         { userId: localStorage.getItem("userId") },
         (data) => {
-          console.log(data.data);
           return data.data;
         },
         (err) => console.log(err)
@@ -47,7 +46,10 @@ function OverviewDailyJanban() {
             <CircularProgress />
           </Box>
         ) : (
+          <>
           <JanbanImg src={janbanImg} alt="잔반이" />
+          <HellLivingPoint />
+          </>
         )}
         <LinkDecoNone
           to={janbanOption.url}
@@ -61,6 +63,7 @@ function OverviewDailyJanban() {
     </OverviewBox>
   );
 }
+
 
 const OverviewBox = styled.div`
   width: 100%;

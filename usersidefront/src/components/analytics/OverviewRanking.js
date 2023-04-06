@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { getDailyRank } from "../../api/leftover";
 import staticJanban from "../../assets/images/janban.png";
+import { getUserImg } from "../../api/janbani";
 import styled from "styled-components";
 
 function OverviewRanking() {
   const [result, setResult] = useState(["user1", "user3", "user2"]);
+  const [janbanImg, setJanbanImg ] = useState(staticJanban)
   const rankingIndex = [2, 1, 3];
 
   useEffect(() => {
@@ -15,16 +17,31 @@ function OverviewRanking() {
       },
       (err) => console.log(err)
     ).then((data) => setResult(data));
-  }, []);
+
+    
+  }, [])
+  const handleGetJanban = async (userId) => {
+    await getUserImg(
+      { userId: userId },
+      (data) => {
+        console.log(data.data);
+        return data.data;
+      },
+      (err) => console.log(err)
+    ).then((res) => {
+      setJanbanImg(res);
+    });
+  };
 
   return (
     <Container>
       {rankingIndex.map((rankIndex, index) => {
         if (result.length > index) {
           const { userId } = result[rankIndex - 1];
+          handleGetJanban(userId);
           return (
             <RankBox key={rankIndex}>
-              <StaticJanbanImg src={staticJanban} rank={rankIndex} alt='잔반이' />
+              <StaticJanbanImg src={janbanImg} rank={rankIndex} alt='잔반이' />
               <div>
                 {rankIndex}등 {userId}
               </div>

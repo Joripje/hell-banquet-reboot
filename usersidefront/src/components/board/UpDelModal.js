@@ -30,6 +30,13 @@ function UpDelModal(params) {
     );
   };
 
+  const handleDelete = (event) => {
+    event.preventDefault();
+    alert('지옥법 3조 5항 6 예외조항에 따라 영양사에게 상처를 줄 수 있는 모든 발언을 방지하기 위해 삭제를 법으로 금함')
+    alert('그러게 왜 지우고싶은 말을 씀?')
+    setIsOpen(false)
+  }
+
   const onTypingHandler = (event) => {
     setContent(event.target.value);
   };
@@ -56,6 +63,9 @@ function UpDelModal(params) {
               />
               <Button type='submit' onClick={handleUpdate} variant='contained'>
                 글 수정
+              </Button>
+              <Button type='submit' color="error" onClick={handleDelete} variant='contained'>
+                글 삭제
               </Button>
             </Box>
           </Modal>

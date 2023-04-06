@@ -56,7 +56,6 @@ const styleForSection = `
 
 const JanvanSection = styled.section`
   ${styleForSection}
-  height: 270px;
 `;
 const DailyMenuSection = styled.section`
   ${styleForSection}

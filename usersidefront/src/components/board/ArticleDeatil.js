@@ -59,7 +59,7 @@ function ArticleDetail() {
         ) : (
           comments.map((article, index) => {
             return (
-              <BoardListItem article={article} index={index} key={index} />
+              <BoardListItem article={article} isChild={true} index={index} key={index} />
             );
           })
         )}
