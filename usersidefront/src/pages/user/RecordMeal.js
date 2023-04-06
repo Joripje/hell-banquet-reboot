@@ -16,12 +16,15 @@ import { Button } from "@mui/material";
 import { Replay, CheckCircleOutline } from "@mui/icons-material";
 import { green } from "@mui/material/colors";
 
+import LoadingImg from "../../assets/images/loadingFood.gif"
+
 function RecordMeal() {
   const navigate = useNavigate();
   const [isUploaded, setIsUploaded] = useState([false, false]);
   const [mealImages, setMealImages] = useState([undefined, undefined]);
   const [selectedMenu, setSelectedMenu] = useState("A");
 
+  const [isUploadingImg, setIsUploadingImg] = useState([false, false]); // 로딩이미지
   const handleTakeImg = (event, target) => {
     const file = event.target?.files[0];
     if (!file) return;
@@ -45,21 +48,40 @@ function RecordMeal() {
     const imageUrl = mealImages[target];
     if (!imageUrl) return;
 
+    const loadImgBoolean = [...isUploadingImg];
+    loadImgBoolean[target] = !isUploadingImg[target];
+    setIsUploadingImg(loadImgBoolean)
+    
     await postRecordMeal(
       imageUrl,
       (data) => {
         return data.data;
       },
-      (err) => console.log(err)
-    ).then((data) => {
-      const newImage = [...mealImages];
-      newImage[target] = data?.s3_file_path;
-      setMealImages(newImage);
-
-      const newBoolean = [...isUploaded];
-      newBoolean[target] = data?.amount;
-      setIsUploaded(newBoolean);
-    });
+      (err) => {
+        console.log(err);
+      }
+      ).then((data) => {
+        console.log(data)
+        if (data.status === false) {
+          alert('식판이 감지되지 않았습니다. 사진을 다시 찍어주세요.')
+        }
+        const newImage = [...mealImages];
+        newImage[target] = data?.s3_file_path;
+        setMealImages(newImage);
+        
+        const newBoolean = [...isUploaded];
+        newBoolean[target] = data?.amount;
+        setIsUploaded(newBoolean);
+        
+        const loadImgBoolean = [...isUploadingImg];
+        loadImgBoolean[target] = false;
+        setIsUploadingImg(loadImgBoolean)
+      }).catch((err) => {
+        console.log(err)
+        const loadImgBoolean = [...isUploadingImg];
+        loadImgBoolean[target] = false;
+        setIsUploadingImg(loadImgBoolean)
+      });
   };
 
   const shrinkImage = (file) => {
@@ -85,7 +107,7 @@ function RecordMeal() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const ratio = Math.floor((isUploaded[0] / isUploaded[1]) * 100);
+    const ratio = Math.floor((isUploaded[1] / isUploaded[0]) * 100);
     const leftOverData = {
       before: isUploaded[0],
       after: isUploaded[1],
@@ -144,6 +166,7 @@ function RecordMeal() {
 
   return (
     <LogedPageTemplate>
+      {/* <MealImg src={LoadingImg}/> */}
       <TypoStyle style={{ fontSize: 24, padding: 20 }}>
         식판 사진을 업로드
       </TypoStyle>
@@ -158,12 +181,13 @@ function RecordMeal() {
             accept='image/*'
             onChange={(event) => handleTakeImg(event, 0)}
           />
+          {isUploadingImg[0] ? <MealImg src={LoadingImg}/> :
           <MealImg
             src={mealImages[0] ? mealImages[0] : PlateSrc}
             onError={(e) => {
               e.target.style.display = "none";
             }}
-          />
+          />}
           {mealImages[0] === undefined ? (
             <MealAlt src={mealImages[0]}>Before</MealAlt>
           ) : (
@@ -183,14 +207,15 @@ function RecordMeal() {
             accept='image/*'
             onChange={(event) => handleTakeImg(event, 1)}
           />
+          {isUploadingImg[1] ? <MealImg src={LoadingImg}/> :
           <MealImg
             src={mealImages[1] ? mealImages[1] : PlateSrc}
             onError={(e) => {
               e.target.style.display = "none";
             }}
-          />
+          />}
           {mealImages[1] === undefined ? (
-            <MealAlt src={mealImages[0]}>After</MealAlt>
+            <MealAlt src={mealImages[1]}>After</MealAlt>
           ) : (
             <>
               <CheckCircleOutline

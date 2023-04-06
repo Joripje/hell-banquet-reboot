@@ -6,11 +6,15 @@ import { getJanbanImg } from "../../api/janbani";
 
 import styled from "styled-components";
 import { Button, Container } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
 function OverviewDailyJanban() {
+  const [isLoading, setIsLoading] = useState(true);
   const [janbanImg, setJanbanImg] = useState(staticJanban);
+  const [janbanCode, setJanbanCode] = useState("GRD_001");
   const date = new Date().getHours();
-  const janbanCode = "GRD_002";
+  // const janbanCode = "GRD_002";
   const janbanOption =
     date < 14
       ? { url: `/record-meal`, message: "식사하러 가기" }
@@ -27,6 +31,7 @@ function OverviewDailyJanban() {
         (err) => console.log(err)
       ).then((res) => {
         setJanbanImg(res);
+        setIsLoading(false);
       });
     };
     handleGetJanban();
@@ -36,8 +41,14 @@ function OverviewDailyJanban() {
 
   return (
     <OverviewBox>
-      <JanbanImg src={janbanImg} alt='잔반이' />
       <Container style={{ position: "relative", height: "100%" }}>
+        {isLoading ? (
+          <Box sx={{ display: "flex" }}>
+            <CircularProgress />
+          </Box>
+        ) : (
+          <JanbanImg src={janbanImg} alt="잔반이" />
+        )}
         <LinkDecoNone
           to={janbanOption.url}
           style={{ position: "absolute", bottom: "10%", right: "15%" }}
