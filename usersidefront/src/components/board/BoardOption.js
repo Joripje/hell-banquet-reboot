@@ -94,11 +94,14 @@ function BoardOption() {
 }
 
 const PositionProvider = styled.div`
-  position: absolute;
-  top: calc(
-    ${(props) => props.screenHeight}px - 200px + ${(props) => props.scrollY}px
-  );
+  position: fixed;
   right: 20px;
+  bottom: 65px;
+  // position: absolute;
+  // top: calc(
+  //   ${(props) => props.screenHeight}px - 200px + ${(props) => props.scrollY}px
+  // );
+  // right: 20px;
 
   display: flex;
   flex-direction: column;

@@ -91,7 +91,7 @@ const routes = [
     element: <DrawingPage />,
   },
   {
-    path: "/janban",
+    path: "/record-meal/janban",
     element: <JanbanPresentPage />,
   },
   // Manager
