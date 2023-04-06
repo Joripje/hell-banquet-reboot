@@ -36,21 +36,20 @@ function OverviewDailyJanban() {
     handleGetJanban();
   }, []);
 
-  useEffect(() => {}, [janbanImg]);
 
   return (
     <OverviewBox>
-      <Container style={{ position: "relative", height: "100%" }}>
+      <Container style={{ position: "relative", height: "100%", }}>
+        <Box sx={{ display: "flex", flexDirection:'row', alignItems: 'center' }}>
         {isLoading ? (
-          <Box sx={{ display: "flex" }}>
             <CircularProgress />
-          </Box>
-        ) : (
-          <>
-          <JanbanImg src={janbanImg} alt="잔반이" />
+            ) : (
+              <>
+          <JanbanImg src={janbanImg ? janbanImg : staticJanban} alt="잔반이" />
           <HellLivingPoint />
           </>
         )}
+        </Box>
         <LinkDecoNone
           to={janbanOption.url}
           style={{ position: "absolute", bottom: "10%", right: "15%" }}
@@ -77,6 +76,8 @@ const JanbanImg = styled.img`
   height: auto;
   max-width: 200px;
   max-height: 200px;
+  margin-top: 5%;
+  margin-left: 10%;
 `;
 
 export default OverviewDailyJanban;

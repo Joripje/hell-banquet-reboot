@@ -24,7 +24,6 @@ function ArticleOption(params) {
     await putLike(
       user,
       (data) => {
-        console.log(data);
         if (isLiked === 1) {
           setIsLiked(0);
         } else {
@@ -41,7 +40,6 @@ function ArticleOption(params) {
     await putDisLike(
       user,
       (data) => {
-        console.log(data);
         if (isLiked === 2) {
           setIsLiked(0);
         } else {

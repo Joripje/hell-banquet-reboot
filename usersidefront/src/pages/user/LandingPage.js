@@ -44,11 +44,12 @@ const styleForContainer = {
 };
 
 const styleForSection = `
-    width: 95%;
+    width: 100%;
     height: 200px;
     background: #faf6ee;
 
     margin: 15px 0px 5px 0px;
+    padding: 0px;
     border-radius: 15px;
 
     display: flex;
