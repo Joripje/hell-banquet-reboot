@@ -5,7 +5,7 @@ import RankingItem from "./RankingItem";
 
 function OverviewRanking() {
   const [result, setResult] = useState(["user1", "user3", "user2"]);
-  const [janbanImg, setJanbanImg] = useState(staticJanban);
+  // const [janbanImg, setJanbanImg] = useState(staticJanban);
   const rankingIndex = [2, 1, 3];
 
   useEffect(() => {
