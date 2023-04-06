@@ -43,7 +43,7 @@ function WeeklyBar(params) {
       };
     const handleBarClick = (event, elements) => {
         const newDate = new Date(date);
-        newDate.setDate(newDate.getDate() + elements[0].index);
+        newDate.setDate(newDate.getDate() + elements[0]?.index);
         setSingleDay(newDate.toISOString().slice(0, 10))
       };
       const chartOptions = {

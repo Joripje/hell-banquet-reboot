@@ -9,23 +9,20 @@ import styled from "styled-components";
 function DailyStatistics(params) {
   ChartJS.register(ArcElement, Tooltip, Legend);
   const { date, course } = params;
-  const prevInfo = [
+  const [info, setInfo] = useState([
     {
       id: 1,
       served: 1000,
       leftovers: 33,
-      courseNo: course,
       date: "2023-03-24",
     },
     {
       id: 1,
       served: 2000,
       leftovers: 21,
-      courseNo: course,
       date: "2023-03-24",
     },
-  ];
-  const [info, setInfo] = useState(prevInfo);
+  ]);
   const [chartData, setChartData] = useState({
     labels: ["배식량", "잔반량"],
     datasets: [
@@ -50,7 +47,20 @@ function DailyStatistics(params) {
         if (response && response.length) {
           setInfo(response);
         } else {
-          setInfo(prevInfo);
+          setInfo([
+            {
+              id: 1,
+              served: 1000,
+              leftovers: 33,
+              date: "2023-03-24",
+            },
+            {
+              id: 1,
+              served: 2000,
+              leftovers: 21,
+              date: "2023-03-24",
+            },
+          ]);
         }
       } catch (error) {
         console.log(error);
@@ -69,7 +79,7 @@ function DailyStatistics(params) {
         },
       ],
     });
-  }, [info]);
+  }, [info, course]);
 
   return (
     <CicleStaticContainer>

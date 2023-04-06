@@ -9,15 +9,14 @@ import styled from "styled-components";
 function WeeklyStatistics(params) {
   ChartJS.register(ArcElement, Tooltip, Legend);
   const { date, course } = params;
-  const prevInfo = {
+
+  const [info, setInfo] = useState({
     id: 1,
     served: 1000,
     leftovers: 33,
     courseNo: course,
     date: "2023-03-24",
-  };
-
-  const [info, setInfo] = useState(prevInfo);
+  });
   const [chartData, setChartData] = useState({
     labels: ["배식량", "잔반량"],
     datasets: [
@@ -61,7 +60,12 @@ function WeeklyStatistics(params) {
         if (response && response.length) {
           setInfo(transformInfoList(response));
         } else {
-          setInfo(prevInfo);
+          setInfo({
+            id: 1,
+            served: 1000,
+            leftovers: 33,
+            date: "2023-03-24",
+          });
         }
       } catch (error) {
         console.log(error);

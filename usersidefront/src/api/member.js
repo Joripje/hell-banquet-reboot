@@ -9,8 +9,8 @@ async function signup(data, success, fail) {
     .catch(fail);
 }
 
-async function checkUnique(user, success, fail) {
-  await api.get(`/auth/login`, JSON.stringify(user)).then(success).catch(fail);
+async function checkUnique(info, success, fail) {
+  await api.get(`/users/check`, {params : info}).then(success).catch(fail);
 }
 
 async function getUserInfo(user, success, fail) {

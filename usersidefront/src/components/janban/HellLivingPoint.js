@@ -22,7 +22,7 @@ function HellLivingPoint() {
     "지옥에선 게시물도 죽을 수 없습니다."
   ];
   useEffect(() => {
-    setRandomIndex(Math.floor(Math.random() * tips.length));
+    setRandomIndex(Math.floor(Math.random() * 16));
   }, []);
 
   return <TypoContent>

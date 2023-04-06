@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { signup } from "../../api/member";
-import { FormWithGrid } from "../common";
+import { FormWithCheck } from "../common";
 
 import { Container } from "@mui/material";
 
@@ -13,16 +13,16 @@ function SignUpForm() {
   const [inputPasswordCheck, setInputPasswordCheck] = useState();
   const [inputEmail, setInputEmail] = useState();
   const [inputName, setInputName] = useState();
-  // const [ inputGroup, setInputGroup ] = useState()
 
   const textFieldOption = [
     {
-      id: "userId",
+      id: "id",
       target: inputID,
       setTarget: setInputID,
       label: "ID",
       focus: true,
       type: "id",
+      isReal: true
     },
     {
       id: "password",
@@ -47,6 +47,7 @@ function SignUpForm() {
       label: "E-mail",
       focus: false,
       type: "email",
+      isReal: true
     },
     {
       id: "name",
@@ -54,7 +55,16 @@ function SignUpForm() {
       setTarget: setInputName,
       label: "별명",
       focus: false,
+      isReal: true
     },
+    {
+      id: "group",
+      target: "역삼 멀티캠퍼스",
+      setTarget: undefined,
+      label: "그룹",
+      focus: false,
+      disabled: true
+    }
     // {id: "group", target: inputGroup, setTarget: setInputGroup, label: "소속 그룹", focus: false, },
   ];
 
@@ -101,7 +111,7 @@ function SignUpForm() {
 
   return (
     <Container fixed>
-      {FormWithGrid({
+      {FormWithCheck({
         option: textFieldOption,
         onClickHandler: userSignup,
         onTypingHandler: onTypingHandler,

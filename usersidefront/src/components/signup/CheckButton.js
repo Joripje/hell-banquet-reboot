@@ -1,18 +1,16 @@
+import styled from "styled-components"
 import { Button } from "@mui/material"
+import { checkUnique } from "../../api/member"
 
-/*
-    지금 위치하고 있는 TextField의 값을 가져와서 request에 넣어서 보내야함
-*/
 function CheckButton(params) {
     const { target, targetValue } = params
     const requestData = {}
     requestData[target] = targetValue
 
 
-    const checkUnique = async (e) => {
-        console.log(e)
-        e.preventDefault()
-        await checkUnique(
+    const handleCheckUnique = (event) => {
+        event.preventDefault()
+        checkUnique(
             requestData,
             (data) => {
                 console.log(data)
@@ -22,10 +20,24 @@ function CheckButton(params) {
     }
    
     return(
-        <Button onClick={checkUnique}>
+        <StyledButton onClick={(event) => handleCheckUnique(event)}>
             중복 확인
-        </Button>
+        </StyledButton>
     )
 }
+
+const StyledButton = styled.button`
+    position: absolute;
+    top: 50%;
+    right: 50px;
+    transform: translate(50%, -20%);
+
+    border: none;
+    border-radius: 10px;
+    background: #B8DDFF;
+    color: white;
+
+    height: 40%
+`
 
 export default CheckButton

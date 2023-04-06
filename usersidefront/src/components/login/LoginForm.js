@@ -54,7 +54,8 @@ function LoginForm() {
         localStorage.setItem("auth", data.headers.get("Authorization"));
         localStorage.setItem("refresh", data.headers.get("refreshToken"));
         alert(data.data);
-        navigate("/");
+        if (inputID === "manager") navigate('/manager')
+        else navigate("/");
       },
       (err) => console.log(err)
     );

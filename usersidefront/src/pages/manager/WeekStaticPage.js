@@ -10,17 +10,15 @@ import styled from "styled-components";
 import { Grid } from "@mui/material";
 
 function WeekStaticPage() {
-  const prevInfo = [{
+  const [date, setDate] = useState("2023-04-03");
+  const [singleDay, setSingleDay] = useState("2023-04-03")
+  const [week, setWeek] = useState("2023-W14");
+  const [info, setInfo] = useState([{
     id: 1,
     served: 1000,
     leftovers: 33,
     date: "2023-03-24",
-  }];
-
-  const [date, setDate] = useState("2023-04-03");
-  const [singleDay, setSingleDay] = useState("2023-04-03")
-  const [week, setWeek] = useState("2023-W14");
-  const [info, setInfo] = useState(prevInfo);
+  }]);
 
   function makeDateWeekly(dateStr) {
     const date = new Date(dateStr);
@@ -58,7 +56,12 @@ function WeekStaticPage() {
         if (response && response.length) {
           setInfo(response);
         } else {
-          setInfo(prevInfo);
+          setInfo([{
+            id: 1,
+            served: 1000,
+            leftovers: 33,
+            date: "2023-03-24",
+          }]);
         }
       } catch (error) {
         console.log(error);

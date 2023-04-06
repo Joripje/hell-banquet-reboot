@@ -6,16 +6,14 @@ import styled from "styled-components";
 
 function MenuOverview(params) {
   const date = new Date().toISOString().split("T")[0];
-  const onClick = params?.onClick;
-  const target = params?.target;
+  const {onClick, target} = params
   const [result, setResult] = useState();
 
   useEffect(() => {
-    const handleGetMenuByDate = async () => {
+    const handleGetMenuByDate = async (date) => {
       await getMenusByDate(
         { date: date, managerId: "manager" },
         (data) => {
-          console.log(data)
           return data.data;
         },
         (err) => console.log(err)
@@ -23,10 +21,9 @@ function MenuOverview(params) {
         setResult(data);
       });
     };
-    handleGetMenuByDate();
-  }, []);
 
-  // useEffect(() => {}, [result, localStorage]);
+    handleGetMenuByDate(date);
+  }, [date]);
 
   return (
     <Container>

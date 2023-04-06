@@ -3,7 +3,7 @@ import { getUserInfo } from "../../api/member";
 import { LinkDecoNone } from "../common";
 
 import styled from "styled-components";
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 
 function ProfileUserInfo() {
   const [userInfo, setUserInfo] = useState({

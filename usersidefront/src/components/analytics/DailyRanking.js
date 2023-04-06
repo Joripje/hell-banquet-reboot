@@ -9,6 +9,8 @@ function DailyRanking(params) {
   const { info, king } = params;
   const [janbanImg, setJanbanImg] = useState();
 
+  
+  useEffect(() => {
   const handleGetJanban = async () => {
     await getUserImg(
       { userId: info.userId },
@@ -21,10 +23,8 @@ function DailyRanking(params) {
       setJanbanImg(res);
     });
   };
-
-  useEffect(() => {
-    handleGetJanban();
-  }, [info]);
+    handleGetJanban()
+}, [info])
 
   return (
     <RankBox>

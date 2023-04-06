@@ -36,9 +36,7 @@ function SelectMunu(params) {
     };
     handleGetMenuByDate();
     getUserSelect();
-  }, []);
-
-  // useEffect(() => {}, [result, localStorage]);
+  }, [date]);
 
   return (
     <Container>

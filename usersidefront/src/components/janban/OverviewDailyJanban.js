@@ -50,18 +50,24 @@ function OverviewDailyJanban() {
   }
 
   return (
-    <Container style={styleForContainer}>
-      <Box>
-        {isLoading ? (
-          <CircularProgress />
-        ) : (
-          <>
-            <JanbanImg
-              src={janbanImg ? janbanImg : staticJanban}
-              alt="잔반이"
-            />
-            <HellLivingPoint />
-          </>
+      <Container style={styleForContainer}>
+        <Box>
+          {isLoading ? (
+            <CircularProgress />
+          ) : (
+            <>
+              <JanbanImg
+                src={janbanImg ? janbanImg : staticJanban}
+                alt="잔반이"
+              />
+              <HellLivingPoint />
+            </>
+          )}
+        </Box>
+        {isLoading ? <></> : (
+          <TypoJanban>
+          {janbanImg ? '' : "... 잔반이가 아직 자고있네요 zZ"}
+        </TypoJanban>
         )}
       </Box>
       {isLoading ? (

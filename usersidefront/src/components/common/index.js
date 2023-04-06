@@ -7,6 +7,7 @@ import LogoToLogin from "./LogoToLogin";
 import Validation from "./Vaildation";
 import DateSelector from "./DateSelector";
 import ExcelButton from "./ExcelButton";
+import FormWithCheck from "./FormWithCheck"
 
 export {
   GridGenerator,
@@ -18,4 +19,5 @@ export {
   LinkDecoNone,
   DateSelector,
   ExcelButton,
+  FormWithCheck
 };

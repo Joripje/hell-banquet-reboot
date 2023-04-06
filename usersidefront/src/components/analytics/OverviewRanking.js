@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { getDailyRank } from "../../api/leftover";
-import staticJanban from "../../assets/images/janban.png";
 import styled from "styled-components";
 import RankingItem from "./RankingItem";
 
