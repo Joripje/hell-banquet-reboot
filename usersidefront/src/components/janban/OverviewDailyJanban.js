@@ -63,7 +63,6 @@ function OverviewDailyJanban() {
               <HellLivingPoint />
             </>
           )}
-        </Box>
         {isLoading ? <></> : (
           <TypoJanban>
           {janbanImg ? '' : "... 잔반이가 아직 자고있네요 zZ"}
