@@ -19,10 +19,11 @@ import RankingPage from "./user/RankingPage";
 
 import ManagerLoginPage from "./manager/LoginPage";
 import ManagerLandingPage from "./manager/ManagerLandingPage";
-import DietUpload from "./manager/DietUpload";
-import DietChange from "./manager/DietChange";
-import MemberUpload from "./manager/MemberUpload";
-import MemberRead from "./manager/MeberRead";
+import DietUploadPage from "./manager/DietUploadPage";
+import DietChangePage from "./manager/DietChangePage";
+import MemberUploadPage from "./manager/MemberUploadPage";
+import MemberReadPage from "./manager/MeberReadPage";
+import WeekStaticPage from "./manager/WeekStaticPage";
 
 import MenusTestPage from "./test/MenusTestPage";
 import TestRoutingPage from "./test/TestRoutingPage";
@@ -105,27 +106,27 @@ const routes = [
   },
   {
     path: "/manager/diet/upload",
-    element: <DietUpload />,
+    element: <DietUploadPage />,
   },
   {
     path: "/manager/diet/update",
-    element: <DietChange />,
+    element: <DietChangePage />,
   },
   {
     path: "/manager/statistics/daily",
-    element: <LandingPage />,
+    element: <ManagerLandingPage />,
   },
   {
     path: "/manager/statistics/weekly",
-    element: <LandingPage />,
+    element: <WeekStaticPage />,
   },
   {
     path: "/manager/member/upload",
-    element: <MemberUpload />,
+    element: <MemberUploadPage />,
   },
   {
     path: "manager/member/read",
-    element: <MemberRead />,
+    element: <MemberReadPage />,
   },
   // Testing
   {

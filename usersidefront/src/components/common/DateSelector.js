@@ -1,7 +1,7 @@
 import { TextField } from "@mui/material";
-import { useState } from "react";
 
 function DateSelector(params) {
+  const { date, week, setDate, setWeek } = params;
   const getFormatedDate = (date) => {
     if (date) {
       return new Date(date).toISOString().split("T")[0];
@@ -9,18 +9,22 @@ function DateSelector(params) {
       return new Date().toISOString().split("T")[0];
     }
   };
-  const today = getFormatedDate();
-  const { setDate } = params;
-  const [targetDate, setTargetDate] = useState(today);
 
   const handleDateChange = (e) => {
-    const newDate = getFormatedDate(e.target.value);
-    setTargetDate(newDate);
-    setDate(newDate);
+    if (week) {
+      setWeek(e.target.value);
+    } else {
+      const newDate = getFormatedDate(e.target.value);
+      setDate(newDate);
+    }
   };
 
   return (
-    <TextField type='date' value={targetDate} onChange={handleDateChange} />
+    <TextField
+      type={week ? "week" : "date"}
+      value={date || week}
+      onChange={handleDateChange}
+    />
   );
 }
 

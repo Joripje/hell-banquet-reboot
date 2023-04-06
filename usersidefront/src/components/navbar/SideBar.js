@@ -46,7 +46,7 @@ const NavbarContainer = styled.nav`
   height: 100vh;
   border-right: 2px solid black;
 
-  @media (max-width: 600px) {
+  @media (max-width: 900px) {
     display: none;
   }
 `;

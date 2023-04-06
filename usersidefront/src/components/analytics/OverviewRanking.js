@@ -41,14 +41,18 @@ function OverviewRanking() {
           handleGetJanban(userId);
           return (
             <RankBox key={rankIndex}>
-              <StaticJanbanImg src={janbanImg} rank={rankIndex} alt='잔반이' />
+              <StaticJanbanImg
+                src={staticJanban}
+                rank={rankIndex}
+                alt='잔반이'
+              />
               <div>
                 {rankIndex}등 {userId}
               </div>
             </RankBox>
           );
         } else {
-          return( <div key={index}>왜 아무도 밥을 안먹어!ㅠㅠㅠ</div>)
+          return <div key={index}>왜 아무도 밥을 안먹어!ㅠㅠㅠ</div>;
         }
       })}
     </Container>

@@ -1,22 +1,29 @@
-import styled from "styled-components";
+import { useState, useEffect } from "react";
+
 import { HeaderBar, SideBar } from "../../components/navbar";
 import { DateSelector } from "../../components/common";
 import MenuOverview from "../../components/diet/MenuOverview";
 import DailyStatistics from "../../components/statistics/DailyStatistics";
 
+import styled from "styled-components";
+
 function ManagerLandingPage() {
-  const date = new Date().toISOString().split("T")[0]
+  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
+
+  useEffect(() => {
+    console.log(date);
+  }, [date]);
   return (
     <>
       <HeaderBar />
       <div style={{ display: "flex", flexDirection: "row" }}>
         <SideBar />
         <Container>
-          <DateSelector />
+          <DateSelector date={date} setDate={setDate} />
           <DailyStaticContainer>
-            <DailyStatistics date={date} course={0} />
-            <MenuOverview />
             <DailyStatistics date={date} course={1} />
+            <MenuOverview />
+            <DailyStatistics date={date} course={2} />
           </DailyStaticContainer>
         </Container>
       </div>

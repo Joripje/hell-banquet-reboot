@@ -14,10 +14,11 @@ async function getLeftover(info, success, fail) {
 }
 
 async function getLeftoverData(date, success, fail) {
-  await api
+  const res = await api
     .get(`/leftovers/analysis`, { params: date })
     .then(success)
     .catch(fail);
+  return res;
 }
 
 async function getCookieGameInfo(info, success, fail) {
