@@ -1,7 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Button } from "@mui/material";
 import axios from "axios";
-// import styled from "styled-components";
+import styled from "styled-components";
+import Grid from "@mui/material/Grid";
 import { putDrawingGameInfo } from "../../api/leftover";
 import blank from "../../assets/images/blank.png";
 function Canvas(params) {
@@ -61,10 +62,10 @@ function Canvas(params) {
         userId: localStorage.userId,
       },
       (data) => {
-        console.log(data);
+        // console.log(data);
       },
       (err) => {
-        console.log(err);
+        // console.log(err);
         // console.log(c);
         // console.log(localStorage.userId);
         // console.log(todayString);
@@ -90,8 +91,8 @@ function Canvas(params) {
             },
           }
         );
-        console.log(response);
-        console.log(subjects[subjectIndex]);
+        // console.log(response);
+        // console.log(subjects[subjectIndex]);
         if (response.data.success) {
           putDrawResult(subjectsKorean[subjectIndex]);
           endDraw(true);
@@ -158,7 +159,7 @@ function Canvas(params) {
 
     // 선 스타일 설정
     context.strokeStyle = "#000000"; // 검은색
-    context.lineWidth = 13;
+    context.lineWidth = 12;
     context.lineJoin = "round";
     context.lineCap = "round";
 
@@ -194,14 +195,30 @@ function Canvas(params) {
           width={300}
           height={300}
         />
+
         {isFinished && (
-          <Button variant="contained" onClick={checkCorrect}>
-            결과를 알아볼까요?!
-          </Button>
+          <ParentWrapper>
+            <Button
+              variant="contained"
+              onClick={checkCorrect}
+              color="secondary"
+            >
+              잔반이는
+              <br />
+              {subjectsKorean[subjectIndex]}를 <br />
+              얻을 수 있을까요?
+            </Button>
+          </ParentWrapper>
         )}
       </>
     );
   }
 }
-
+const ParentWrapper = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+`;
 export default Canvas;

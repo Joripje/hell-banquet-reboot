@@ -32,7 +32,7 @@ const StatsticsToday = () => {
         return data.data;
       },
       (err) => {
-        console.log(err);
+        // console.log(err);
         setIsEat(2);
       }
     ).then((data) => setInfo([data?.before, data?.after]));

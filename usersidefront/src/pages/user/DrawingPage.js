@@ -12,7 +12,33 @@ import styled from "styled-components";
 import { Button } from "@mui/material";
 // import { draw } from "face-api.js";
 
+// 모달
+import * as React from "react";
+import Box from "@mui/material/Box";
+// import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "80%",
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
+// 모달
+
 function DrawingPage() {
+  // 모달띄우는곳
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  // 모달 띄우는곳
+
   const [isStarted, setIsStarted] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
   const [remainingTime, setRemainingTime] = useState(10);
@@ -26,6 +52,7 @@ function DrawingPage() {
 
   const endDraw = (data) => {
     setIsDrawed(true);
+    handleClose();
     setIsCorrect(data);
   };
   const handleStartDrawing = () => {
@@ -37,7 +64,7 @@ function DrawingPage() {
     const month = (today.getMonth() + 1).toString().padStart(2, "0");
     const day = today.getDate().toString().padStart(2, "0");
     const todayString = `${year}-${month}-${day}`;
-    console.log(todayString); // 예시 출력: 2023-04-05
+    // console.log(todayString); // 예시 출력: 2023-04-05
 
     const checkLeftover = async () => {
       await getDrawingGameInfo(
@@ -74,11 +101,11 @@ function DrawingPage() {
           userId: localStorage.userId,
         },
         (data) => {
-          console.log(data);
+          // console.log(data);
         },
         (err) => {
-          console.log(err);
-          console.log(localStorage.subject);
+          // console.log(err);
+          // console.log(localStorage.subject);
         }
       );
     };
@@ -115,8 +142,8 @@ function DrawingPage() {
           }
         },
         (err) => {
-          console.log(err);
-          console.log("말도안됨");
+          // console.log(err);
+          // console.log("말도안됨");
         }
       );
     };
@@ -150,50 +177,74 @@ function DrawingPage() {
           <>
             {isCorrect ? (
               <div style={{ fontWeight: "bold", color: "green" }}>
-                맞았습니다!!
+                맞았을 때 결과
               </div>
             ) : (
-              <div style={{ color: "red" }}>틀렸습니다</div>
+              <div style={{ color: "red" }}>틀렸을 때 결과요</div>
             )}
           </>
         ) : (
           <>
             <DrawSubject subjectIndex={subjectIndex} />
-            <CanvasWrapper>
-              <Canvas
-                isStarted={isStarted}
-                isFinished={isFinished}
-                subjectIndex={subjectIndex}
-                endDraw={endDraw}
-              />
-              {!isStarted && (
-                <StartButton>
-                  {isFinished ? (
-                    <Button variant="contained" color="error">
-                      여기까지입니다!!
-                    </Button>
-                  ) : (
-                    <Button variant="contained" onClick={handleStartDrawing}>
-                      그리기 시작
-                    </Button>
-                  )}
-                </StartButton>
-              )}
-            </CanvasWrapper>
-            <TimerWrapper>
-              {isStarted ? (
-                isFinished ? (
-                  <Button variant="contained">결과를 알아볼까요?!</Button>
-                ) : (
-                  <p>남은 시간: {remainingTime}초</p>
-                )
-              ) : (
-                <></>
-              )}
-            </TimerWrapper>
+            <Button onClick={handleOpen}>그려볼까?</Button>
           </>
         )}
         {/* </Container> */}
+
+        {/* 모달 띄워보기 */}
+        <div>
+          <Modal
+            open={open}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <Typography id="modal-modal-title" variant="h3">
+                <DrawSubject subjectIndex={subjectIndex} />
+              </Typography>
+              <div>
+                {" "}
+                <CanvasWrapper>
+                  <Canvas
+                    isStarted={isStarted}
+                    isFinished={isFinished}
+                    subjectIndex={subjectIndex}
+                    endDraw={endDraw}
+                  />
+                  {!isStarted && (
+                    <StartButton>
+                      {isFinished ? (
+                        // <Button variant="contained" color="error">
+                        //   여기까지입니다!!
+                        // </Button>
+                        <></>
+                      ) : (
+                        <Button
+                          variant="contained"
+                          onClick={handleStartDrawing}
+                        >
+                          그리기 시작
+                        </Button>
+                      )}
+                    </StartButton>
+                  )}
+                </CanvasWrapper>
+                <TimerWrapper>
+                  {isStarted ? (
+                    isFinished ? (
+                      <></>
+                    ) : (
+                      <p>남은 시간: {remainingTime}초</p>
+                    )
+                  ) : (
+                    <></>
+                  )}
+                </TimerWrapper>
+              </div>
+            </Box>
+          </Modal>
+        </div>
+        {/* 모달 띄워보기 */}
       </LogedPageTemplate>
     </>
   );
@@ -225,10 +276,12 @@ const StartButton = styled.div`
 const TimerWrapper = styled.div`
   position: absolute;
   left: 50%;
+  top: calc(0%);
+  justify-content: center;
+  align-items: center;
   transform: translate(-50%, 0%);
   background-color: white;
   padding: 10px;
-  border-radius: 5px;
 `;
 
 export default DrawingPage;

@@ -21,11 +21,11 @@ function DrawSubject(params) {
     "트럼펫",
     "우산",
   ];
-  console.log(subjects[subjectIndex]);
+  // console.log(subjects[subjectIndex]);
   return (
     <ColumnBox>
-      <MyTypo fontSize="30">주제</MyTypo>
-      <MyTypo fontSize="50">{subjects[subjectIndex]}</MyTypo>
+      <MyTypo fontSize="20"></MyTypo>
+      <MyTypo fontSize="30">{subjects[subjectIndex]}</MyTypo>
     </ColumnBox>
   );
 }

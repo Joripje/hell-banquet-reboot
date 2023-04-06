@@ -9,7 +9,7 @@ function LogedPageTemplate(params) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(() => { 
+  useEffect(() => {
     if (localStorage.getItem("auth") === null) {
       localStorage.clear();
       navigate("/login");
@@ -28,27 +28,27 @@ function LogedPageTemplate(params) {
 
   return (
     <Grid container>
-    <Grid item sm={1} md={2}></Grid>
-    <Grid
-      item
-      xs={12}
-      sm={10}
-      md={8}
-      style={{
-        // backgroundColor: "#EDEBE9",
-        backgroundImage: `url(${BgImg})`,
-        backgroundSize: "cover",
-        minHeight: "100vh",
-        height: "auto",
-        paddingBottom: "65px",
-      }}
-    >
-      <StickyHeader />
-      <StickyFooter />
-      {params?.children}
+      <Grid item sm={1} md={2}></Grid>
+      <Grid
+        item
+        xs={12}
+        sm={10}
+        md={8}
+        style={{
+          // backgroundColor: "#EDEBE9",
+          backgroundImage: `url(${BgImg})`,
+          backgroundSize: "cover",
+          minHeight: "100vh",
+          height: "auto",
+          paddingBottom: "65px",
+        }}
+      >
+        <StickyHeader />
+        <StickyFooter />
+        {params?.children}
+      </Grid>
+      <Grid item sm={1} md={2}></Grid>
     </Grid>
-    <Grid item sm={1} md={2}></Grid>
-  </Grid>
   );
 }
 
