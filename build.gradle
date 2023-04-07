@@ -1,10 +1,7 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
+    id 'java'
     id 'org.springframework.boot' version '2.7.9'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
-    id 'org.jetbrains.kotlin.jvm' version '1.6.21'
-    id 'org.jetbrains.kotlin.plugin.spring' version '1.6.21'
 }
 
 group = 'com.hellsfood'
@@ -17,24 +14,30 @@ configurations {
     }
 }
 
+ext {
+    set('springCloudVersion',"2021.0.5")
+    set('qurydslVer',"5.0.0")
+}
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter'
-    implementation 'org.jetbrains.kotlin:kotlin-reflect'
     // spring web 환경 기본 설정
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
     // MySQL 연결
-    runtimeOnly 'com.mysql:mysql-connector-j'
+    implementation 'mysql:mysql-connector-java:8.0.30'
+
+    // mongoDB 설정
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 
     // lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
-
+    
     // 테스트 환경
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
@@ -43,6 +46,12 @@ dependencies {
     implementation "com.querydsl:querydsl-core"
     implementation "com.querydsl:querydsl-collections"
     annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa"
+
+    // java.lang.NoClassDefFoundError (javax.annotation.Generated) 대응 코드
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+
+    // java.lang.NoClassDefFoundError (javax.annotation.Entity) 대응 코드
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 
     // Swagger 2.9.2 버전
     implementation 'io.springfox:springfox-swagger-ui:2.9.2'
@@ -56,15 +65,26 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 
-    //FeignClient
-    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.1.5'
+    // 임시 비밀번호 메일 발송을 위한 라이브러리
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+
+    // 자동 새로고침 활성화
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+    // Excel 파일 관련 로직 수행을 위한 파일 I/O 라이브러리
+    implementation 'org.apache.poi:poi-ooxml:5.2.3'
+    implementation 'commons-io:commons-io:2.11.0'
+
+    // eureka
+//    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client:3.1.4'
 }
 
-tasks.withType(KotlinCompile) {
-    kotlinOptions {
-        freeCompilerArgs = ['-Xjsr305=strict']
-        jvmTarget = '11'
+dependencyManagement{
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
     }
+
 }
 
 tasks.named('test') {

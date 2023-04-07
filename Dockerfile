@@ -9,6 +9,7 @@ RUN ./gradlew bootJAR
 
 FROM adoptopenjdk/openjdk11
 VOLUME /tmp
-COPY --from=builder build/libs/LeftoverService-0.0.1-SNAPSHOT.jar app.jar
-EXPOSE 8019
+COPY --from=builder build/libs/UserService-0.0.1-SNAPSHOT.jar app.jar
+EXPOSE 8011
 ENTRYPOINT ["java", "-jar", "/app.jar"]
+
