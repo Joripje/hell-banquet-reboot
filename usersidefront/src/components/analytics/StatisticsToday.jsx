@@ -6,7 +6,7 @@ import { Doughnut } from "react-chartjs-2";
 import { getLeftover } from "../../api/leftover";
 import Button from "@mui/material/Button";
 import styled from "styled-components";
-const StatsticsToday = () => {
+const StatsticsToday = (props) => {
   const [isEat, setIsEat] = useState(0); // 0: 로드중, 1: 먹음, 2: 안먹음
   // const { date, course,  } = params;
   const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
@@ -25,7 +25,7 @@ const StatsticsToday = () => {
 
   useEffect(() => {
     getLeftover(
-      { userId: userId, date: date },
+      { userId: userId, date: props.date },
       // { userId: "string", date: "2023-04-04" },
       (data) => {
         setIsEat(1);
@@ -36,7 +36,7 @@ const StatsticsToday = () => {
         setIsEat(2);
       }
     ).then((data) => setInfo([data?.before, data?.after]));
-  }, [date]);
+  }, [props.updated, props.date]);
 
   const chartData = {
     labels: ["배식량", "잔반량"],
@@ -53,14 +53,14 @@ const StatsticsToday = () => {
 
   return (
     <>
-      <Button
+      {/* <Button
         variant="contained"
         size="small"
         sx={{ fontSize: "16px", fontWeight: "bold" }}
         color="secondary"
       >
         {todayString}
-      </Button>
+      </Button> */}
 
       <CicleStaticContainer>
         {/* {isEat ? <Doughnut data={chartData} /> : <div>밥안먹음</div>} */}

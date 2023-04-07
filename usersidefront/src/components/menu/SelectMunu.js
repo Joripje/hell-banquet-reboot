@@ -14,7 +14,7 @@ function SelectMunu(params) {
   useEffect(() => {
     const handleGetMenuByDate = async () => {
       await getMenusByDate(
-        { date: date, managerId: "manager" },
+        { date: params.date, managerId: "manager" },
         (data) => {
           return data.data;
         },
@@ -25,7 +25,7 @@ function SelectMunu(params) {
     };
     const getUserSelect = async () => {
       await getLeftover(
-        { date: date, userId: localStorage.userId },
+        { date: params.date, userId: localStorage.userId },
         (data) => {
           setSelectedMenu(data.data.course);
         },
@@ -34,9 +34,10 @@ function SelectMunu(params) {
         }
       );
     };
+
     handleGetMenuByDate();
     getUserSelect();
-  }, [date]);
+  }, [params.updated, params.date]);
 
   return (
     <Container>

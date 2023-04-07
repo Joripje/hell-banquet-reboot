@@ -159,7 +159,7 @@ import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { format, addDays, startOfWeek } from "date-fns";
 import { LogedPageTemplate } from "../../components/common";
 import styled from "styled-components";
@@ -169,7 +169,8 @@ import WeekPicker from "../../components/analytics/WeekPicker";
 import StatisticsWeek from "../../components/analytics/StatisticsWeek";
 import StatisticWeekDou from "../../components/analytics/StatisticWeekDou";
 import { SelectMunu } from "../../components/menu";
-import Grid from "@mui/material/Grid";
+import DayPicker from "../../components/analytics/DayPicker";
+// import Grid from "@mui/material/Grid";
 const AnalysisPage = () => {
   const [value, setValue] = React.useState("1");
   const [mon, setMon] = useState([]);
@@ -177,11 +178,17 @@ const AnalysisPage = () => {
   const [wes, setWes] = useState([]);
   const [thu, setThu] = useState([]);
   const [fri, setFri] = useState([]);
-  const [isToday, setIsToday] = useState(false);
+  const [date, setDate] = useState(null);
   const [selectWeek, setSelectWeek] = useState([]);
   const [weekAfter, setWeekAfter] = useState(0);
   const [weekBefore, setWeekBefore] = useState(0);
-
+  const [updated, setUpdated] = useState(0);
+  const pickDate = (data) => {
+    setDate(data);
+    setTimeout(() => {
+      setUpdated(updated + 1);
+    }, 300);
+  };
   const getWeekPickerInfo = (data) => {
     const selectedDate = new Date(data.getTime());
     const endDate = addDays(selectedDate, 4);
@@ -347,15 +354,15 @@ const AnalysisPage = () => {
                 indicatorColor="secondary"
                 centered
               >
-                <Tab label="오늘의 통계" value="1" />
+                <Tab label="일간 통계" value="1" />
                 <Tab label="주간 통계" value="2" />
               </TabList>
             </Box>
             <TabPanel value="1">
               {/* <Content> */}
-
-              <StatsticsToday />
-              <SelectMunu />
+              <DayPicker pickDate={pickDate} />
+              <StatsticsToday date={date} updated={updated} />
+              <SelectMunu date={date} updated={updated} />
 
               {/* </Content> */}
             </TabPanel>
