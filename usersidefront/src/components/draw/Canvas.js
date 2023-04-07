@@ -35,7 +35,7 @@ function Canvas(params) {
     "꽃",
     "기타",
     "헬멧",
-    "콧수영",
+    "콧수염",
     "낙하산",
     "총",
     "삽",
@@ -211,10 +211,7 @@ function Canvas(params) {
               onClick={checkCorrect}
               color="secondary"
             >
-              잔반이는
-              <br />
-              {subjectsKorean[subjectIndex]}를 <br />
-              얻을 수 있을까요?
+              선물을 <br />줄 수 있을까요?
             </Button>
           </ParentWrapper>
         )}

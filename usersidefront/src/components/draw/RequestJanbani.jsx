@@ -12,7 +12,7 @@ const RequestJanbani = (props) => {
     "꽃",
     "기타",
     "헬멧",
-    "콧수영",
+    "콧수염",
     "낙하산",
     "총",
     "삽",
@@ -46,7 +46,8 @@ const RequestJanbani = (props) => {
         <ParentContainer>
           <StyledImg src={userJanbani} />
           <SpeechBubble>
-            {subjects[props.subjectIndex]}가 <br />
+            {subjects[props.subjectIndex]}...
+            <br />
             갖고 싶어요...
           </SpeechBubble>
           <br />
