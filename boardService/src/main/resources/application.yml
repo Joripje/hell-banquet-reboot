@@ -1,0 +1,19 @@
+server:
+  port: 8030
+
+spring:
+  application:
+    name: boardService
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql-container:3306/hellsfood?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: a802
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  data:
+    mongodb:
+      host: mongodb-container
+      port: 27017
+      database: board
