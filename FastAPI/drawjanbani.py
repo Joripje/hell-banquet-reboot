@@ -18,9 +18,11 @@ def check_image(img):
     transform = transforms.Compose([transforms.Resize((28, 28)),
                                     transforms.Grayscale(),
                                     transforms.ToTensor(),
+                                    # transforms.Lambda(lambda x: transforms.functional.invert(x)),
                                     transforms.Normalize(mean=[0.5], std=[0.5])])
 
     save_model = torch.load('resnet34_29_256.pth', map_location=device)
+    # save_model = torch.load('resnet34_39_256_r.pth', map_location=device)
     model.load_state_dict(save_model['model_state_dict'])
     optimizer.load_state_dict(save_model['optimizer_state_dict'])
     model.eval()
@@ -36,8 +38,9 @@ def check_image(img):
         # print('Probability:', outputs[1][0] * 100)
         top_k_values, top_k_indices = torch.topk(outputs[1], 3)
         for i in range(top_k_indices.size(1)):
-            correct_list.add(category_list[top_k_indices[0][i]])
-            # print(f"Rank {i + 1}: Label: {category_list[top_k_indices[0][i]]}, Probability: {top_k_values[0][i] * 100}")
+            if top_k_values[0][i] * 100 > 65:
+                correct_list.add(category_list[top_k_indices[0][i]])
+            print(f"Rank {i + 1}: Label: {category_list[top_k_indices[0][i]]}, Probability: {top_k_values[0][i] * 100}")
     # print(correct_list)
 
     return correct_list

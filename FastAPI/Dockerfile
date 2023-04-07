@@ -11,6 +11,5 @@ RUN pip install -r requirements.txt
 
 COPY . /app
 
-EXPOSE 5000
-
-CMD ["uvicorn", "test:app", "--host", "0.0.0.0", "--port", "5000"]
+# CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5000"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "5000", "--ssl-keyfile", "/app/certbot/conf/live/j8a802.p.ssafy.io/privkey.pem", "--ssl-certfile", "/app/certbot/conf/live/j8a802.p.ssafy.io/fullchain.pem"]
