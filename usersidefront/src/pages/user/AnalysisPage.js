@@ -180,14 +180,12 @@ const AnalysisPage = () => {
   const [fri, setFri] = useState([]);
   const [date, setDate] = useState(null);
   const [selectWeek, setSelectWeek] = useState([]);
-  const [weekAfter, setWeekAfter] = useState(0);
-  const [weekBefore, setWeekBefore] = useState(0);
   const [updated, setUpdated] = useState(0);
   const pickDate = (data) => {
     setDate(data);
     setTimeout(() => {
       setUpdated(updated + 1);
-    }, 300);
+    }, 200);
   };
   const getWeekPickerInfo = (data) => {
     const selectedDate = new Date(data.getTime());
@@ -271,27 +269,21 @@ const AnalysisPage = () => {
     //   );
     // };
     const getInfo = () => {
-      setWeekAfter(0);
-      setWeekBefore(0);
       getLeftover(
         // { date: dateRange[0], userId: "string" },
         { date: dateRange[0], userId: userId },
         (data) => {
           setMon([data.data.before, data.data.after]);
-          setWeekAfter(weekAfter + data.data.after);
-          setWeekBefore(weekBefore + data.data.before);
         },
         (err) => {
           setMon([0, 0]);
         }
-      );
+      ).then();
       getLeftover(
         // { date: dateRange[1], userId: "string" },
         { date: dateRange[1], userId: userId },
         (data) => {
           setTue([data.data.before, data.data.after]);
-          setWeekAfter(weekAfter + data.data.after);
-          setWeekBefore(weekBefore + data.data.before);
         },
         (err) => {
           setTue([0, 0]);
@@ -302,8 +294,6 @@ const AnalysisPage = () => {
         { date: dateRange[2], userId: userId },
         (data) => {
           setWes([data.data.before, data.data.after]);
-          setWeekAfter(weekAfter + data.data.after);
-          setWeekBefore(weekBefore + data.data.before);
         },
         (err) => {
           setWes([0, 0]);
@@ -314,8 +304,6 @@ const AnalysisPage = () => {
         { date: dateRange[3], userId: userId },
         (data) => {
           setThu([data.data.before, data.data.after]);
-          setWeekAfter(weekAfter + data.data.after);
-          setWeekBefore(weekBefore + data.data.before);
         },
         (err) => {
           setThu([0, 0]);
@@ -326,15 +314,23 @@ const AnalysisPage = () => {
         { date: dateRange[4], userId: userId },
         (data) => {
           setFri([data.data.before, data.data.after]);
-          setWeekAfter(weekAfter + data.data.after);
-          setWeekBefore(weekBefore + data.data.before);
         },
         (err) => {
           setFri([0, 0]);
         }
       );
     };
-    getInfo();
+    // const resetInfo = () => {
+    //   setWeekAfter(0);
+    //   setWeekBefore(0);
+    // };
+    // resetInfo();
+    setTimeout(() => {
+      getInfo();
+    }, 100);
+    setTimeout(() => {
+      setUpdated(updated + 1);
+    }, 300);
   };
 
   const handleChange = (event, newValue) => {
@@ -369,7 +365,13 @@ const AnalysisPage = () => {
             <TabPanel value="2">
               {/* <Content> */}
               <WeekPicker getWeekPickerInfo={getWeekPickerInfo} />
-              <StatisticWeekDou weekAfter={weekAfter} weekBefore={weekBefore} />
+              <StatisticWeekDou
+                mon={mon}
+                tue={tue}
+                wes={wes}
+                thu={thu}
+                fri={fri}
+              />
               <StatisticsWeek
                 mon={mon}
                 tue={tue}
