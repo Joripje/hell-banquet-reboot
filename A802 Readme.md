@@ -29,11 +29,11 @@ SSAFY 8기 2학기 특화프로젝트 ✨
 
 **선택 식단, 식사량 기록**
 
-![](file://C:\Users\SSAFY\Desktop\시연 테스트 데이터\A802%20Readme_assets\2023-04-07-10-22-44-image.png?msec=1680831888095)
+![](A802%20Readme_assets/2023-04-07-10-22-44-image.png)
 
 - 급식 메뉴 중 당일 선택한 식단을 기록할 수 있어요.
 
-![](file://C:\Users\SSAFY\Desktop\시연 테스트 데이터\A802%20Readme_assets\2023-04-07-10-23-59-image.png?msec=1680831888087)![](file://C:\Users\SSAFY\Desktop\시연 테스트 데이터\A802%20Readme_assets\2023-04-07-10-24-23-image.png?msec=1680831888095)
+<img src="A802%20Readme_assets/2023-04-07-10-23-59-image.png" title="" alt="" width="279"><img title="" src="A802%20Readme_assets/2023-04-07-10-24-23-image.png" alt="" width="277">
 
 - 식사 전과 후 사진을 찍어 AI가 분석한 배식량과 잔반량, 잔반 비율을 확인할 수 있어요
 
@@ -44,19 +44,18 @@ SSAFY 8기 2학기 특화프로젝트 ✨
 ### 2. 캐릭터(잔반이) 꾸미기
 
 - 내가 선택한 메뉴의 육, 해, 공 특성에 따라 매일 변화하는 잔반이 캐릭터를 확인할 수 있어요.
-  
+
 - 일정비율 이하로 잔반을 남길 경우 보상으로 잔반이 꾸미기 게임을 진행할 수 있어요.
-  
+
 - 잔반이가 가지고싶은 제시어를 10초 안에 그림으로 그려보세요.
-  
+
 - 그린 그림은 공신력 있는 AI 재판관에게 제출되어 객관적이고 공정하게 심사를 받아요.
-  
+
 - AI가 제시어와 일치한다고 판단하면 나의 잔반이에게 소품을 줄 수 있어요.
-  
 
 ### 3. 캐릭터(잔반이) 구출 게임
 
-![](file://C:\Users\SSAFY\Desktop\시연 테스트 데이터\A802%20Readme_assets\2023-04-07-10-29-29-image.png?msec=1680831888096)
+<img src="A802%20Readme_assets/2023-04-07-10-29-29-image.png" title="" alt="" width="278">
 
 - 잔반 비율이 높을 경우, 나의 잔반이는 지옥행 대기실에 감금돼요.
 - 잔반이가 잔반지옥에 끌려가지 않도록 잔반쿠키먹기 게임(ABC 게임)을 진행해 잔반이를 구출해 주세요.
@@ -65,29 +64,27 @@ SSAFY 8기 2학기 특화프로젝트 ✨
 
 ### 4. 커뮤니티 기능(랭킹, 게시판)
 
-![](file://C:\Users\SSAFY\Desktop\시연 테스트 데이터\A802%20Readme_assets\2023-04-07-10-30-08-image.png?msec=1680831888095)![](file://C:\Users\SSAFY\Desktop\시연 테스트 데이터\A802%20Readme_assets\2023-04-07-10-32-16-image.png?msec=1680831888097)
+<img title="" src="A802%20Readme_assets/2023-04-07-10-30-08-image.png" alt="" width="302"><img title="" src="A802%20Readme_assets/2023-04-07-10-32-16-image.png" alt="" width="303">
 
 - 매일 2시 업데이트 되는 잔반랭킹을 확인해보세요
-  
+
 - 나와 다른 사용자의 잔반 비율을 비교해보세요.
-  
+
 - 게시판에 나의 잔반이를 자랑하거나 급식 관련된 글을 작성해보세요. 영양사님의 피드백을 확인하면 급식 개선에 큰 도움이 됩니다.
-  
 
 ### 5. 통계 기능(일간, 주간)
 
-![](file://C:\Users\SSAFY\Desktop\시연 테스트 데이터\A802%20Readme_assets\2023-04-07-10-33-03-image.png?msec=1680831888086)![](file://C:\Users\SSAFY\Desktop\시연 테스트 데이터\A802%20Readme_assets\2023-04-07-10-35-08-image.png?msec=1680831888081)
+<img title="" src="A802%20Readme_assets/2023-04-07-10-33-03-image.png" alt="" width="303"><img title="" src="A802%20Readme_assets/2023-04-07-10-35-08-image.png" alt="" width="304">
 
 - 통계페이지에서 나의 일일 잔반률과 주간 잔반률 추이를 확인해보세요
-  
+
 - 어떤 메뉴를 먹었을때 잔반을 많이 배출하는지 확인하고, 나의 메뉴에 따른 적정 섭취량을 확인해보세요.
-  
 
 ---
 
 ### 6. 관리자(영양사) 기능 - 일괄 등록
 
-![](file://C:\Users\SSAFY\Desktop\시연 테스트 데이터\A802%20Readme_assets\2023-04-07-10-37-09-image.png?msec=1680831888076)
+<img src="A802%20Readme_assets/2023-04-07-10-37-09-image.png" title="" alt="" width="579">
 
 - 단체급식 사용자의 정보와 식단을 일괄적으로 사이트에 등록할 수 있어요
 - 필수 정보(이름 등)만 입력하면 이외에 계정 생성에 필요한 정보를 자동으로 생성해 배정합니다.
@@ -95,9 +92,9 @@ SSAFY 8기 2학기 특화프로젝트 ✨
 
 ## 7. 관리자(영양사) 기능 - 식수통계
 
-![](file://C:\Users\SSAFY\Desktop\시연 테스트 데이터\A802%20Readme_assets\2023-04-07-10-38-27-image.png?msec=1680831888082)
+![](A802%20Readme_assets/2023-04-07-10-38-27-image.png)
 
-![](file://C:\Users\SSAFY\Desktop\시연 테스트 데이터\A802%20Readme_assets\2023-04-07-10-38-46-image.png?msec=1680831888082)
+<img title="" src="A802%20Readme_assets/2023-04-07-10-38-46-image.png" alt="" width="525" data-align="right">
 
 - 일간, 주간 배식량과 잔반량을 메뉴별 통계로 확인 가능합니다.
 - 주간 추이나 메뉴별 잔반량을 판단해 이후 식수관리 전략에 반영할 수 있을 것입니다.
@@ -106,7 +103,7 @@ SSAFY 8기 2학기 특화프로젝트 ✨
 
 ## 디테일
 
-[와이어프레임]([Figma](https://www.figma.com/file/Qg61ND5Q5YSaThTHQPjSS1/%EB%82%A8%EA%B8%B8%EA%B9%8C%3F%EB%A7%90%EA%B9%8C%3F?t=1NYlidAq2Voz1nHl-0))
+[와이어프레임](<[Figma](https://www.figma.com/file/Qg61ND5Q5YSaThTHQPjSS1/%EB%82%A8%EA%B8%B8%EA%B9%8C%3F%EB%A7%90%EA%B9%8C%3F?t=1NYlidAq2Voz1nHl-0)>)
 
 [명세서](https://www.notion.so/3-1-98d3f69eb4514256b0e7ea8ff9980897)
 
@@ -116,13 +113,13 @@ SSAFY 8기 2학기 특화프로젝트 ✨
 
 아키텍처
 
-![](file://C:\Users\SSAFY\Desktop\시연 테스트 데이터\A802%20Readme_assets\ae51ef628d24e61bc7424d8d90a225bdf0a1ea08.PNG?msec=1680831888082)
+![](A802%20Readme_assets/ae51ef628d24e61bc7424d8d90a225bdf0a1ea08.PNG)
 
 ## **팀원 소개**
 
 - 김민찬(팀장): Frontend 개발, UI 구성
 - 김서정(팀원): 음식 인식 AI 모델 개발, UI 디자인
-- 조재경(팀원): 그림인식, 얼굴인식 AI 게임 개발, 캐릭터 디자인
+- 조재경(팀원): 그림인식 AI 모델 개발, 얼굴인식 AI 게임 개발, 캐릭터 디자인
 - 배연주(팀원): Backend 전부다
 - 임소정(팀원): CI/CD/(팀원), 디자인
 
@@ -136,7 +133,7 @@ SSAFY 8기 2학기 특화프로젝트 ✨
 - redux-toolkit
 - Node.js 18.13.0
 - Visual Studio Code
-- phaser
+- Phaser 3
 
 **Back-end**
 
@@ -152,18 +149,27 @@ SSAFY 8기 2학기 특화프로젝트 ✨
 - Swagger 3.0.0
 - MySQL
 
+**AI/ML**
+
+**AI**
+
+- Python 3.9.7
+- FastAPI
+- Pytorch
+- OpenCV
+- TensorFlow.js
+
 **Infra**
 
 - AWS EC2
-  
+
 - Docker
-  
+
 - Jenkins
-  
+
 - NGINX
-  
+
 - Certbot
-  
 
 **Database**
 
