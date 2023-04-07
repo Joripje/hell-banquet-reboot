@@ -35,14 +35,14 @@ logging:
         tiles: INFO
     root: INFO
   file:
-    name: './BE_auth.log'
+    name: './BE_LO&Ranking.log'
 server:
   servlet:
     encoding:
       enabled: true
       force: true
       charset: UTF-8
-  port: 8010
+  port: 8019
   compression:
     enabled: true
     mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css
