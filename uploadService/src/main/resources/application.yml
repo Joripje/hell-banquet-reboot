@@ -1,0 +1,31 @@
+server:
+  port: 8061
+
+spring:
+  application:
+    name: uploadService
+  profiles:
+    include:
+      - aws
+      - credentials
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql-container:3306/hellsfood?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: a802
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+cloud:
+  aws:
+    s3:
+      bucket: ${S3_BUCKET}
+    region:
+      static: ${REGION_STATIC}
+    stack:
+      auto: false
+    credentials:
+      instance-profile: true
+      accessKey: ${AWS_ACCESSKEY}
+      secretKey: ${AWS_SECRETKEY}
