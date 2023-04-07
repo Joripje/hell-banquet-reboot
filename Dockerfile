@@ -1,9 +1,14 @@
-FROM nginx
+FROM adoptopenjdk/openjdk11 AS builder
+COPY gradlew .
+COPY gradle gradle
+COPY build.gradle .
+COPY settings.gradle .
+COPY src src
+RUN chmod +x ./gradlew
+RUN ./gradlew bootJAR
 
-COPY conf/nginx.conf /etc/nginx/nginx.conf
-# COPY /etc/nginx/fullchain.pem /etc/nginx/
-# COPY /etc/nginx/privkey.pem /etc/nginx/
-
-CMD ["nginx", "-g", "daemon off;"]
-
-EXPOSE 80
+FROM adoptopenjdk/openjdk11
+VOLUME /tmp
+COPY --from=builder build/libs/AuthenticationService-0.0.1-SNAPSHOT.jar app.jar
+EXPOSE 8010
+ENTRYPOINT ["java", "-jar", "/app.jar"]

@@ -1,189 +1,54 @@
-server:
-  port: 8000
-
-
-#eureka:
-#  client:
-#    register-with-eureka: true
-#    fetch-registry: true
-#    service-url:
-#      defaultZone: http://EurekaDiscoveryService:8761/eureka # EC2 서버에서 eureka에 등록시 alias(별칭)로 지정
-#      defaultZone: http://i8a703.p.ssafy.io:8761/eureka # 로컬 환경에서 개발 시 eureka에 등록하는 방법
-
-jwt:
-  secret: IfYouLeftYourFoodYouWillEatYourRemainsInHell
-
 spring:
-  application:
-    name: apigateway
-
-  cloud:
-    gateway:
-      # 아래 주석 처리한 속성값은
-#      httpclient:
-#        ssl:
-#          useInsecureTrustManager: true
-#          handshake-timeout-millis: 10000
-#          close-notify-flush-timeout-millis: 3000
-#          close-notify-read-timeout-millis: 0
-      globalcors:
-        cors-configurations:
-          '[/**]':
-            allowedOrigins: 
-              - 'http://localhost:3000'
-              - 'http://j8a802.p.ssafy.io'
-              - 'http://j8a802.p.ssafy.io:443'
-              - 'http://j8a802.p.ssafy.io:3000'
-              - 'https://j8a802.p.ssafy.io'
-              - 'https://j8a802.p.ssafy.io:3000'
-              - 'http://localhost'
-              - 'http://localhost:4000'
-              - 'http://j8a802.p.ssafy.io:4000'
-              - 'https://j8a802.p.ssafy.io:4000'
-            allow-credentials: true
-            allowedHeaders: '*'
-            exposed-headers: '*'
-            allowedMethods:
-              - PUT
-              - GET
-              - POST
-              - DELETE
-              - OPTIONS
-      routes:
-        - id: authService-Validation
-          uri: http://j8a802.p.ssafy.io:8010
-          predicates:
-            - Path=/auth/logout, /auth/validate**
-          filters:
-            - UserAuthenticationFilter # 가입한 회원의 유효한 로그인 세션인지 검사하는 필터
-        - id: authService
-          uri: http://j8a802.p.ssafy.io:8010
-          predicates:
-            - Path=/auth/**
-        - id: userInfo-Validation
-          uri: http://j8a802.p.ssafy.io:8011
-          predicates:
-            - Path=/users/info/**, /users/pw
-            - Method=PUT, DELETE
-          filters:
-            - UserAuthenticationFilter
-        - id: manager-Service
-          uri: http://j8a802.p.ssafy.io:8011
-          predicates:
-            - Path=/managers/**
-          filters:
-            - ManagerAuthenticationFilter # 현재 로그인된 세션의 사용자가 영양사(Manager) 권한이 있는지 검사하는 필터
-        - id: visitedList
-          uri: http://j8a802.p.ssafy.io:8011
-          predicates:
-            - Path=/users/visited
-            - Method=POST
-          filters:
-            - UserAuthenticationFilter
-        - id: managerService
-          uri: http://j8a802.p.ssafy.io:8011
-          predicates:
-            - Path=/managers/**
-            - Method=GET, POST, PUT, DELETE
-        - id: userService
-          uri: http://j8a802.p.ssafy.io:8011
-          predicates:
-            - Path=/users/**, /managers/**
-        - id: board
-          uri: http://j8a802.p.ssafy.io:8030
-          predicates:
-            - Path=/boards/**, /comments/**
-        - id: menu
-          uri: http://j8a802.p.ssafy.io:8040
-          predicates:
-            - Path=/menus/**
-#            - Method=POST
-          filters:
-            - UserAuthenticationFilter
-#          predicates:
-#            - Path=/menus/**
-#            -
-##            - Method=GET, POST, PUT, DELETE
-#          filters:
-#            - ManagerAuthenticationFilter # 현재 로그인된 세션의 사용자가 영양사(Manager) 권한이 있는지 검사하는 필
-        - id: images
-          uri: http://j8a802.p.ssafy.io:8061
-          predicates:
-            - Path=/images/**
-        - id: janbani
-          uri: http://j8a802.p.ssafy.io:8061
-          predicates:
-            - Path=/janban/**
-        - id: leftovers
-          uri: http://j8a802.p.ssafy.io:8019
-          predicates:
-            - Path=/leftovers/**
-        - id: ai
-          uri: http://j8a802.p.ssafy.io:5000
-          predicates:
-            - Path=/ai/**
-          # - Method=POST, OPTIONS
-  #        - id: member
-  #          uri: http://MemberService:8012/
-  #          #          uri: http://localhost:8012/
-  #          predicates:
-  #            - Path=/member/changePassword, /member/delete/**, /member/logout, /member/extract
-  #            - Method=POST
-  #          filters:
-  #            - AuthenticationHeaderFilter
-  #        - id: member
-  #          uri: http://MemberService:8012/
-  #          #          uri: http://localhost:8012/
-  #          predicates:
-  #            - Path=/member/info/**
-  #          filters:
-  #            - AuthenticationHeaderFilter
-  #        - id: member
-  #          uri: http://MemberService:8012/
-  #          #          uri: http://localhost:8012/
-  #          predicates:
-  #            - Path=/member/**
-  #        - id: uniqueCheck
-  #          uri: http://MemberService:8012/
-  #          #          uri: http://localhost:8012/
-  #          predicates:
-  #            - Path=/check/**
-  #        - id: validateRequest
-  #          uri: http://MemberService:8012/
-  #          #          uri: http://localhost:8012/
-  #          predicates:
-  #            - Path=/validate
-  #            - Method=POST
-  #        - id: sessionFunction
-  #          uri: http://SessionFunctionService:8013/
-  #          #          uri: http://localhost:8013/
-  #          predicates:
-  #            - Path=/sessionFunction/**
-  #        - id: session
-  #          uri: https://ssafy.cossafyco.kro.kr/session/
-  #          #          uri: https://localhost:8443/
-  #          predicates:
-  #            - Path=/session/**
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql-container:3306/hellsfood?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
-    #    url: jdbc:mysql://i8a703.p.ssafy.io:3306/project1db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
-    username: root
-    password: a802
   jpa:
-    generate-ddl: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
         globally_quoted_identifiers: true
-    database: mysql
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    generate-ddl: true
     hibernate:
+      ddl-auto: update
       naming:
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-      ddl-auto: update
-  data:
-    web:
-      pageable:
-        one-indexed-parameters: true
-
+    database: mysql
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: a802
+    username: root
+    url: jdbc:mysql://mysql-container:3306/hellsfood?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
+  devtools:
+    livereload:
+      enabled: true
+  application:
+    name: authService
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+        boot: ERROR
+        security: DEBUG
+      apache:
+        tiles: INFO
+    root: INFO
+  file:
+    name: './BE_auth.log'
+server:
+  servlet:
+    encoding:
+      enabled: true
+      force: true
+      charset: UTF-8
+  port: 8010
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css
+springfox:
+  documentation:
+    swagger:
+      use-model-v3: false
+jwt:
+  secret: IfYouLeftYourFoodYouWillEatYourRemainsInHell
